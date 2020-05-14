@@ -10,7 +10,6 @@ const App = () => {
         <div>
             <Router history={history}>
                 <div>
-                    App.js 페이지입니다
                     <Route path="/user_login" exact component={Login} />
                     <Route path="/user_main" exact component={Main} />
                 </div>

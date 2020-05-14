@@ -2,5 +2,5 @@
 
 webper client 디렉토리입니다
 
-> 팀원
+> 사용 기술
 - react
