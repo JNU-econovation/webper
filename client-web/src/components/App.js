@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import history from '../history';
 
 import Login from './pages/Login';
@@ -10,8 +10,10 @@ const App = () => {
         <div>
             <Router history={history}>
                 <div>
-                    <Route path="/user_login" exact component={Login} />
-                    <Route path="/user_main" exact component={Main} />
+                    <Switch>
+                        <Route path="/" exact component={Main} />
+                        <Route path="/user_login" exact component={Login} />
+                    </Switch>
                 </div>
             </Router>
         </div>
