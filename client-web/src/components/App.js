@@ -4,6 +4,7 @@ import history from '../history';
 
 import Login from './pages/Login';
 import Main from './pages/Main';
+import Video from './Video';
 
 const App = () => {
     return (
@@ -13,6 +14,7 @@ const App = () => {
                     <Switch>
                         <Route path="/" exact component={Main} />
                         <Route path="/user_login" exact component={Login} />
+                        <Route path="/video_form" exact component={Video} />
                     </Switch>
                 </div>
             </Router>
