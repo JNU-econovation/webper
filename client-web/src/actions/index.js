@@ -3,7 +3,7 @@ import history from '../history';
 
 export const signIn = (userId) => (dispatch) => {
     dispatch({ type: "SIGN_IN", payload: userId });
-    history.push('/');
+    history.goBack();
 };
 
 export const signOut = () => {
@@ -19,5 +19,12 @@ export const createScrap = video_detail => async (dispatch, getState) => {
     // /video는 나중에 카테고리 타입을 받아와 ``신택스로 바꿔서 재사용할 것;
 
     dispatch({ type: "CREATE_SCRAP", payload: response.data });
+    history.push('/detail');
+}
+
+export const fetchScraps = () => async (dispatch) => {
+    const response = await server.get(`/videos`);
+
+    dispatch({ type: "FETCH_SCRAPS", payload: response.data });
     history.push('/detail');
 }
