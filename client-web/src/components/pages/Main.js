@@ -11,7 +11,6 @@ class Main extends React.Component {
 
         return (
             <div>
-                <LoginButton />
                 Webper 로그인 후 보이는 Main페이지 입니다
                 <div>
                     <Link to="/detail">to Detail</Link>

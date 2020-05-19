@@ -3,6 +3,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 import history from '../history';
 
 import Login from './pages/Login';
+import Header from './Header';
 import Main from './pages/Main';
 import DirectoryDetail from './pages/DirectoryDetail';
 import Video from './Video';
@@ -12,6 +13,7 @@ const App = () => {
         <div>
             <Router history={history}>
                 <div>
+                    <Header />
                     <Switch>
                         <Route path="/" exact component={Main} />
                         <Route path="/user_login" exact component={Login} />
