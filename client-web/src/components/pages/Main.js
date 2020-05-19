@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import history from '../../history';
+import { Link } from 'react-router-dom';
 import LoginButton from '../buttons/LoginButton';
 
 class Main extends React.Component {
@@ -12,6 +13,9 @@ class Main extends React.Component {
             <div>
                 <LoginButton />
                 Webper 로그인 후 보이는 Main페이지 입니다
+                <div>
+                    <Link to="/detail">to Detail</Link>
+                </div>
             </div>
         );
     };

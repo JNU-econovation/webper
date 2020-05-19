@@ -1,4 +1,4 @@
-import youtube from '../api/youtube';
+import youtube from '../apis/youtube';
 
 const videoScrappers = async url => {
     const video_id = findVideoId(url);
@@ -10,7 +10,7 @@ const videoScrappers = async url => {
         redirection_link: `https://www.youtube.com/watch?v=${video_id}`
     }
 
-    return video_detail
+    return video_detail;
 }
 
 const findVideoId = url => {

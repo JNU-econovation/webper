@@ -1,5 +1,5 @@
 import React from 'react';
-import youtube from '../api/youtube';
+import youtube from '../apis/youtube';
 
 class Video extends React.Component {
     state = { url: "https://www.youtube.com/watch?v=k8gx-C7GCGU", video_id: null, video: null };
@@ -29,23 +29,12 @@ class Video extends React.Component {
         this.setState({ video: response.data.items[0].snippet })
     }
 
-    renderVideoIframe() {
-        const videoSrc = `https://www.youtube.com/embed/${this.state.video_id}`;
-
-        return (
-            <div>
-                <iframe title="video player" src={videoSrc} controls="1" frameBorder="0" allowFullScreen />
-            </div>
-        )
-    }
-
     renderDetail = () => {
         return (
             <div>
-                {/* <a href="https://www.youtube.com/watch?v=k8gx-C7GCGU" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.youtube.com/watch?v=k8gx-C7GCGU" target="_blank" rel="noopener noreferrer">
                     <img alt={this.state.video.title} className="ui image" src={this.state.video.thumbnails.medium.url} />
-                </a> */}
-                {this.renderVideoIframe()}
+                </a>
                 <div>
                     <div>{this.state.video.title}</div>
                 </div>
