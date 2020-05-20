@@ -10,9 +10,14 @@ class DirectoryDetail extends React.Component {
         this.props.fetchScraps();
     }
 
-    onSubmit = async ({ inputURL }) => {
-        const video_detail = await videoScrapper(inputURL);
-        this.props.createScrap(video_detail);
+    onSubmit = ({ inputURL }) => {
+        videoScrapper(inputURL, (err, result) => {
+            if (err) {
+                alert("youtube 링크가 아닙니다");
+            } if (result) {
+                this.props.createScrap(result);
+            }
+        })
     }
 
     renderScraps() {
