@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import history from '../../history';
 import { Link } from 'react-router-dom';
-import LoginButton from '../buttons/LoginButton';
 
 class Main extends React.Component {
     render() {
