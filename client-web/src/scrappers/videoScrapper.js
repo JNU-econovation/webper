@@ -3,6 +3,7 @@ import youtube from '../apis/youtube';
 const videoScrappers = async (url, callback) => {
 
     if (!isYoutube(url)) {
+        alert("youtube 링크가 아닙니다");
         return callback(new Error('not supported url'), null);
     }
 
@@ -43,9 +44,6 @@ const fetchVideo = async video_id => {
 const isYoutube = url => {
     let youtube_position1 = url.indexOf('https://www.youtube.com/watch?');
     let youtube_position2 = url.indexOf('https://youtu.be');
-    console.log('position1', youtube_position1);
-    console.log('position2', youtube_position2);
-
     return (youtube_position1 !== -1 || youtube_position2 !== -1);
 }
 
