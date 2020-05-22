@@ -1,11 +1,15 @@
 import React from 'react';
+import LoginButton from '../buttons/LoginButton';
 
-const Login = () => {
-    return (
-        <div>
-            Webper Login페이지 입니다
-        </div>
-    );
+class Login extends React.Component {
+    render() {
+        return (
+            <div className="center">
+                <div className="webperLogo centered"><img src="images/logo.png" /></div>
+                <LoginButton />
+            </div>
+        );
+    }
 }
 
 export default Login;
