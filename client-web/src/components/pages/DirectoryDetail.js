@@ -40,7 +40,7 @@ class DirectoryDetail extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        scraps: Object.values(state.scraps)
+        scraps: Object.values(state.scraps).reverse()
     }
 }
 
