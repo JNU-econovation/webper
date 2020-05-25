@@ -8,6 +8,9 @@ class Main extends React.Component {
         if (!this.props.isSignedIn)
             history.push('/user_login')
 
+        const { cookies } = this.props;
+        cookies.set('name', 'Young', { path: '/' });
+
         return (
             <div>
                 Webper 로그인 후 보이는 Main페이지 입니다
@@ -19,8 +22,12 @@ class Main extends React.Component {
     };
 };
 
-const mapStateToProps = (state) => {
-    return { isSignedIn: state.auth.isSignedIn };
+const mapStateToProps = (state, ownProps) => {
+    console.log(ownProps.cookies);
+    return {
+        isSignedIn: state.auth.isSignedIn,
+        cookies: ownProps.cookies
+    };
 };
 
 export default connect(mapStateToProps)(Main);
