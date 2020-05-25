@@ -13,7 +13,7 @@ class DirectoryDetail extends React.Component {
     onSubmit = ({ inputURL }) => {
         videoScrapper(inputURL, (err, result) => {
             if (err) {
-                alert("youtube 링크가 아닙니다");
+                console.log("Error: ", err.message);
             } if (result) {
                 this.props.createScrap(result);
             }
@@ -40,7 +40,7 @@ class DirectoryDetail extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        scraps: Object.values(state.scraps)
+        scraps: Object.values(state.scraps).reverse()
     }
 }
 
