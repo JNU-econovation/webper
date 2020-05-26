@@ -84,7 +84,7 @@ website scraper / 웹 퍼가요~
 ```
 (create-new-category) git checkout develop
 (develop) git push origin --delete create-new-category // origin에 있는 브랜치를 삭제할 경우
-(develop) git push remote --delete create-new-category // upstream에 있는 브랜치를 삭제할 경우
+(develop) git push upstream --delete create-new-category // upstream에 있는 브랜치를 삭제할 경우
 (develop) git branch -d create-new-category // local에 있는 브랜치를 삭제할 경우
 ```
 
