@@ -1,4 +1,4 @@
-package econo.webper.server.Domain;
+package econo.webper.server.domain;
 
 import lombok.*;
 
