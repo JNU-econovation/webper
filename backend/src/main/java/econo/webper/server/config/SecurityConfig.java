@@ -13,7 +13,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers( "/api/login").anonymous()
+                .antMatchers( "/login/google").anonymous()
                 .anyRequest().authenticated();
     }
 }
