@@ -26,8 +26,6 @@ public class GoogleLoginControllerTest {
     @Autowired
     MockMvc mockMvc;
 
-
-
     @Test
     public void GoogleLoginWithWrongAccessToken() throws Exception {
         // Given
@@ -41,19 +39,4 @@ public class GoogleLoginControllerTest {
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }
-
-    @Test
-    public void GoogleLoginWithRightAccessToken() throws Exception {
-        // Given
-        String GoogleAccessToken =  "ya29.a0AfH6SMC8lL6Dz_VHCLOuUQoDWmK9HkvCP7XEw8WDAE7dOlV1gBFqCjQS_rZtmXVgpvFc9np1bNXcChM-uMSD3UgNbq5iJohSx0aZ6dIMiDDOZnZ3orL_LUmQz64ezoMMY6XOP27TuO2oaR3tPwdWpzT0QzzjKmcaKtQ";
-
-        // When & Then
-        this.mockMvc.perform(post("/login/google")
-                .with(csrf())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"access_token\" : \"" + GoogleAccessToken + "\"}"))
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
-
 }
