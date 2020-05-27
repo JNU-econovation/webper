@@ -30,7 +30,7 @@ public class LoginControllerTest {
     @Test
     public void GoogleLoginTest() throws Exception {
         // Given
-        String GoogleAccessToken =  "ya29.a0AfH6SMBlvG3pCM6wHUBfW1jiTaM39NGHao4avWJkdpNCqMCjI0_uO30B45SVtIyEx1LfGBv-i8SAs-a3eRM0IvYBVjtK1CWqze27ZhpBCQ_MEIbu1yjQOt96Wgq7xlQEpeVjBy8vW3lE_FlbdmlvOjIVElDy718L2F4";
+        String GoogleAccessToken =  "ya29.a0AfH6SMDcsCYxMGMUaZZPVY6vFpvvIRYzp6LD6XbKLwILHoc0tegOKe8QDiMyAIwlH5r5sm6oUKejAIjb883OIpK7wTnPPChT1ph70uactcFcmT5wAKyHYGORVw6q9kly2zHxwU7oHS2-vePBf8bn86WVkjznt77hV4A";
 
         // When & Then
         this.mockMvc.perform(post("/login/google")
