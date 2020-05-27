@@ -17,16 +17,12 @@ public class User {
     private Integer id;
 
     @NotNull
-    private String userId;
+    private String email;
 
-    @NotNull
     private String password;
 
     @NotNull
     private String name;
-
-    @NotNull
-    private String email;
 
     private String introduction;
 
