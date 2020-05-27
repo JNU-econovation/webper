@@ -1,9 +1,11 @@
-package econo.webper.server.controller;
+package econo.webper.server.login;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import econo.webper.server.domain.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,16 +21,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class LoginControllerTest {
+public class GoogleLoginControllerTest {
 
     @Autowired
     MockMvc mockMvc;
 
-    @Autowired
-    ObjectMapper objectMapper;
+
 
     @Test
-    public void GoogleLoginTest() throws Exception {
+    public void GoogleLoginWithWrongAccessToken() throws Exception {
         // Given
         String GoogleAccessToken =  "ya29.a0AfH6SMDcsCYxMGMUaZZPVY6vFpvvIRYzp6LD6XbKLwILHoc0tegOKe8QDiMyAIwlH5r5sm6oUKejAIjb883OIpK7wTnPPChT1ph70uactcFcmT5wAKyHYGORVw6q9kly2zHxwU7oHS2-vePBf8bn86WVkjznt77hV4A";
 
@@ -38,8 +39,21 @@ public class LoginControllerTest {
                     .contentType(MediaType.APPLICATION_JSON)
                     .content("{\"access_token\" : \"" + GoogleAccessToken + "\"}"))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isBadRequest());
+    }
 
+    @Test
+    public void GoogleLoginWithRightAccessToken() throws Exception {
+        // Given
+        String GoogleAccessToken =  "ya29.a0AfH6SMDcsCYxMGMUaZZPVY6vFpvvIRYzp6LD6XbKLwILHoc0tegOKe8QDiMyAIwlH5r5sm6oUKejAIjb883OIpK7wTnPPChT1ph70uactcFcmT5wAKyHYGORVw6q9kly2zHxwU7oHS2-vePBf8bn86WVkjznt77hV4A";
+
+        // When & Then
+        this.mockMvc.perform(post("/login/google")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"access_token\" : \"" + GoogleAccessToken + "\"}"))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
     }
 
 }
