@@ -8,26 +8,26 @@ const Navbar = () => {
           <h2>Directory</h2>
           <div>
             <a href="#">Videos</a>
-            <button class="rightend">...</button>
-            <button class="rightend">+</button>
+            <button className="rightend">...</button>
+            <button className="rightend">+</button>
           </div>
           <ul>
             <li>
               <a href="#">test1</a>
-              <button class="rightend">...</button>
-              <button class="rightend">+</button>
+              <button className="rightend">...</button>
+              <button className="rightend">+</button>
             </li>
             <li>
               <a herf="#">test2</a>
-              <button class="rightend">...</button>
-              <button class="rightend">+</button>
+              <button className="rightend">...</button>
+              <button className="rightend">+</button>
             </li>
           </ul>
 
           <div>
             <a href="#" />
-            Blogs<button class="rightend">...</button>
-            <button class="rightend">+</button>
+            Blogs<button className="rightend">...</button>
+            <button className="rightend">+</button>
           </div>
         </ul>
       </nav>
