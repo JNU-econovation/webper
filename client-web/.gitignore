@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+/client_secret_456504453062-kt1r0d72cqb53tthmfasbasejvsguql3.apps.googleusercontent.com.json
 
 # testing
 /coverage
