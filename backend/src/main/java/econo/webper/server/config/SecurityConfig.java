@@ -14,6 +14,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers( "/login/google").anonymous()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+            .and().csrf().disable();
     }
 }
