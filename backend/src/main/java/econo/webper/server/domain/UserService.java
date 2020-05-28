@@ -5,6 +5,8 @@ import econo.webper.server.login.GoogleUserinfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
+
 @Service
 public class UserService {
 
@@ -24,6 +26,11 @@ public class UserService {
                 .build();
         return userRepository.save(user);
     }
+
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(NoSuchElementException::new);
+    }
+
 
 
 }
