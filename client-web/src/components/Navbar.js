@@ -5,7 +5,10 @@ const Navbar = () => {
     <div>
       <nav>
         <ul>
-          <h2>Directory</h2>
+          <div>
+            <span className="top-hierarchy">Directory</span>
+            <button className="rightend">+</button>
+          </div>
           <div>
             <a href="#">Videos</a>
             <button className="rightend">...</button>

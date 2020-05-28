@@ -1,3 +1,58 @@
+/* Navbar */
+
+nav {
+  width: 200px;
+}
+
+.top-hierarchy {
+  font-size: x-large;
+  font-weight: bolder;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav ul li {
+  padding: 10px 5px;
+}
+
+nav ul li:hover {
+  background-color: #ddd;
+}
+
+/* nav ul h2:hover {
+  background-color: #ddd;
+} */
+nav ul div:hover {
+  background-color: #ddd;
+}
+
+nav ul li a {
+  color: #333;
+  text-decoration: none;
+}
+
+nav ul div {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  padding: 10px 5px;
+  text-decoration: none;
+}
+nav ul div a {
+  text-decoration: none;
+  color: #333;
+}
+
+.rightend {
+  float: right;
+}
+
+/* 이 밑으로는 원래 login 위한 css파일. 안쓰는 코드들은 삭제 바람 */
+
 .center {
   text-align: center;
 }
