@@ -2,9 +2,7 @@ package econo.webper.server.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Getter @Builder
@@ -17,6 +15,7 @@ public class User {
     private Integer id;
 
     @NotNull
+    @Column(unique = true)
     private String email;
 
     private String password;
