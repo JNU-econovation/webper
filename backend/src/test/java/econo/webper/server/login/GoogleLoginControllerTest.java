@@ -1,11 +1,8 @@
 package econo.webper.server.login;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import econo.webper.server.domain.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,10 +30,11 @@ public class GoogleLoginControllerTest {
 
         // When & Then
         this.mockMvc.perform(post("/login/google")
-                    .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
                     .content("{\"access_token\" : \"" + GoogleAccessToken + "\"}"))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }
+
+
 }
