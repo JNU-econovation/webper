@@ -1,16 +1,21 @@
 package econo.webper.server.login;
 
 
+import econo.webper.server.domain.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -23,17 +28,46 @@ public class GoogleLoginControllerTest {
     @Autowired
     MockMvc mockMvc;
 
+    @MockBean
+    GoogleLoginService googleLoginService;
+
+    @Autowired
+    UserService userService;
+
     @Test
     public void GoogleLoginWithWrongAccessToken() throws Exception {
-        // Given
-        String GoogleAccessToken =  "ya29.a0AfH6SMDcsCYxMGMUaZZPVY6vFpvvIRYzp6LD6XbKLwILHoc0tegOKe8QDiMyAIwlH5r5sm6oUKejAIjb883OIpK7wTnPPChT1ph70uactcFcmT5wAKyHYGORVw6q9kly2zHxwU7oHS2-vePBf8bn86WVkjznt77hV4A";
-
         // When & Then
+        when(googleLoginService.authenticate(eq("Wrong_Access_Token")))
+                .thenReturn(ResponseEntity.badRequest().build());
+
+        // Then
         this.mockMvc.perform(post("/login/google")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content("{\"access_token\" : \"" + GoogleAccessToken + "\"}"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"access_token\" : \"Wrong_Access_Token\"}"))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void GoogleLoginWithRightAccessToken() throws Exception {
+        GoogleUserinfoDTO googleUserinfoDTO = new GoogleUserinfoDTO();
+        googleUserinfoDTO.setName("frog");
+        googleUserinfoDTO.setEmail("frog@email.com");
+        ResponseEntity<GoogleUserinfoDTO> responseEntity = ResponseEntity.ok(googleUserinfoDTO);
+
+        // When
+        when(googleLoginService.authenticate(eq("Right_Access_Token")))
+                .thenReturn(responseEntity);
+
+        // Then
+        this.mockMvc.perform(post("/login/google")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"access_token\" : \"Right_Access_Token\"}"))
+                .andDo(print())
+                .andExpect(status().isOk());
+        assertThat(userService.findUserByEmail("frog@email.com").getName()).isEqualTo("frog");
+
+
     }
 
 
