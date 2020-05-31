@@ -23,7 +23,7 @@ class Main extends React.Component {
 };
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(ownProps.cookies);
+    // console.log(ownProps.cookies);
     return {
         isSignedIn: state.auth.isSignedIn,
         cookies: ownProps.cookies

@@ -4,9 +4,19 @@ nav {
   width: 200px;
 }
 
-.top-hierarchy {
+.container {
+  padding: 10px 5px;
+  display: flex;
+  align-items: center;
+}
+
+div.top-hierarchy {
   font-size: x-large;
   font-weight: bolder;
+}
+
+button.top-hierarchy{
+  display: inline-block;
 }
 
 nav ul {
@@ -23,25 +33,21 @@ nav ul li:hover {
   background-color: #ddd;
 }
 
-/* nav ul h2:hover {
-  background-color: #ddd;
-} */
-nav ul div:hover {
-  background-color: #ddd;
-}
 
 nav ul li a {
   color: #333;
   text-decoration: none;
 }
 
+/* 일단 안쓰는것
 nav ul div {
   margin: 0;
   padding: 0;
   list-style: none;
   padding: 10px 5px;
   text-decoration: none;
-}
+} */
+
 nav ul div a {
   text-decoration: none;
   color: #333;
@@ -49,6 +55,29 @@ nav ul div a {
 
 .rightend {
   float: right;
+}
+
+/* Modal */
+.modal-background {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+  left: 0;
+  top: 0;
+}
+
+.modal-content {
+  text-align: center;
+  background-color: navajowhite;
+  margin: 15% auto;
+  padding: 20px;
+  width:50%;
+
+}
+
+.error-message {
+  color: red;
 }
 
 /* 이 밑으로는 원래 login 위한 css파일. 안쓰는 코드들은 삭제 바람 */

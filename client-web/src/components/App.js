@@ -7,7 +7,8 @@ import Login from "./pages/Login";
 import Header from "./Header";
 import Main from "./pages/Main";
 import DirectoryDetail from "./pages/DirectoryDetail";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Navbar/Navbar";
+import CreateDirectory from '../components/Navbar/CreateDirectory';
 
 const App = (props) => {
     return (
@@ -20,6 +21,7 @@ const App = (props) => {
                         <Route path="/" exact render={() => (<Main cookies={props.cookies} />)} />
                         <Route path="/user_login" exact component={Login} />
                         <Route path="/detail" exact component={DirectoryDetail} />
+                        <Route path="/new" exact component={CreateDirectory} />
                     </Switch>
                 </div>
             </Router>
