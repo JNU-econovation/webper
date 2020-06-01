@@ -4,7 +4,7 @@ import { withCookies } from 'react-cookie';
 import history from '../history';
 
 import Login from "./pages/Login";
-import Header from "./Header";
+import Header from "./Header/Header"
 import Main from "./pages/Main";
 import DirectoryDetail from "./pages/DirectoryDetail";
 import Navbar from "../components/Navbar/Navbar";

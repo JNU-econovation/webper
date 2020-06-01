@@ -3,7 +3,7 @@ import React from 'react'
 const NavList = (props) => {
     return (
         <li>
-            <a herf="#">{props.title}</a>
+            <a herf="#">{props.directory_detail.directory_title}</a>
             <button className="rightend">...</button>
             <button className="rightend">+</button>
         </li>

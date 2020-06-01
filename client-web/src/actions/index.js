@@ -20,6 +20,13 @@ export const createDir = directory_detail => async (dispatch, getState) => {
     history.goBack();
 }
 
+export const fetchDirs = directory_id => async (dispatch) => {
+    const response = await server.get('/dirs');
+
+    dispatch({ type: "FETCH_DIRS", payload: response.data });
+    history.goBack();
+}
+
 export const createScrap = video_detail => async (dispatch, getState) => {
     const { userId } = getState().auth;
     // console.log({ video_detail, userId });
