@@ -24,7 +24,7 @@ nav ul {
   padding: 0;
   list-style: none;
 }
-
+/* 
 nav ul li {
   padding: 10px 5px;
 }
@@ -37,24 +37,40 @@ nav ul li:hover {
 nav ul li a {
   color: #333;
   text-decoration: none;
-}
+} */
 
-/* 일단 안쓰는것
+
 nav ul div {
   margin: 0;
   padding: 0;
   list-style: none;
   padding: 10px 5px;
   text-decoration: none;
-} */
+}
 
 nav ul div a {
   text-decoration: none;
   color: #333;
 }
 
+nav ul div:hover {
+  background-color: #ddd;
+}
+
+
 .rightend {
   float: right;
+}
+
+.dropdown-icon {
+  width: 10px;
+  padding: 8px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.down {
+  transform: rotate(90deg);
 }
 
 /* Modal */
@@ -69,7 +85,7 @@ nav ul div a {
 
 .modal-content {
   text-align: center;
-  background-color: navajowhite;
+  background-color: #ebe5d5;
   margin: 15% auto;
   padding: 20px;
   width:50%;

@@ -21,7 +21,7 @@ const App = (props) => {
                         <Route path="/" exact render={() => (<Main cookies={props.cookies} />)} />
                         <Route path="/user_login" exact component={Login} />
                         <Route path="/detail" exact component={DirectoryDetail} />
-                        <Route path="/new" exact component={CreateDirectory} />
+                        <Route path="/new/:id" exact component={CreateDirectory} />
                     </Switch>
                 </div>
             </Router>

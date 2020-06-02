@@ -8,8 +8,7 @@ import DirForm from './DirForm';
 class CreateDirectory extends React.Component {
 
     onSubmit = (formValues) => {
-        console.log(formValues);
-        this.props.createDir(formValues);
+        this.props.createDir({ ...formValues, parentId: this.props.match.params.id });
     }
 
     renderContent() {
@@ -17,19 +16,14 @@ class CreateDirectory extends React.Component {
             <DirForm onSubmit={this.onSubmit} />
         )
     }
-    // renderActions() {
-    //     return (
-    //         <button type="submit">Create</button>
-    //     )
-    // }
 
     render() {
+        console.log(this.props);
         return (
             <Modal
                 title="새로운 webper를 만듭니다"
                 content={this.renderContent()}
-                // actions={this.renderActions()}
-                onDismiss={() => history.goBack()}
+                onDismiss={() => { history.goBack() }}
             />
         )
     }

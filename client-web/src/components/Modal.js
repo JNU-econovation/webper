@@ -8,9 +8,6 @@ const Modal = props => {
                 <div>{props.title}</div>
                 <div>{props.content}
                 </div>
-                <div>
-                    {props.actions}
-                </div>
             </div>
         </div>,
         document.querySelector('#modal')

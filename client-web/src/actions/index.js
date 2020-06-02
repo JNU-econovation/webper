@@ -20,8 +20,8 @@ export const createDir = directory_detail => async (dispatch, getState) => {
     history.goBack();
 }
 
-export const fetchDirs = directory_id => async (dispatch) => {
-    const response = await server.get('/dirs');
+export const fetchDirs = parentId => async (dispatch) => {
+    const response = await server.get(`/dirs?parentId=${parentId}`);
 
     dispatch({ type: "FETCH_DIRS", payload: response.data });
     history.goBack();
