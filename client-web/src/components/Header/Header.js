@@ -12,7 +12,7 @@ const Header = () => {
 
     return (
         <div className="header-container">
-            <img onClick={openNav} alt="menubar icon" src="images/menuicon.png" className="menu-icon" />
+            <img onClick={openNav} alt="menubar-icon" src="images/menuicon.png" className="menu-icon button" />
             <Link to='/'>
                 <img alt="main" src="images/logo.png" className="main-link" />
             </Link>

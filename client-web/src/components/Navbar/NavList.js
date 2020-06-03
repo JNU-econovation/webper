@@ -33,8 +33,8 @@ class NavList extends React.Component {
                     <img onClick={this.handleDrop} src="images/dropdown.png" alt="dropdownicon" className={`dropdown-icon ${this.getClassName()}`} />
                     <Link to="#" className="directory-title">{this.props.directory_detail.directory_title}</Link>
                     <div className="button-container">
-                        <button className="rightend">...</button>
                         <CreateButton id={this.props.directory_detail.id} />
+                        <img src="images/more.png" className="button" />
                     </div>
                 </div>
                 {this.renderChildren()}

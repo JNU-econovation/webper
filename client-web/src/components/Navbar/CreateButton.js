@@ -9,7 +9,8 @@ const CreateButton = ({ id }) => {
     }
 
     return (
-        <button onClick={toNew} className="rightend">+</button>
+        // <button onClick={toNew} className="rightend">+</button>
+        <img onClick={toNew} src="images/plus.png" className="button" />
     )
 }
 

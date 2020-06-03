@@ -1,14 +1,29 @@
+body {
+  margin: 0px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
 /* Header */
 .header-container {
   background-color: beige;
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .menu-icon {
   width: 20px;
   cursor: pointer;
   padding: 5px 10px;
+  filter: opacity(50%);
+}
+
+.menu-icon:hover {
+  filter: opacity(100%)
 }
 
 .main-link {
@@ -32,12 +47,6 @@ nav {
   padding-top: 5px;
 }
 
-.nav-top-container {
-  padding: 10px 10px;
-  display: flex;
-  justify-content: space-between;
-}
-
 .inner-container {
   margin-bottom: 0px;
   display: grid;
@@ -47,8 +56,21 @@ nav {
 .back-icon {
   width: 20px;
   display: block;
-  padding: 10px 10px 5px 220px;
+  padding: 10px;
+  margin-left: 210px;
   cursor: pointer;
+  filter: opacity(50%);
+}
+
+.back-icon:hover {
+  filter: opacity(100%)
+}
+
+.nav-top-container {
+  padding: 10px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 div.top-hierarchy {
@@ -56,10 +78,16 @@ div.top-hierarchy {
   font-weight: bolder;
 }
 
-button.top-hierarchy{
-  display: inline-block;
+.nav-top-container img{
+  width: 18px;
+  height: 18px;
+  /* margin: auto 0; */
+  filter: opacity(50%);
 }
 
+.nav-top-container img:hover {
+  filter: opacity(100%);
+}
 
 nav div a {
   text-decoration: none;
@@ -83,9 +111,14 @@ nav div a {
   grid-column: 3;
 }
 
-.rightend {
-  display: inline-block;
-  float: right;
+.button-container img {
+  width: 18px;
+  padding: 0px 3px;
+  filter: opacity(50%);
+}
+
+.button-container img:hover {
+  filter: opacity(100%);
 }
 
 .dropdown-icon {
@@ -97,6 +130,50 @@ nav div a {
 
 .down {
   transform: rotate(90deg);
+}
+
+/* Scrap 보여주는 페이지 (directory_detail 혹은 main)*/
+
+.scrap-container {
+  display: grid;
+  grid-template-columns: repeat(4, 25%) ;
+  grid-row: auto;
+  gap: 15px 10px;
+  padding: 5px 10px;
+  max-width: 1000px;
+}
+
+
+.title {
+  grid-column: 1 / 5;
+}
+
+.scrap-item {
+  border-radius: 3px;
+  padding: 5px;
+  box-shadow: 0 0 5px lightgray;
+}
+
+.scrap-item:hover {
+  background-color: #F7F5F2;
+}
+
+.scrap-item img {
+  width: 100%;
+}
+
+.detail-container {
+  padding: 3px;
+  font-size: 0.85em;
+}
+
+.urlform {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.url-input {
+  width: 90%;
 }
 
 /* Modal */
@@ -128,8 +205,8 @@ nav div a {
   text-align: center;
 }
 
-.centered {
-  /* position: absolute;
+/* .centered {
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); */
@@ -141,19 +218,22 @@ nav div a {
 
   /* position: absolute;
   top: 50%;
-  transform: translateY(-50%); */
-}
+  transform: translateY(-50%);
+} */
 
-.button {
+.login {
   background: #b0e0ec;
   border-radius: 100px;
-  padding: 20px 60px;
+  padding: 10px 30px;
   color: #fff;
   text-decoration: none;
-  font-size: 1.45em;
-  display: table;
-  margin-left: auto;
-  margin-right: auto;
+  font-size: 1em;
+  border: 0px;
+}
+
+
+.button {
+  cursor: pointer;
 }
 
 /* Hover state animation applied here */
@@ -161,46 +241,6 @@ nav div a {
   -webkit-animation: hover 1200ms linear 2 alternate;
   animation: hover 1200ms linear 2 alternate;
 }
-
-/* Active state animation applied here */
-.button:active {
-  -webkit-animation: active 1200ms ease 1 alternate;
-  animation: active 1200ms ease 1 alternate;
-  background: #5f9be0;
-}
-.gray {
-  background: #d2d2d2;
-}
-.gray:active {
-  background: #b9b9b9;
-}
-
-/* Active state animation keyframes below */
-
-@-webkit-keyframes active {
-  0% {
-    transform: scale(1, 1);
-  }
-  90% {
-    transform: scale(0.9, 0.88);
-  }
-  100% {
-    transform: scale(0.92, 0.9);
-  }
-}
-
-/* keyframes active {
-  0% {
-    transform: scale(1, 1);
-  }
-  90% {
-    transform: scale(0.9, 0.88);
-  }
-  100% {
-    transform: scale(0.92, 0.9);
-  }
-} */
-
 /* Hover state animation keyframes below */
 
 @-webkit-keyframes hover {
