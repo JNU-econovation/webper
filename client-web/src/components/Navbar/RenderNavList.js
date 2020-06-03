@@ -16,8 +16,7 @@ class RenderNavList extends React.Component {
         return (
             <React.Fragment>
                 {dirs.map(dir => {
-                    return <NavList directory_detail={dir} key={dir.id}
-                    />
+                    return <NavList directory_detail={dir} key={dir.id} />
                 })}
             </React.Fragment>
         )

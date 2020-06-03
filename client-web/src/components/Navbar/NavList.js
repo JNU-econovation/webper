@@ -1,6 +1,6 @@
 import React from 'react'
 import CreateButton from './CreateButton';
-import Link from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import RenderNavList from './RenderNavList';
 
 class NavList extends React.Component {
@@ -11,13 +11,15 @@ class NavList extends React.Component {
             this.setState({ dropdown: true });
         else
             this.setState({ dropdown: false });
+
     }
 
     renderChildren() {
         if (this.state.dropdown === false)
-            return null
-        else
+            return null;
+        else {
             return <RenderNavList parentId={this.props.directory_detail.id} />
+        }
     }
 
     getClassName() {
@@ -26,11 +28,15 @@ class NavList extends React.Component {
 
     render() {
         return (
-            <div>
-                <img onClick={this.handleDrop} src="images/dropdown.png" alt="dropdownicon" className={`dropdown-icon ${this.getClassName()}`} />
-                <a herf="#">{this.props.directory_detail.directory_title}</a>
-                <button className="rightend">...</button>
-                <CreateButton id={this.props.directory_detail.id} />
+            <div className="navlist">
+                <div className="inner-container">
+                    <img onClick={this.handleDrop} src="images/dropdown.png" alt="dropdownicon" className={`dropdown-icon ${this.getClassName()}`} />
+                    <Link to="#" className="directory-title">{this.props.directory_detail.directory_title}</Link>
+                    <div className="button-container">
+                        <button className="rightend">...</button>
+                        <CreateButton id={this.props.directory_detail.id} />
+                    </div>
+                </div>
                 {this.renderChildren()}
             </div>
         )

@@ -1,13 +1,54 @@
+/* Header */
+.header-container {
+  background-color: beige;
+  display: flex;
+  align-items: center;
+}
+
+.menu-icon {
+  width: 20px;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.main-link {
+  width: 100px;
+  padding: 5px 15px;
+}
+
 /* Navbar */
 
 nav {
-  width: 200px;
+  height: 100%;
+  width: 0;
+  position: fixed;
+  /* z-index: 1; */
+  top: 0;
+  left: 0;
+  background-color: #ebe5d5;
+  overflow-x: hidden;
+  transition: 0.5s;
+  margin-right: 10px;
+  padding-top: 5px;
 }
 
-.container {
-  padding: 10px 5px;
+.nav-top-container {
+  padding: 10px 10px;
   display: flex;
-  align-items: center;
+  justify-content: space-between;
+}
+
+.inner-container {
+  margin-bottom: 0px;
+  display: grid;
+  grid-template-columns: 26px 1fr 65px;
+}
+
+.back-icon {
+  width: 20px;
+  display: block;
+  padding: 10px 10px 5px 220px;
+  cursor: pointer;
 }
 
 div.top-hierarchy {
@@ -19,46 +60,31 @@ button.top-hierarchy{
   display: inline-block;
 }
 
-nav ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-/* 
-nav ul li {
-  padding: 10px 5px;
-}
 
-nav ul li:hover {
-  background-color: #ddd;
-}
-
-
-nav ul li a {
-  color: #333;
-  text-decoration: none;
-} */
-
-
-nav ul div {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  padding: 10px 5px;
-  text-decoration: none;
-}
-
-nav ul div a {
+nav div a {
   text-decoration: none;
   color: #333;
 }
 
-nav ul div:hover {
+.navlist {
+  padding: 5px 0px 5px 10px;
+}
+
+.navlist:hover {
   background-color: #ddd;
 }
 
+.directory-title {
+}
+
+.button-container {
+  margin: 5px;
+  display: inline-block;
+  grid-column: 3;
+}
 
 .rightend {
+  display: inline-block;
   float: right;
 }
 
