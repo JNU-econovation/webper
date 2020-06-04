@@ -30,9 +30,13 @@ class DirectoryDetail extends React.Component {
     render() {
         return (
             <div>
-                <h2>카테고리 상세 페이지</h2>
-                <UrlForm onSubmit={this.onSubmit} />
-                {this.renderScraps()}
+                <div className="container">
+                    <div className="scrap-container">
+                        <h2 className="title">카테고리 상세 페이지</h2>
+                        <UrlForm onSubmit={this.onSubmit} />
+                        {this.renderScraps()}
+                    </div>
+                </div>
             </div>
         );
     }
