@@ -38,12 +38,12 @@ class LoginButton extends React.Component {
             return null;
         } else if (this.props.isSignedIn) {
             return (
-                <button onClick={this.onSignOutClick} className="button centered">Sign Out</button>
+                <button onClick={this.onSignOutClick} className="login button centered">Sign Out</button>
 
             )
         } else {
             return (
-                <button onClick={this.onSignInClick} className="button centered">Sign in with Google</button>
+                <button onClick={this.onSignInClick} className="login button centered">Sign in with Google</button>
             )
         }
     }

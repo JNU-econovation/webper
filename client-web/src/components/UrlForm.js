@@ -5,10 +5,9 @@ import { Field, reduxForm } from 'redux-form';
 class UrlForm extends React.Component {
 
     renderURLInput = ({ input }) => {
-        const className = "replace this!!";
         return (
-            <div className={className}>
-                <input {...input} type="url" autoComplete='off' placeholder="Enter a URL" />
+            <div>
+                <input {...input} type="url" autoComplete='off' placeholder="Enter a URL" className="url-input" />
             </div>
         )
     }
@@ -20,10 +19,14 @@ class UrlForm extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-                <Field name="inputURL" component={this.renderURLInput} />
-                <button onSubmit={this.onSubmit}>Create</button>
-            </form>
+            <div className="scrap-item">
+                <div className="urlform">
+                    <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+                        <Field name="inputURL" component={this.renderURLInput} />
+                        <button onSubmit={this.onSubmit}>Create</button>
+                    </form>
+                </div>
+            </div>
         )
     }
 };
