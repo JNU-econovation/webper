@@ -16,7 +16,7 @@ class Navbar extends React.Component {
       <div>
         <nav>
           <div>
-            <img src="images/back.png" className="back-icon button" onClick={this.closeNav} />
+            <img src="images/back.png" className="back-icon button" alt="back button" onClick={this.closeNav} />
             <div className="nav-top-container">
               <div className="top-hierarchy">Directory</div>
               <CreateButton className="top-hierarchy" />

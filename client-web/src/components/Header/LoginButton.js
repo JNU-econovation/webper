@@ -7,7 +7,7 @@ class LoginButton extends React.Component {
     componentDidMount() {
         window.gapi.load('client:auth2', () => {
             window.gapi.client.init({
-                clientId: '456504453062-kt1r0d72cqb53tthmfasbasejvsguql3.apps.googleusercontent.com',
+                clientId: process.env.REACT_APP_API_KEY,
                 scope: 'email'
             }).then(() => {
                 this.auth = window.gapi.auth2.getAuthInstance();
