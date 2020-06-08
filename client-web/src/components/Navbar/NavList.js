@@ -1,6 +1,7 @@
 import React from 'react'
 import CreateButton from './CreateButton';
 import { Link } from 'react-router-dom'
+// import history from '../../history';
 import RenderNavList from './RenderNavList';
 
 class NavList extends React.Component {
@@ -31,7 +32,7 @@ class NavList extends React.Component {
             <div className="navlist">
                 <div className="inner-container">
                     <img onClick={this.handleDrop} src={window.location.origin + "/images/dropdown.png"} alt="dropdownicon" className={`dropdown-icon ${this.getClassName()}`} />
-                    <Link to="#" className="directory-title">{this.props.directory_detail.directory_title}</Link>
+                    <Link to={`/detail/${this.props.directory_detail.id}`} className="directory-title">{this.props.directory_detail.directory_title}</Link>
                     <div className="button-container">
                         <CreateButton id={this.props.directory_detail.id} />
                         <img src={window.location.origin + "/images/more.png"} className="button" alt="more button" />

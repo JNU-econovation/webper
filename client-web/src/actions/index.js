@@ -27,19 +27,18 @@ export const fetchDirs = parentId => async (dispatch) => {
     history.goBack();
 }
 
-export const createScrap = video_detail => async (dispatch, getState) => {
+export const createScrap = (video_detail, categoryId) => async (dispatch, getState) => {
     const { userId } = getState().auth;
-    // console.log({ video_detail, userId });
-    const response = await server.post('/videos', { ...video_detail, userId });
+    const response = await server.post('/videos', { ...video_detail, userId, categoryId });
     // /video는 나중에 카테고리 타입을 받아와 ``신택스로 바꿔서 재사용할 것;
 
     dispatch({ type: "CREATE_SCRAP", payload: response.data });
-    history.push('/detail');
+    history.goBack();
 }
 
-export const fetchScraps = () => async (dispatch) => {
-    const response = await server.get(`/videos`);
+export const fetchScraps = (categoryId) => async (dispatch) => {
+    const response = await server.get(`/videos?categoryId=${categoryId}`);
 
     dispatch({ type: "FETCH_SCRAPS", payload: response.data });
-    history.push('/detail');
+    history.push(`/detail/${categoryId}`);
 }
