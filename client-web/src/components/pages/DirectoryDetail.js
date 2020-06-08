@@ -17,7 +17,10 @@ class DirectoryDetail extends React.Component {
     }
 
     onSubmit = ({ inputURL }) => {
-        videoScrapper(inputURL, (err, result) => {
+        let Scrapper;
+        if (this.props.directory.category === "video") Scrapper = videoScrapper;
+
+        Scrapper(inputURL, (err, result) => {
             if (err) {
                 console.log("Error: ", err.message);
             } if (result) {
@@ -27,10 +30,19 @@ class DirectoryDetail extends React.Component {
     }
 
     renderScraps() {
-        const scrap_component = this.props.scraps.map(scrap => {
-            return <VideoScrap video={scrap} key={scrap.id} />
-        })
-        return scrap_component;
+        let scrap_component;
+        if (this.props.directory)
+            switch (this.props.directory.category) {
+                case "video":
+                    scrap_component = this.props.scraps.map(scrap => {
+                        return <VideoScrap video={scrap} key={scrap.id} />
+                    });
+                default: return scrap_component;
+            }
+        // const scrap_component = this.props.scraps.map(scrap => {
+        //     return <VideoScrap video={scrap} key={scrap.id} />
+        // })
+        // return scrap_component;
     }
 
     renderTitle = () => {
