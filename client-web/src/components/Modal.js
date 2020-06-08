@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom';
 const Modal = props => {
     return ReactDOM.createPortal(
         <div onClick={props.onDismiss} className="modal-background">
-            <div onClick={(e) => e.stopPropagation()} className="modal-content">
-                <div>{props.title}</div>
-                <div>{props.content}
+            <div onClick={(e) => e.stopPropagation()} className="modal">
+                <div className="modal-title">{props.title}</div>
+                <div className="modal-content">{props.content}
                 </div>
             </div>
         </div>,
