@@ -10,7 +10,7 @@ class DirectoryDetail extends React.Component {
         this.props.fetchScraps(this.props.match.params.id);
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         if (this.props.match.params.id !== nextProps.match.params.id) {
             this.props.fetchScraps(nextProps.match.params.id);
         }
@@ -39,10 +39,6 @@ class DirectoryDetail extends React.Component {
                     });
                 default: return scrap_component;
             }
-        // const scrap_component = this.props.scraps.map(scrap => {
-        //     return <VideoScrap video={scrap} key={scrap.id} />
-        // })
-        // return scrap_component;
     }
 
     renderTitle = () => {

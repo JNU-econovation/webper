@@ -1,5 +1,6 @@
 import server from '../apis/server';
 import history from '../history';
+import { formValues } from 'redux-form';
 
 export const signIn = (userId) => (dispatch) => {
     dispatch({ type: "SIGN_IN", payload: userId });
@@ -19,7 +20,7 @@ export const createDir = directory_detail => async (dispatch, getState) => {
     history.goBack();
 }
 
-export const fetchDirs = parentId => async (dispatch) => {
+export const fetchDirs = parentId => async dispatch => {
     const response = await server.get(`/dirs?parentId=${parentId}`);
 
     dispatch({ type: "FETCH_DIRS", payload: response.data });
@@ -32,8 +33,16 @@ export const fetchDir = id => async dispatch => {
 
 export const deleteDir = id => async dispatch => {
     const response = await server.delete(`/dirs/${id}`);
-    console.log('delete', response);
+
     dispatch({ type: "DELETE_DIR", payload: id });
+    history.goBack();
+}
+
+export const editDir = (id, formValues) => async dispatch => {
+    console.log(id, formValues)
+    const response = await server.patch(`/dirs/${id}`, formValues);
+
+    dispatch({ type: "EDIT_DIR", payload: response.data });
     history.goBack();
 }
 

@@ -10,6 +10,8 @@ export default (state = {}, action) => {
             return { ...state, [action.payload.id]: action.payload };
         case 'DELETE_DIR':
             return _.omit(state, action.payload);
+        case 'EDIT_DIR':
+            return { ...state, [action.payload.id]: action.payload };
         default:
             return state;
     }

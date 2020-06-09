@@ -10,6 +10,7 @@ import DirectoryDetail from "./pages/DirectoryDetail";
 import Navbar from "../components/Navbar/Navbar";
 import CreateDirectory from '../components/Navbar/CreateDirectory';
 import DeleteDirectory from '../components/Navbar/DeleteDirectory';
+import EditDirectory from '../components/Navbar/EditDirectory';
 
 const App = (props) => {
     return (
@@ -25,6 +26,7 @@ const App = (props) => {
                             <Route path="/detail/:id" exact component={DirectoryDetail} />
                             <Route path="/new/:id" exact component={CreateDirectory} />
                             <Route path="/delete/:id" exact component={DeleteDirectory} />
+                            <Route path="/edit/:id" exact component={EditDirectory} />
                         </div>
                     </Switch>
                 </div>
