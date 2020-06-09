@@ -32,6 +32,7 @@ export const fetchDir = id => async dispatch => {
 
 export const deleteDir = id => async dispatch => {
     const response = await server.delete(`/dirs/${id}`);
+    console.log('delete', response);
     dispatch({ type: "DELETE_DIR", payload: id });
     history.goBack();
 }
