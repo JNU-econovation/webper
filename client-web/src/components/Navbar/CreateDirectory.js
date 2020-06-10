@@ -21,7 +21,7 @@ class CreateDirectory extends React.Component {
         console.log(this.props);
         return (
             <Modal
-                title="새로운 webper를 만듭니다"
+                title="Create new webper"
                 content={this.renderContent()}
                 onDismiss={() => { history.goBack() }}
             />

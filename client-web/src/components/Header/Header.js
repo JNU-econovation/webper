@@ -12,9 +12,9 @@ const Header = () => {
 
     return (
         <div className="header-container">
-            <img onClick={openNav} alt="menubar-icon" src="images/menuicon.png" className="menu-icon button" />
+            <img onClick={openNav} alt="menubar-icon" src={window.location.origin + "/images/menuicon.png"} className="menu-icon button" />
             <Link to='/'>
-                <img alt="main" src="images/logo.png" className="main-link" />
+                <img alt="main" src={window.location.origin + "/images/logo.png"} className="main-link" />
             </Link>
             <Loginbutton />
         </div>
