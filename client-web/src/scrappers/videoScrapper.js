@@ -43,8 +43,9 @@ const fetchVideo = async video_id => {
 
 const isYoutube = url => {
     let youtube_position1 = url.indexOf('https://www.youtube.com/watch?');
-    let youtube_position2 = url.indexOf('https://youtu.be');
-    return (youtube_position1 !== -1 || youtube_position2 !== -1);
+    let youtube_position2 = url.indexOf('https://m.youtube.com/watch?');
+    let youtube_position3 = url.indexOf('https://youtu.be');
+    return (youtube_position1 !== -1 || youtube_position2 !== -1 || youtube_position3 !== -1);
 }
 
 export default videoScrappers;
