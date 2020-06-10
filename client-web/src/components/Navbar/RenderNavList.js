@@ -13,10 +13,11 @@ class RenderNavList extends React.Component {
         if (this.props.dirs.length === 0)
             return null;
         const dirs = this.props.dirs.filter(dir => dir.parentId == this.props.parentId);
+
         return (
             <React.Fragment>
                 {dirs.map(dir => {
-                    return <NavList directory_detail={dir} key={dir.id} />
+                    return <NavList directory_detail={dir} padding_left={this.props.padding_left} key={dir.id} />
                 })}
             </React.Fragment>
         )

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-// import history from '../../history';
 import RenderNavList from './RenderNavList';
 import CreateButton from './CreateButton';
 import MoreButton from './MoreButton';
@@ -20,7 +19,7 @@ class NavList extends React.Component {
         if (this.state.dropdown === false)
             return null;
         else {
-            return <RenderNavList parentId={this.props.directory_detail.id} />
+            return <RenderNavList parentId={this.props.directory_detail.id} padding_left={this.getNewPaddingLeft()} />;
         }
     }
 
@@ -28,10 +27,14 @@ class NavList extends React.Component {
         return (this.state.dropdown ? "down" : '');
     }
 
+    getNewPaddingLeft() {
+        return (this.props.padding_left + 10);
+    }
+
     render() {
         return (
-            <div className="navlist">
-                <div className="inner-container">
+            <React.Fragment>
+                <div className="inner-container" style={{ paddingLeft: this.props.padding_left }}>
                     <img onClick={this.handleDrop} src={window.location.origin + "/images/dropdown.png"} alt="dropdownicon" className={`dropdown-icon ${this.getClassName()}`} />
                     <Link to={`/detail/${this.props.directory_detail.id}`} className="directory-title">{this.props.directory_detail.directory_title}</Link>
                     <div className="button-container">
@@ -40,7 +43,7 @@ class NavList extends React.Component {
                     </div>
                 </div>
                 {this.renderChildren()}
-            </div>
+            </React.Fragment>
         )
     }
 }

@@ -22,7 +22,7 @@ class Navbar extends React.Component {
               <CreateButton className="top-hierarchy" />
             </div>
           </div>
-          <RenderNavList parentId={0} />
+          <RenderNavList parentId={0} padding_left={0} />
         </nav>
       </div>
     );

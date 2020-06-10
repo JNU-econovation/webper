@@ -47,12 +47,6 @@ nav {
   padding-top: 5px;
 }
 
-.inner-container {
-  margin-bottom: 0px;
-  display: grid;
-  grid-template-columns: 26px 1fr 65px;
-}
-
 .back-icon {
   width: 20px;
   display: block;
@@ -94,11 +88,14 @@ nav div a {
   color: #333;
 }
 
-.navlist {
-  padding: 5px 0px 5px 10px;
+.inner-container {
+  margin-bottom: 0px;
+  display: grid;
+  grid-template-columns: 26px 1fr 60px;
+  padding: 5px 0px;
 }
 
-.navlist:hover {
+.inner-container:hover {
   background-color: #F7F5F2;
 }
 

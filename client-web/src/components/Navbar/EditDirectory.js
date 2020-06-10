@@ -23,7 +23,6 @@ class EditDirectory extends React.Component {
     }
 
     render() {
-        console.log("modal을 보여줘")
         return (
             <Modal
                 title="Rename Directory Title"

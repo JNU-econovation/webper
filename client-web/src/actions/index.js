@@ -1,6 +1,5 @@
 import server from '../apis/server';
 import history from '../history';
-import { formValues } from 'redux-form';
 
 export const signIn = (userId) => (dispatch) => {
     dispatch({ type: "SIGN_IN", payload: userId });
@@ -39,7 +38,6 @@ export const deleteDir = id => async dispatch => {
 }
 
 export const editDir = (id, formValues) => async dispatch => {
-    console.log(id, formValues)
     const response = await server.patch(`/dirs/${id}`, formValues);
 
     dispatch({ type: "EDIT_DIR", payload: response.data });
