@@ -59,3 +59,11 @@ export const fetchScraps = (categoryId) => async (dispatch) => {
     dispatch({ type: "FETCH_SCRAPS", payload: response.data });
     history.push(`/detail/${categoryId}`);
 }
+
+export const editScrap = (id, formValues, categoryId) => async dispatch => {
+    const response = await server.patch(`/videos/${id}`, formValues);
+    // /video는 나중에 카테고리 타입을 받아와 ``신택스로 바꿔서 재사용할 것;
+
+    dispatch({ type: "EDIT_SCRAP", payload: response.data });
+    history.push(`/detail/${categoryId}`);
+}
