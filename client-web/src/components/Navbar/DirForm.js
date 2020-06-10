@@ -18,7 +18,7 @@ class DirForm extends React.Component {
                     </Field>
                 </div>
                 <div>
-                    <label>Directory Name </label>
+                    <label>Directory Title </label>
                     <Field name="directory_title" component="input" placeholder="Enter the name of new directory" autoComplete="off" />
                 </div>
 

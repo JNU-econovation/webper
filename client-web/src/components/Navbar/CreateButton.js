@@ -9,8 +9,7 @@ const CreateButton = ({ id }) => {
     }
 
     return (
-        // <button onClick={toNew} className="rightend">+</button>
-        <img onClick={toNew} src="images/plus.png" className="button" />
+        <img onClick={toNew} src={window.location.origin + "/images/plus.png"} alt="create button" className="button" />
     )
 }
 
