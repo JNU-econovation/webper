@@ -7,34 +7,34 @@ const videoScrappers = async (url, callback) => {
         return callback(new Error('not supported url'), null);
     }
 
-    const video_id = findVideoId(url);
-    const video = await fetchVideo(video_id);
+    const videoId = findVideoId(url);
+    const video = await fetchVideo(videoId);
     const video_detail = {
-        video_id: video_id,
-        video_title: video.title,
+        videoId: videoId,
+        videoTitle: video.title,
         thumbnails: video.thumbnails.medium.url,
-        redirection_link: `https://www.youtube.com/watch?v=${video_id}`
+        redirectionLink: `https://www.youtube.com/watch?v=${videoId}`
     }
     return callback(null, video_detail);
 }
 
 const findVideoId = url => {
-    let video_id = url.split('v=')[1];
-    if (!video_id)
-        video_id = url.split('youtu.be/')[1];
+    let videoId = url.split('v=')[1];
+    if (!videoId)
+        videoId = url.split('youtu.be/')[1];
 
-    let ampersand_position = video_id.indexOf('&');
+    let ampersand_position = videoId.indexOf('&');
     if (ampersand_position !== -1) {
-        video_id = video_id.substring(0, ampersand_position);
+        videoId = videoId.substring(0, ampersand_position);
     }
 
-    return video_id;
+    return videoId;
 }
 
-const fetchVideo = async video_id => {
+const fetchVideo = async videoId => {
     const response = await youtube.get('/videos', {
         params: {
-            id: video_id
+            id: videoId
         }
     })
 

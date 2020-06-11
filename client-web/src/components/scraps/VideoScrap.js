@@ -12,20 +12,20 @@ const VideoScrap = ({ video }) => {
                 <div className="scrap-edit-button-container">
                     <img className="scrap-edit-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" onClick={() => setOnEdit(true)} />
                 </div>
-                <a href={video.redirection_link} target="_blank" rel="noopener noreferrer">
-                    <img className="scrap-img" src={video.thumbnails} alt={video.video_title} />
+                <a href={video.redirectionLink} target="_blank" rel="noopener noreferrer">
+                    <img className="scrap-img" src={video.thumbnails} alt={video.videoTitle} />
                 </a>
                 <div className="detail-container">
-                    <div>{video.video_title}</div>
+                    <div>{video.videoTitle}</div>
                 </div>
             </div>
         )
     } else if (onEdit === true) {
-        const editable_info_name = { video_title: "title", redirection_link: "url" }
+        const editable_info_name = { videoTitle: "title", redirectionLink: "url" }
         return (
             <EditScrap
                 video_detail={video}
-                initialValues={_.pick(video, 'video_title', 'redirection_link')}
+                initialValues={_.pick(video, 'videoTitle', 'redirectionLink')}
                 image={video.thumbnails}
                 editable_info_name={editable_info_name}
                 saveCallback={() => setOnEdit(false)}
