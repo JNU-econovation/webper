@@ -23,17 +23,15 @@ class EditScrap extends React.Component {
 
     render() {
         return (
-            <div className="scrap-item">
-                <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-                    <div className="scrap-edit-button-container">
-                        <button className="scrap-save-button" type="submit">save</button>
-                    </div>
-                    <div className="scrap-edit-container">
-                        <img className="scrap-img" src={this.props.image} alt="thumbnail" />
-                        {this.renderForm()}
-                    </div>
-                </form>
-            </div>
+            <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+                <div className="scrap-edit-button-container">
+                    <button className="scrap-save-button" type="submit">save</button>
+                </div>
+                <div className="scrap-edit-container">
+                    <img className="scrap-img" src={this.props.image} alt="thumbnail" />
+                    {this.renderForm()}
+                </div>
+            </form>
         );
     }
 }

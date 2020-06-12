@@ -1,37 +1,72 @@
 import _ from 'lodash';
-import React, { useState } from 'react';
+import React from 'react';
 import EditScrap from './EditScrap';
 
-const VideoScrap = ({ video }) => {
+class VideoScrap extends React.Component {
+    state = { onEdit: false };
 
-    const [onEdit, setOnEdit] = useState(false);
+    editModeOn = () => {
+        const id = this.props.video.id;
+        this.setState({ onEdit: true })
+        document.querySelector('body').addEventListener('click', this.dismiss);
+        document.querySelector(`#scrap${id}`).addEventListener('click', this.stopPropagation)
+    }
 
-    if (onEdit === false) {
+    editModeOff = () => {
+        const id = this.props.video.id;
+        this.setState({ onEdit: false })
+        document.querySelector('body').removeEventListener('click', this.dismiss);
+        document.querySelector(`#scrap${id}`).removeEventListener('click', this.stopPropagation)
+    }
+
+    dismiss = () => {
+        this.editModeOff();
+    }
+
+    stopPropagation = e => {
+        e.stopPropagation();
+    }
+
+    renderContents() {
+        if (this.state.onEdit === true) {
+            const editable_info_name = { videoTitle: "title", redirectionLink: "url" }
+            return (
+                <React.Fragment>
+                    <EditScrap
+                        video_detail={this.props.video}
+                        initialValues={_.pick(this.props.video, 'videoTitle', 'redirectionLink')}
+                        image={this.props.video.thumbnails}
+                        editable_info_name={editable_info_name}
+                        saveCallback={() => { this.setState({ onEdit: false }); this.editModeOff(); }}
+                    />
+                </React.Fragment>
+            )
+        }
+
         return (
-            <div className="scrap-item">
+            <React.Fragment>
                 <div className="scrap-edit-button-container">
-                    <img className="scrap-edit-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" onClick={() => setOnEdit(true)} />
+                    <img onClick={this.editModeOn} className="scrap-edit-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" />
                 </div>
-                <a href={video.redirectionLink} target="_blank" rel="noopener noreferrer">
-                    <img className="scrap-img" src={video.thumbnails} alt={video.videoTitle} />
+                <a href={this.props.video.redirectionLink} target="_blank" rel="noopener noreferrer">
+                    <img className="scrap-img" src={this.props.video.thumbnails} alt={this.props.video.videoTitle} />
                 </a>
                 <div className="detail-container">
-                    <div>{video.videoTitle}</div>
+                    <div>{this.props.video.videoTitle}</div>
                 </div>
+            </React.Fragment>
+        )
+
+    }
+
+    render() {
+        return (
+            <div id={`scrap${this.props.video.id}`} className="scrap-item"  >
+                {this.renderContents()}
             </div>
         )
-    } else if (onEdit === true) {
-        const editable_info_name = { videoTitle: "title", redirectionLink: "url" }
-        return (
-            <EditScrap
-                video_detail={video}
-                initialValues={_.pick(video, 'videoTitle', 'redirectionLink')}
-                image={video.thumbnails}
-                editable_info_name={editable_info_name}
-                saveCallback={() => setOnEdit(false)}
-            />
-        )
-    } else return <div>Error</div>
+
+    }
 }
 
 export default VideoScrap;
