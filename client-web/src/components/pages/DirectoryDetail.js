@@ -2,7 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import UrlForm from '../UrlForm';
 import VideoScrap from '../scraps/VideoScrap';
-import videoScrapper from '../../scrappers/videoScrapper';
+import videoScraper from '../../scrapers/videoScraper';
+import wishScraper from '../../scrapers/wishScraper';
+
 import { createScrap, fetchScraps } from '../../actions';
 
 class DirectoryDetail extends React.Component {
@@ -12,15 +14,16 @@ class DirectoryDetail extends React.Component {
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         if (this.props.match.params.id !== nextProps.match.params.id) {
-            this.props.fetchScraps(nextProps.match.params.id);
+            this.props.fetchScraps(nextProps.match.params.id, this.props.directory.category);
         }
     }
 
     onSubmit = ({ inputURL }) => {
-        let Scrapper;
-        if (this.props.directory.category === "video") Scrapper = videoScrapper;
+        let Scraper;
+        if (this.props.directory.category === "video") Scraper = videoScraper;
+        if (this.props.directory.category === "wishlist") Scraper = wishScraper;
 
-        Scrapper(inputURL, (err, result) => {
+        Scraper(inputURL, (err, result) => {
             if (err) {
                 console.log("Error: ", err.message);
             } if (result) {

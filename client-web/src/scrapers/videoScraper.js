@@ -1,6 +1,6 @@
 import youtube from '../apis/youtube';
 
-const videoScrappers = async (url, callback) => {
+const videoScrapers = async (url, callback) => {
 
     if (!isYoutube(url)) {
         alert("youtube 링크가 아닙니다");
@@ -48,4 +48,4 @@ const isYoutube = url => {
     return (youtube_position1 !== -1 || youtube_position2 !== -1 || youtube_position3 !== -1);
 }
 
-export default videoScrappers;
+export default videoScrapers;
