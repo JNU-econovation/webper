@@ -44,17 +44,16 @@ export const editDir = (id, formValues) => async dispatch => {
     history.goBack();
 }
 
-export const createScrap = (video_detail, directoryId) => async (dispatch, getState) => {
+export const createScrap = (video_detail, directoryId, category) => async (dispatch, getState) => {
     const { userId } = getState().auth;
-    const response = await server.post('/videos', { ...video_detail, userId, directoryId });
-    // /video는 나중에 카테고리 타입을 받아와 ``신택스로 바꿔서 재사용할 것;
+    const response = await server.post(`/${category}s`, { ...video_detail, userId, directoryId });
 
     dispatch({ type: "CREATE_SCRAP", payload: response.data });
     history.push(`/detail/${directoryId}`);
 }
 
-export const fetchScraps = (directoryId) => async (dispatch) => {
-    const response = await server.get(`/videos?directoryId=${directoryId}`);
+export const fetchScraps = (directoryId, category) => async (dispatch) => {
+    const response = await server.get(`/${category}s?directoryId=${directoryId}`);
 
     dispatch({ type: "FETCH_SCRAPS", payload: response.data });
     history.push(`/detail/${directoryId}`);

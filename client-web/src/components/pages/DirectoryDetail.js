@@ -9,7 +9,8 @@ import { createScrap, fetchScraps } from '../../actions';
 
 class DirectoryDetail extends React.Component {
     componentDidMount() {
-        this.props.fetchScraps(this.props.match.params.id);
+        if (this.props.directory)
+            this.props.fetchScraps(this.props.match.params.id, this.props.directory.category);
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -27,7 +28,7 @@ class DirectoryDetail extends React.Component {
             if (err) {
                 console.log("Error: ", err.message);
             } if (result) {
-                this.props.createScrap(result, this.props.match.params.id);
+                this.props.createScrap(result, this.props.match.params.id, this.props.directory.category);
             }
         })
     }
@@ -39,6 +40,10 @@ class DirectoryDetail extends React.Component {
                 case "video":
                     scrap_component = this.props.scraps.map(scrap => {
                         return <VideoScrap video={scrap} key={scrap.id} />
+                    });
+                case "wishlist":
+                    scrap_component = this.props.scraps.map(scrap => {
+                        return <VideoScrap wish={scrap} key={scrap.id} />
                     });
                 default: return scrap_component;
             }
