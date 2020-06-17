@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import UrlForm from '../UrlForm';
 import VideoScrap from '../scraps/VideoScrap';
+import WishScrap from '../scraps/WishScrap';
 import videoScraper from '../../scrapers/videoScraper';
 import wishScraper from '../../scrapers/wishScraper';
 
@@ -9,13 +10,12 @@ import { createScrap, fetchScraps } from '../../actions';
 
 class DirectoryDetail extends React.Component {
     componentDidMount() {
-        if (this.props.directory)
-            this.props.fetchScraps(this.props.match.params.id, this.props.directory.category);
+        this.props.fetchScraps(this.props.match.params.id, this.props.match.params.category);
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         if (this.props.match.params.id !== nextProps.match.params.id) {
-            this.props.fetchScraps(nextProps.match.params.id, this.props.directory.category);
+            this.props.fetchScraps(nextProps.match.params.id, nextProps.match.params.category);
         }
     }
 
@@ -41,12 +41,15 @@ class DirectoryDetail extends React.Component {
                     scrap_component = this.props.scraps.map(scrap => {
                         return <VideoScrap video={scrap} key={scrap.id} />
                     });
+                    break;
                 case "wishlist":
                     scrap_component = this.props.scraps.map(scrap => {
-                        return <VideoScrap wish={scrap} key={scrap.id} />
+                        return <WishScrap wish={scrap} key={scrap.id} />
                     });
+                    break;
                 default: return scrap_component;
             }
+        return scrap_component;
     }
 
     renderTitle = () => {

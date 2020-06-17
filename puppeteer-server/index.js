@@ -1,12 +1,13 @@
 const puppeteer = require('puppeteer');
 const express = require('express');
+const domainXpaths = require('./domainXpaths');
 
 const app = express();
 
 
-app.get('/wish/coupang', async (req, res) => {
-
-    const response = await getInfo(req.query.input_url);
+app.get('/wish', async (req, res) => {
+    const domain = req.query.shoppingmall;
+    const response = await getInfo(req.query.input_url, domain);
     res.writeHead(200, {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -15,7 +16,7 @@ app.get('/wish/coupang', async (req, res) => {
     res.end();
 })
 
-const getInfo = async url => {
+const getInfo = async (url, domain) => {
 
     const browser = await puppeteer.launch({
         args: ['--user-agent=<webper>']
@@ -23,23 +24,23 @@ const getInfo = async url => {
     const page = await browser.newPage();
     await page.goto(url);
 
-    const [el] = await page.$x('//*[@id="repImageContainer"]/img');
+    const [el] = await page.$x(domainXpaths.domain.thumbnails);
     const src = await el.getProperty('src');
-    const srcTxt = await src.jsonValue();
+    const thumbnails = await src.jsonValue();
 
-    const [el2] = await page.$x('//*[@id="contents"]/div[1]/div/div[3]/div[3]/h2');
+    const [el2] = await page.$x(domainXpaths.domain.name);
     const txt = await el2.getProperty('textContent');
     const name = await txt.jsonValue();
 
-    const [el3] = await page.$x('//*[@id="contents"]/div[1]/div/div[3]/div[5]/div[1]/div/div[2]/span[1]/strong/text()');
+    const [el3] = await page.$x(domainXpaths.domain.price);
     const txt2 = await el3.getProperty('textContent');
     const price = await txt2.jsonValue();
 
-    const [el4] = await page.$x('//*[@id="contents"]/div[1]/div/div[3]/div[7]/div[2]/div/div[1]/div[1]/span');
+    const [el4] = await page.$x(domainXpaths.domain.delivery);
     const txt3 = await el4.getProperty('textContent');
     const delivery = await txt3.jsonValue();
 
-    const result = { name, thumbnails, price, delivery, redirectionLink: url }
+    const result = { name, thumbnails, price, shoppingmall: domain, delivery, redirectionLink: url }
     console.log(result);
 
     await browser.close();

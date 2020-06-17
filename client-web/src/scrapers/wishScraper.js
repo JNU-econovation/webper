@@ -2,14 +2,15 @@ import puppeteer from '../apis/puppeteer';
 
 const wishScraper = async (url, callback) => {
     const wish_domain = domainToString(url);
-    const response = await puppeteer.get(`/wish/${wish_domain}`, {
+    const response = await puppeteer.get('wish', {
         params: {
+            shoppingmall: wish_domain,
             input_url: url
         }
     })
 
-    const wish_detail = response;
-    return callback(null, wish_detail.data);
+    const wish_detail = response.data;
+    return callback(null, { ...wish_detail, description: "" });
 }
 
 const domainToString = url => {

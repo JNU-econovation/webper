@@ -6,7 +6,7 @@ import { editScrap } from '../../actions';
 class EditScrap extends React.Component {
 
     onSubmit = formValues => {
-        this.props.editScrap(this.props.video_detail.id, formValues, this.props.video_detail.directoryId);
+        this.props.editScrap(this.props.scrap_detail.id, formValues, this.props.scrap_detail.directoryId, this.props.category);
         this.props.saveCallback();
     }
 

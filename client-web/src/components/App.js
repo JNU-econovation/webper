@@ -22,7 +22,7 @@ const App = (props) => {
                     <div className="main-body">
                         <Route path="/" exact render={() => (<Main cookies={props.cookies} />)} />
                         <Route path="/user_login" exact component={Login} />
-                        <Route path="/detail/:id" exact component={DirectoryDetail} />
+                        <Route path="/detail/:id/:category" exact component={DirectoryDetail} />
                         <Route path="/new/:id" exact component={CreateDirectory} />
                         <Route path="/delete/:id" exact component={DeleteDirectory} />
                         <Route path="/edit/:id" exact component={EditDirectory} />

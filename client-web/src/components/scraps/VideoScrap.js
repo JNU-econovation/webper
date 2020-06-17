@@ -33,7 +33,8 @@ class VideoScrap extends React.Component {
             return (
                 <React.Fragment>
                     <EditScrap
-                        video_detail={this.props.video}
+                        category='video'
+                        scrap_detail={this.props.video}
                         initialValues={_.pick(this.props.video, 'videoTitle', 'redirectionLink')}
                         image={this.props.video.thumbnails}
                         editable_info_name={editable_info_name}
