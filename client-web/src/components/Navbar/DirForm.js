@@ -19,7 +19,7 @@ class DirForm extends React.Component {
                 </div>
                 <div>
                     <label>Directory Title </label>
-                    <Field name="directory_title" component="input" placeholder="Enter the name of new directory" autoComplete="off" />
+                    <Field name="directoryTitle" component="input" placeholder="Enter the name of new directory" autoComplete="off" />
                 </div>
 
                 <button onSubmit={this.onSubmit}>Create</button>
@@ -53,7 +53,7 @@ class DirForm extends React.Component {
 
 // const validate = formValues => {
 //     let error = "";
-//     if (!formValues.directory_title)
+//     if (!formValues.directoryTitle)
 //         error = "You must enter a name of directory"
 
 //     // console.log(error);

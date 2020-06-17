@@ -2,29 +2,33 @@ import React from 'react';
 import { connect } from 'react-redux';
 import UrlForm from '../UrlForm';
 import VideoScrap from '../scraps/VideoScrap';
-import videoScrapper from '../../scrappers/videoScrapper';
+import WishScrap from '../scraps/WishScrap';
+import videoScraper from '../../scrapers/videoScraper';
+import wishScraper from '../../scrapers/wishScraper';
+
 import { createScrap, fetchScraps } from '../../actions';
 
 class DirectoryDetail extends React.Component {
     componentDidMount() {
-        this.props.fetchScraps(this.props.match.params.id);
+        this.props.fetchScraps(this.props.match.params.id, this.props.match.params.category);
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         if (this.props.match.params.id !== nextProps.match.params.id) {
-            this.props.fetchScraps(nextProps.match.params.id);
+            this.props.fetchScraps(nextProps.match.params.id, nextProps.match.params.category);
         }
     }
 
     onSubmit = ({ inputURL }) => {
-        let Scrapper;
-        if (this.props.directory.category === "video") Scrapper = videoScrapper;
+        let Scraper;
+        if (this.props.directory.category === "video") Scraper = videoScraper;
+        if (this.props.directory.category === "wishlist") Scraper = wishScraper;
 
-        Scrapper(inputURL, (err, result) => {
+        Scraper(inputURL, (err, result) => {
             if (err) {
                 console.log("Error: ", err.message);
             } if (result) {
-                this.props.createScrap(result, this.props.match.params.id);
+                this.props.createScrap(result, this.props.match.params.id, this.props.directory.category);
             }
         })
     }
@@ -37,13 +41,20 @@ class DirectoryDetail extends React.Component {
                     scrap_component = this.props.scraps.map(scrap => {
                         return <VideoScrap video={scrap} key={scrap.id} />
                     });
+                    break;
+                case "wishlist":
+                    scrap_component = this.props.scraps.map(scrap => {
+                        return <WishScrap wish={scrap} key={scrap.id} />
+                    });
+                    break;
                 default: return scrap_component;
             }
+        return scrap_component;
     }
 
     renderTitle = () => {
         if (this.props.directory)
-            return <h2 className="title">{this.props.directory.directory_title}</h2>
+            return <h2 className="title">{this.props.directory.directoryTitle}</h2>
         else return null;
     }
 

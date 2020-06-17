@@ -168,6 +168,47 @@ nav div a {
   max-width: 1000px;
 }
 
+.scrap-edit-button-container {
+  padding: 3px;
+  padding-bottom: 5px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.scrap-edit-button {
+  width: 15px;
+  padding: 2px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.scrap-edit-button:hover {
+  box-shadow: 0 0 5px lightgray;
+  background-color: white;
+}
+
+.scrap-save-button {
+  height: 15px;
+  padding: auto;
+  border: 0;
+  outline: 0;
+  border-radius: 3px;
+  font-size: 0.7em;
+  background-color: white;
+}
+
+.scrap-save-button:hover {
+  box-shadow: 0 0 5px lightgray;
+  background-color: white;
+}
+
+.scrap-edit-container {
+}
+
+.scrap-edit-input {
+  width: 95%;
+  margin: 0px auto;
+}
 
 .title {
   grid-column: 1 / 5;
@@ -183,8 +224,9 @@ nav div a {
   background-color: #F7F5F2;
 }
 
-.scrap-item img {
+.scrap-img {
   width: 100%;
+  /* max-width: 250px; */
 }
 
 .detail-container {
