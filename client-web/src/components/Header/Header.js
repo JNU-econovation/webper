@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Loginbutton from './LoginButton';
+import ProfileButton from './ProfileButton';
 
 const Header = () => {
     const openNav = () => {
@@ -16,7 +16,7 @@ const Header = () => {
             <Link to='/'>
                 <img alt="main" src={window.location.origin + "/images/logo.png"} className="main-link" />
             </Link>
-            <Loginbutton />
+            <ProfileButton />
         </div>
     )
 }

@@ -1,8 +1,8 @@
 import server from '../apis/server';
 import history from '../history';
 
-export const signIn = (userId) => (dispatch) => {
-    dispatch({ type: "SIGN_IN", payload: userId });
+export const signIn = (userId, userImage) => (dispatch) => {
+    dispatch({ type: "SIGN_IN", payload: { userId, userImage } });
     history.goBack();
 };
 

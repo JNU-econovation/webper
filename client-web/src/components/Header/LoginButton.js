@@ -19,7 +19,7 @@ class LoginButton extends React.Component {
 
     onAuthChange = (isSignedIn) => {
         if (isSignedIn) {
-            this.props.signIn(this.auth.currentUser.get().getId());
+            this.props.signIn(this.auth.currentUser.get().getId(), this.auth.currentUser.get().getBasicProfile().getImageUrl());
         } else {
             this.props.signOut();
         }
@@ -38,21 +38,19 @@ class LoginButton extends React.Component {
             return null;
         } else if (this.props.isSignedIn) {
             return (
-                <button onClick={this.onSignOutClick} className="login button centered">Sign Out</button>
+                <div onClick={this.onSignOutClick}>Sign Out</div>
 
             )
         } else {
             return (
-                <button onClick={this.onSignInClick} className="login button centered">Sign in with Google</button>
+                <div onClick={this.onSignInClick}>Sign in with Google</div>
             )
         }
     }
 
 
     render() {
-        return (
-            <div>{this.renderAuthButton()}</div>
-        )
+        return this.renderAuthButton()
     }
 }
 

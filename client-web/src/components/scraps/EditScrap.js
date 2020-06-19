@@ -11,11 +11,16 @@ class EditScrap extends React.Component {
     }
 
     renderForm() {
-        const fields = Object.keys(this.props.editable_info_name).map(key =>
-            <div>
-                <label>{this.props.editable_info_name[key]}</label>
-                <Field name={key} className="scrap-edit-input" component="input" autoComplete="off" />
-            </div>
+        const fields = Object.keys(this.props.editable_info_name).map(key => {
+            let inputType = 'input';
+            if (key === 'description') inputType = 'textarea';
+            return (
+                <div>
+                    <label>{this.props.editable_info_name[key]}</label>
+                    <Field name={key} className="scrap-edit-input" component={inputType} autoComplete="off" />
+                </div>
+            )
+        }
         )
 
         return fields
