@@ -2,6 +2,7 @@ const express = require('express');
 
 const getDomainWishInfo = require('./getDomainWishInfo');
 const getGeneralWishInfo = require('./getGeneralWishInfo');
+const getPortalInfo = require('./getPortalInfo');
 
 const app = express();
 
@@ -22,6 +23,26 @@ app.get('/wish', async (req, res) => {
     else data = await getWishInfo(req.query.input_url, domain);
 
     // response to webper client
+
+    if (!data) {
+        res.status(500).send({ status: 500, message: 'internal error', type: 'internal' });
+        console.log("scrap 실패 에러 보냄");
+    } else {
+        res.writeHead(200, {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        });
+        res.write(JSON.stringify(data));
+        res.end();
+    }
+})
+
+app.get('/portal', async (req, res) => {
+    let data;
+    await getPortalInfo(req.query.input_url, (err, response) => {
+        if (err) console.log(err.message);
+        else data = response;
+    })
 
     if (!data) {
         res.status(500).send({ status: 500, message: 'internal error', type: 'internal' });

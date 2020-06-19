@@ -6,3 +6,9 @@ module.exports.wishFormat = {
     delivery: "",
     redirectionLink: ""
 };
+
+module.exports.portalFormat = {
+    name: "",
+    favicon: "",
+    redirectionLink: ""
+}

@@ -5,8 +5,10 @@ import VideoScrap from '../scraps/VideoScrap';
 import WishScrap from '../scraps/WishScrap';
 import videoScraper from '../../scrapers/videoScraper';
 import wishScraper from '../../scrapers/wishScraper';
+import portalScraper from '../../scrapers/portalScraper';
 
 import { createScrap, fetchScraps } from '../../actions';
+import PortalScrap from '../scraps/PortalScrap';
 
 class DirectoryDetail extends React.Component {
     componentDidMount() {
@@ -23,6 +25,7 @@ class DirectoryDetail extends React.Component {
         let Scraper;
         if (this.props.directory.category === "video") Scraper = videoScraper;
         if (this.props.directory.category === "wishlist") Scraper = wishScraper;
+        if (this.props.directory.category === "portal") Scraper = portalScraper;
 
         Scraper(inputURL, (err, result) => {
             if (err) {
@@ -45,6 +48,11 @@ class DirectoryDetail extends React.Component {
                 case "wishlist":
                     scrap_component = this.props.scraps.map(scrap => {
                         return <WishScrap wish={scrap} key={scrap.id} />
+                    });
+                    break;
+                case "portal":
+                    scrap_component = this.props.scraps.map(scrap => {
+                        return <PortalScrap portal={scrap} key={scrap.id} />
                     });
                     break;
                 default: return scrap_component;

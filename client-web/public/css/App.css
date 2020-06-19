@@ -234,6 +234,10 @@ nav div a {
   font-size: 0.85em;
 }
 
+.detail-container div {
+  width: auto;
+}
+
 .urlform {
   display: flex;
   justify-content: center;

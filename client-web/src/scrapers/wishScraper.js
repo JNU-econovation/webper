@@ -1,5 +1,4 @@
 import puppeteer from '../apis/puppeteer';
-// import resultFormat from '../../../puppeteer-server/resultFormat';
 
 const wishScraper = async (url, callback) => {
     const wish_domain = domainToString(url);
