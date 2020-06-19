@@ -35,7 +35,7 @@ class WishScrap extends React.Component {
                     <EditScrap
                         category='wishlist'
                         scrap_detail={this.props.wish}
-                        initialValues={_.pick(this.props.wish, 'name', 'price', 'shoppingmall', 'delivery', 'description', 'redirectionLink')}
+                        initialValues={_.pick(this.props.wish, 'name', 'thumbnails', 'price', 'shoppingmall', 'delivery', 'description', 'redirectionLink')}
                         image={this.props.wish.thumbnails}
                         editable_info_name={editable_info_name}
                         saveCallback={() => { this.setState({ onEdit: false }); this.editModeOff(); }}
@@ -50,7 +50,7 @@ class WishScrap extends React.Component {
                     <img onClick={this.editModeOn} className="scrap-edit-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" />
                 </div>
                 <a href={this.props.wish.redirectionLink} target="_blank" rel="noopener noreferrer">
-                    <img className="scrap-img" src={this.props.wish.thumbnails} alt={this.props.wish.name} />
+                    <img className="scrap-img" src={this.props.wish.thumbnails || window.location.origin + "/images/emptyImage.png"} alt={this.props.wish.name} />
                 </a>
                 <div className="detail-container">
                     <div>{this.props.wish.name}</div>

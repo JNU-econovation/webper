@@ -42,7 +42,7 @@ const getHtml = async (url, callback) => {
 const decode = html => {
     const $ = cheerio.load(html); let charsetlist = [];
     let charset;
-    charsetlist[0] = $('meta[charset="utf-8"]').attr('charset');
+    charsetlist[0] = $('meta[charset]').attr('charset');
     charsetlist[1] = $('meta[http-equiv="Content-Type"]').attr('content');
 
     if (charsetlist[1]) {

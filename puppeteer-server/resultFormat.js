@@ -7,6 +7,13 @@ module.exports.wishFormat = {
     redirectionLink: ""
 };
 
+module.exports.blogFormat = {
+    title: "",
+    thumbnails: "",
+    description: "",
+    redirectionLink: ""
+}
+
 module.exports.portalFormat = {
     name: "",
     favicon: "",

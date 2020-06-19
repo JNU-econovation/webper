@@ -3,8 +3,8 @@ const axios = require('axios');
 const iconv = require('iconv-lite');
 const resultFormat = require('./resultFormat');
 
-const getPortalInfo = async (url, callback) => {
-    let result = resultFormat.portalFormat;
+const getBlogInfo = async (url, callback) => {
+    let result = resultFormat.blogFormat;
     await getHtml(url, (err, html) => {
         if (err) {
             console.log("getHtml 오류");
@@ -13,8 +13,9 @@ const getPortalInfo = async (url, callback) => {
             return callback(error, null);
         } else {
             const $ = cheerio.load(decode(html));
-            result.name = getName($);
-            result.favicon = getFavicon($, url);
+            result.title = getTitle($);
+            result.thumbnails = getThumbnails($, url);
+            result.description = getDescription($)
             result.redirectionLink = url;
 
             console.log(result);
@@ -61,43 +62,60 @@ const decode = html => {
     return iconv.decode(html, charset).toString();
 }
 
-const getName = $ => {
-    let name; const namelist = [];
-    namelist[0] = $('meta[property="og:title"]').attr('content');
-    namelist[1] = $('meta[name="twitter:title"]').attr('content');
-    namelist[2] = $('title').text();
+const getTitle = $ => {
+    let title; const titlelist = [];
+    titlelist[0] = $('meta[property="og:title"]').attr('content');
+    titlelist[1] = $('meta[name="twitter:title"]').attr('content');
+    titlelist[2] = $('title').text();
 
-    namelist.forEach(list => {
-        if (!name && list)
-            name = list;
+    titlelist.forEach(list => {
+        if (!title && list)
+            title = list;
     });
 
-    return name;
+    return title;
 }
 
-const getFavicon = ($, url) => {
-    let favicon; const faviconlist = [];
-    faviconlist[0] = $('link[rel="shortcut icon"]').attr('href');
-    faviconlist[1] = $('link[rel="fluid-icon"]').attr('href');
-    faviconlist[2] = $('link[rel="apple-touch-icon"]').attr('href');
-    faviconlist[3] = $('link[rel="icon"]').attr('href');
+const getThumbnails = ($, url) => {
+    let thumbnails; const thumbnailslist = [];
+    thumbnailslist[0] = $('meta[property="og:image"]').attr('content');
+    thumbnailslist[1] = $('meta[name="twitter:image"]').attr('content');
+    thumbnailslist[2] = $('link[rel="apple-touch-icon"]').attr('href');
+    thumbnailslist[3] = $('link[rel="icon"]').attr('href');
 
-    faviconlist.forEach(list => {
-        if (!favicon && list) {
-
+    thumbnailslist.forEach(list => {
+        if (!thumbnails && list) {
+            if (list.substring(-3) !== 'gif') list = list.replace((/(gif$)/), "jpg");
             if ((list.substring(0, 4) !== 'http') && !(list.substring(0, 2) === '//')) {
                 const protocol = url.split("://")[0];
                 let root = url.split("://")[1].split('/')[0];
                 if (list.substring(0, 1) !== '/') root = root + '/';
-                favicon = protocol + "://" + root + list;
-            } else favicon = list;
+                console.log(list.substring(0, 1))
+                console.log(list.substring(0, 1) !== '/')
+                thumbnails = protocol + "://" + root + list;
+            } else thumbnails = list;
         }
     })
-    console.log('favicon', favicon);
-    return favicon;
+    return thumbnails;
 }
+
+const getDescription = $ => {
+    let description; const descriptionlist = [];
+    descriptionlist[0] = $('meta[property="og:description"]').attr('content');
+    descriptionlist[1] = $('meta[name="twitter:description"]').attr('content');
+    descriptionlist[2] = $('meta[name="description"]').attr('content');
+
+    descriptionlist.forEach(list => {
+        if (!description && list)
+            description = list;
+    });
+
+    if (descriptionlist.length > 70) descriptionlist = descriptionlist.substring(0, 70) + "...";
+    return description;
+}
+
 const trim = str => {
     return str.replace(/(\s*)/g, "");
 }
 
-module.exports = getPortalInfo;
+module.exports = getBlogInfo;

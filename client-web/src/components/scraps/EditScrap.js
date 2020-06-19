@@ -28,7 +28,7 @@ class EditScrap extends React.Component {
                     <button className="scrap-save-button" type="submit">save</button>
                 </div>
                 <div className="scrap-edit-container">
-                    <img className="scrap-img" src={this.props.image} alt="thumbnail" />
+                    <img className="scrap-img" src={this.props.image || window.location.origin + "/images/emptyImage.png"} alt="thumbnail" />
                     {this.renderForm()}
                 </div>
             </form>

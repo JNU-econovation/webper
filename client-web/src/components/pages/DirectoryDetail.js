@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import UrlForm from '../UrlForm';
 import VideoScrap from '../scraps/VideoScrap';
 import WishScrap from '../scraps/WishScrap';
+import BlogScrap from '../scraps/BlogScrap';
+import PortalScrap from '../scraps/PortalScrap';
 import videoScraper from '../../scrapers/videoScraper';
 import wishScraper from '../../scrapers/wishScraper';
+import blogScraper from '../../scrapers/blogScraper';
 import portalScraper from '../../scrapers/portalScraper';
 
 import { createScrap, fetchScraps } from '../../actions';
-import PortalScrap from '../scraps/PortalScrap';
 
 class DirectoryDetail extends React.Component {
     componentDidMount() {
@@ -22,15 +24,22 @@ class DirectoryDetail extends React.Component {
     }
 
     onSubmit = ({ inputURL }) => {
+        if (!inputURL) {
+            alert("Url을 입력하세요");
+            return;
+        }
+
         let Scraper;
         if (this.props.directory.category === "video") Scraper = videoScraper;
         if (this.props.directory.category === "wishlist") Scraper = wishScraper;
+        if (this.props.directory.category === "blog") Scraper = blogScraper;
         if (this.props.directory.category === "portal") Scraper = portalScraper;
 
         Scraper(inputURL, (err, result) => {
             if (err) {
                 console.log("Error: ", err.message);
             } if (result) {
+                console.log(result);
                 this.props.createScrap(result, this.props.match.params.id, this.props.directory.category);
             }
         })
@@ -50,11 +59,17 @@ class DirectoryDetail extends React.Component {
                         return <WishScrap wish={scrap} key={scrap.id} />
                     });
                     break;
+                case "blog":
+                    scrap_component = this.props.scraps.map(scrap => {
+                        return <BlogScrap blog={scrap} key={scrap.id} />
+                    });
+                    break;
                 case "portal":
                     scrap_component = this.props.scraps.map(scrap => {
                         return <PortalScrap portal={scrap} key={scrap.id} />
                     });
                     break;
+
                 default: return scrap_component;
             }
         return scrap_component;
