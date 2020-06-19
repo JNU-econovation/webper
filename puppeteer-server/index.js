@@ -8,13 +8,23 @@ const app = express();
 app.get('/wish', async (req, res) => {
     console.log('/wish요청 처리중');
     const domain = req.query.shoppingmall;
-    const data = await getWishInfo(req.query.input_url, domain);
+    let data;
+    // if domain is not registered in this application => generalInfo
+    if (domain === 'default') {
+        console.log("도메인 default");
+        await getGeneralWishInfo(req.query.input_url, domain, (err, response) => {
+            if (err) console.log(err.message);
+            else data = response;
+        })
+    }
+
+    // if domain is registered
+    else data = await getWishInfo(req.query.input_url, domain);
 
     // response to webper client
 
     if (!data) res.status(500).send({ status: 500, message: 'internal error', type: 'internal' });
     else {
-        console.log("index.js", data)
         res.writeHead(200, {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',

@@ -12,39 +12,62 @@ const getGeneralWishInfo = async (url, domain, callback) => {
             error.name = 'getHtmlError'
             return callback(error, null);
         } else {
-            const $ = cheerio.load(html);
-
+            const $ = cheerio.load(decode(html));
             result.name = getName($);
             result.thumbnails = getThumbnails($);
             result.price = getPrice($);
             result.shoppingmall = domain;
             result.redirectionLink = url;
 
+            console.log(result);
             return callback(null, result);
         }
     })
 }
 
 const getHtml = async (url, callback) => {
-    let contents;
     try {
         const { data } = await axios({
             url,
             method: 'GET',
             responseType: 'arraybuffer'
         });
-        contents = iconv.decode(data, "EUC-KR").toString();
-        return callback(null, contents);
+        return callback(null, data);
     } catch (err) {
         console.log(err.name, err.message);
         return callback(err, null);
     }
 }
 
+const decode = html => {
+    const $ = cheerio.load(html); let charsetlist = [];
+    let charset;
+    charsetlist[0] = $('meta[charset="utf-8"]').attr('charset');
+    charsetlist[1] = $('meta[http-equiv="Content-Type"]').attr('content');
+
+    let contentlist = $('meta[http-equiv="Content-Type"]').attr('content').split(";");
+    contentlist.forEach(list => {
+        list = trim(list);
+        if (list.indexOf('charset') !== -1) charsetlist[1] = list.split('charset=')[1];
+    })
+
+    let i = 0;
+    charsetlist.forEach(list => {
+        console.log(`charset${i++}`, list);
+        if (list) {
+            charset = list;
+        }
+    })
+
+    if (!charset) charset = 'utf-8';
+    console.log("charset:", charset);
+    return iconv.decode(html, charset).toString();
+}
+
 const getName = $ => {
     let name; const namelist = [];
-    namelist[0] = $('title').text();
-    namelist[1] = $('meta[property="og:title"]').attr('content');
+    namelist[0] = $('meta[property="og:title"]').attr('content');;
+    namelist[1] = $('title').text();
 
     namelist.forEach(list => {
         if (list) name = list;
@@ -73,6 +96,10 @@ const getPrice = $ => {
     });
 
     return price;
+}
+
+const trim = str => {
+    return str.replace(/(\s*)/g, "");
 }
 
 module.exports = getGeneralWishInfo;
