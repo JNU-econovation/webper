@@ -16,7 +16,7 @@ const getGeneralWishInfo = async (url, domain, callback) => {
             result.name = getName($);
             result.thumbnails = getThumbnails($);
             result.price = getPrice($);
-            result.shoppingmall = domain;
+            result.shoppingmall = url.split("://")[1].split('/')[0];
             result.redirectionLink = url;
 
             console.log(result);
@@ -45,22 +45,21 @@ const decode = html => {
     charsetlist[0] = $('meta[charset="utf-8"]').attr('charset');
     charsetlist[1] = $('meta[http-equiv="Content-Type"]').attr('content');
 
-    let contentlist = $('meta[http-equiv="Content-Type"]').attr('content').split(";");
-    contentlist.forEach(list => {
-        list = trim(list);
-        if (list.indexOf('charset') !== -1) charsetlist[1] = list.split('charset=')[1];
-    })
+    if (charsetlist[1]) {
+        let contentlist = charsetlist[1].split(";");
+        contentlist.forEach(list => {
+            list = trim(list);
+            if (list.indexOf('charset') !== -1) charsetlist[1] = list.split('charset=')[1];
+        })
+    }
 
-    let i = 0;
     charsetlist.forEach(list => {
-        console.log(`charset${i++}`, list);
         if (list) {
             charset = list;
         }
     })
 
     if (!charset) charset = 'utf-8';
-    console.log("charset:", charset);
     return iconv.decode(html, charset).toString();
 }
 
@@ -70,7 +69,8 @@ const getName = $ => {
     namelist[1] = $('title').text();
 
     namelist.forEach(list => {
-        if (list) name = list;
+        if (!name && list)
+            name = list;
     });
 
     return name;

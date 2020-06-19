@@ -23,12 +23,13 @@ app.get('/wish', async (req, res) => {
 
     // response to webper client
 
-    if (!data) res.status(500).send({ status: 500, message: 'internal error', type: 'internal' });
-    else {
+    if (!data) {
+        res.status(500).send({ status: 500, message: 'internal error', type: 'internal' });
+        console.log("scrap 실패 에러 보냄");
+    } else {
         res.writeHead(200, {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            "Access-Control-Allow-Credentials": "true"
+            'Access-Control-Allow-Origin': '*'
         });
         res.write(JSON.stringify(data));
         res.end();

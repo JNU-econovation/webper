@@ -29,7 +29,7 @@ class WishScrap extends React.Component {
 
     renderContents() {
         if (this.state.onEdit === true) {
-            const editable_info_name = { name: "product", price: "price", shoppingmall: "shoppingmall", delivery: "delivery", description: "description", redirectionLink: "url" }
+            const editable_info_name = { name: "product", thumbnails: "thumbnails", price: "price", shoppingmall: "shoppingmall", delivery: "delivery", description: "description", redirectionLink: "url" }
             return (
                 <React.Fragment>
                     <EditScrap
