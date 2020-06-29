@@ -1,7 +1,9 @@
 package econo.webper.server.login;
 
 
+import com.jayway.jsonpath.JsonPath;
 import econo.webper.server.domain.UserService;
+import econo.webper.server.jwt.JwtTokenProvider;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +14,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -33,6 +36,9 @@ public class GoogleLoginControllerTest {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
 
     @Test
     public void GoogleLoginWithWrongAccessToken() throws Exception {
@@ -59,16 +65,15 @@ public class GoogleLoginControllerTest {
         when(googleLoginService.authenticate(eq("Right_Access_Token")))
                 .thenReturn(responseEntity);
 
-        // Then
-        this.mockMvc.perform(post("/login/google")
+        MvcResult mvcResult = this.mockMvc.perform(post("/login/google")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"access_token\" : \"Right_Access_Token\"}"))
                 .andDo(print())
-                .andExpect(status().isOk());
-        assertThat(userService.findUserByEmail("frog@email.com").getName()).isEqualTo("frog");
+                .andExpect(status().isOk())
+                .andReturn();
 
+        String contentAsString = JsonPath.read(mvcResult.getResponse().getContentAsString(), "$.X-AUTH-TOKEN");
+        assertThat(jwtTokenProvider.getUserPk(contentAsString)).isEqualTo("frog@email.com");
 
     }
-
-
 }
