@@ -9,13 +9,13 @@ public class JsonExtractor {
 
     private static JSONParser jsonParser = new JSONParser();
 
-    public static Object getValueByKey(String body, String key) {
+    public static String getValueByKey(String body, String key) {
         JSONObject jsonObject = null;
         try {
             jsonObject = (JSONObject) jsonParser.parse(body);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return jsonObject.get(key);
+        return (String) jsonObject.get(key);
     }
 }
