@@ -11,6 +11,7 @@ import Navbar from "../components/Navbar/Navbar";
 import CreateDirectory from '../components/Navbar/CreateDirectory';
 import DeleteDirectory from '../components/Navbar/DeleteDirectory';
 import EditDirectory from '../components/Navbar/EditDirectory';
+import Setting from './Header/Setting';
 
 const App = (props) => {
     return (
@@ -26,6 +27,7 @@ const App = (props) => {
                         <Route path="/new/:id" exact component={CreateDirectory} />
                         <Route path="/delete/:id" exact component={DeleteDirectory} />
                         <Route path="/edit/:id" exact component={EditDirectory} />
+                        <Route path="/setting" exact component={Setting} />
                     </div>
                 </Switch>
             </Router>
