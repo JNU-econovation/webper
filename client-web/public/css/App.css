@@ -2,6 +2,17 @@ body {
   margin: 0px;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.main-body {
+  position: relative;
+  top: 50px;
+  transition: 0.5s;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -9,10 +20,15 @@ body {
 
 /* Header */
 .header-container {
+  position: fixed;
   background-color: beige;
-  display: flex;
+  display: grid;
+  grid-template-columns: 50px 150px 1fr 100px;
   align-items: center;
+  justify-items: center;
   width: 100%;
+  height: 50px;
+  z-index: 2;
 }
 
 .menu-icon {
@@ -31,12 +47,69 @@ body {
   padding: 5px 15px;
 }
 
+.profile-container {
+  position: relative;
+  display: inline-block;
+  /* justify-self: center; */
+  grid-column:  4;
+}
+
+.profile-image {
+  width: 30px;
+  border-radius: 15px;
+  cursor: pointer;
+  margin: 3px 10px;
+}
+
+.profile-content {
+  display: none;
+  position: absolute;
+  right: 10px;
+  background-color: #f9f9f9;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.profile-container:hover .profile-content {
+  display: block;
+}
+
+.profile-content div {
+  font-size: 0.80em;
+  padding: 7px 9px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.profile-content div:hover {
+  background-color:#F7F5F2;
+}
+
+.setting {
+  display: flex;
+  align-items: center;
+  padding: auto 0;
+}
+
+.setting-icon, .signout-icon{
+  width: 17px;
+  margin-right: 5px;
+}
+
+.profile-content .google-icon {
+  width: 15px;
+  margin-right: 7px;
+}
+
 /* Navbar */
 
 nav {
   height: 100%;
   width: 0;
   position: fixed;
+  padding-top: 55px;
   /* z-index: 1; */
   top: 0;
   left: 0;
@@ -44,7 +117,6 @@ nav {
   overflow-x: hidden;
   transition: 0.5s;
   margin-right: 10px;
-  padding-top: 5px;
 }
 
 .back-icon {
@@ -93,6 +165,7 @@ nav div a {
   display: grid;
   grid-template-columns: 26px 1fr 60px;
   padding: 5px 0px;
+  align-items: center;
 }
 
 .inner-container:hover {
@@ -100,10 +173,11 @@ nav div a {
 }
 
 .directory-title {
+  font-size: 0.85em;
 }
 
 .button-container {
-  margin: 5px;
+  margin: 2px 5px;
   display: inline-block;
   grid-column: 3;
 }
@@ -147,7 +221,7 @@ nav div a {
 
 .dropdown-icon {
   width: 10px;
-  padding: 8px;
+  padding: 5px;
   vertical-align: middle;
   cursor: pointer;
   transition: 0.5s;
@@ -158,6 +232,14 @@ nav div a {
 }
 
 /* Scrap 보여주는 페이지 (directory_detail 혹은 main)*/
+
+.main-title {
+  display: inline-block;
+}
+
+.title {
+  grid-column: 1 / 5;
+}
 
 .scrap-container {
   display: grid;
@@ -210,10 +292,6 @@ nav div a {
   margin: 0px auto;
 }
 
-.title {
-  grid-column: 1 / 5;
-}
-
 .scrap-item {
   border-radius: 3px;
   padding: 5px;
@@ -232,6 +310,10 @@ nav div a {
 .detail-container {
   padding: 3px;
   font-size: 0.85em;
+}
+
+.detail-container div {
+  width: auto;
 }
 
 .urlform {
@@ -266,6 +348,10 @@ nav div a {
   margin: 10px;
 }
 
+.modal-title img {
+  width: 20px;
+}
+
 .modal-content {
   padding: 10px;
   font-size: 0.85em;
@@ -274,6 +360,8 @@ nav div a {
 .error-message {
   color: red;
 }
+
+
 
 /* 이 밑으로는 원래 login 위한 css파일. 안쓰는 코드들은 삭제 바람 */
 
@@ -307,6 +395,9 @@ nav div a {
   border: 0px;
 }
 
+.google-icon {
+  width: 25px;
+}
 
 .button {
   cursor: pointer;

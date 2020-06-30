@@ -1,51 +1,100 @@
-const puppeteer = require('puppeteer');
 const express = require('express');
-const domainXpaths = require('./domainXpaths');
+
+const getDomainWishInfo = require('./getDomainWishInfo');
+const getGeneralWishInfo = require('./getGeneralWishInfo');
+const getPortalInfo = require('./getPortalInfo');
+const getBlogInfo = require('./getBlogInfo');
 
 const app = express();
 
-
 app.get('/wish', async (req, res) => {
+    console.log('/wish요청 처리중');
     const domain = req.query.shoppingmall;
-    const response = await getInfo(req.query.input_url, domain);
-    res.writeHead(200, {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-    });
-    res.write(JSON.stringify(response));
-    res.end();
+    let data;
+    // if domain is not registered in this application => generalInfo
+    if (domain === 'default') {
+        console.log("도메인 default");
+        await getGeneralWishInfo(req.query.input_url, domain, (err, response) => {
+            if (err) console.log(err.message);
+            else data = response;
+        })
+    }
+
+    // if domain is registered
+    else data = await getWishInfo(req.query.input_url, domain);
+
+    // response to webper client
+
+    if (!data) {
+        res.status(500).send({ status: 500, message: 'internal error', type: 'internal' });
+        console.log("scrap 실패 에러 보냄");
+    } else {
+        res.writeHead(200, {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        });
+        res.write(JSON.stringify(data));
+        res.end();
+    }
 })
 
-const getInfo = async (url, domain) => {
+app.get('/blog', async (req, res) => {
+    let data;
+    await getBlogInfo(req.query.input_url, (err, response) => {
+        if (err) console.log(err.message);
+        else data = response;
+    })
 
-    const browser = await puppeteer.launch({
-        args: ['--user-agent=<webper>']
+    if (!data) {
+        res.status(500).send({ status: 500, message: 'internal error', type: 'internal' });
+        console.log("scrap 실패 에러 보냄");
+    } else {
+        res.writeHead(200, {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        });
+        res.write(JSON.stringify(data));
+        res.end();
+    }
+})
+
+app.get('/portal', async (req, res) => {
+    let data;
+    await getPortalInfo(req.query.input_url, (err, response) => {
+        if (err) console.log(err.message);
+        else data = response;
+    })
+
+    if (!data) {
+        res.status(500).send({ status: 500, message: 'internal error', type: 'internal' });
+        console.log("scrap 실패 에러 보냄");
+    } else {
+        res.writeHead(200, {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        });
+        res.write(JSON.stringify(data));
+        res.end();
+    }
+})
+
+const getWishInfo = async (url, domain) => {
+    let data;
+
+    await getDomainWishInfo(url, domain, (err, response) => {
+        if (err) {
+            console.log(err.name, err.message);
+        } else data = response;
     });
-    const page = await browser.newPage();
-    await page.goto(url);
 
-    const [el] = await page.$x(domainXpaths.domain.thumbnails);
-    const src = await el.getProperty('src');
-    const thumbnails = await src.jsonValue();
+    if (!data) {
+        await getGeneralWishInfo(url, domain, (err, response) => {
+            if (err) console.log(err.name, err.message);
+            else data = response;
+        });
+    }
 
-    const [el2] = await page.$x(domainXpaths.domain.name);
-    const txt = await el2.getProperty('textContent');
-    const name = await txt.jsonValue();
-
-    const [el3] = await page.$x(domainXpaths.domain.price);
-    const txt2 = await el3.getProperty('textContent');
-    const price = await txt2.jsonValue();
-
-    const [el4] = await page.$x(domainXpaths.domain.delivery);
-    const txt3 = await el4.getProperty('textContent');
-    const delivery = await txt3.jsonValue();
-
-    const result = { name, thumbnails, price, shoppingmall: domain, delivery, redirectionLink: url }
-    console.log(result);
-
-    await browser.close();
-
-    return result
+    return data;
 }
 
 app.listen(3002);

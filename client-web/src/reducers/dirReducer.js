@@ -4,6 +4,8 @@ export default (state = {}, action) => {
     switch (action.type) {
         case 'CREATE_DIR':
             return { ...state, [action.payload.id]: action.payload };
+        case 'FETCH_ALL_DIRS':
+            return { ...state, ..._.mapKeys(action.payload, 'id') }
         case 'FETCH_DIRS':
             return { ...state, ..._.mapKeys(action.payload, 'id') };
         case 'FETCH_DIR':
