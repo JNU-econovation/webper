@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import UrlForm from '../UrlForm';
-import VideoScrap from '../scraps/VideoScrap';
-import WishScrap from '../scraps/WishScrap';
 import videoScraper from '../../scrapers/videoScraper';
 import wishScraper from '../../scrapers/wishScraper';
+import blogScraper from '../../scrapers/blogScraper';
+import portalScraper from '../../scrapers/portalScraper';
 
 import { createScrap, fetchScraps } from '../../actions';
+import renderScraps from './renderScraps';
 
 class DirectoryDetail extends React.Component {
     componentDidMount() {
@@ -20,36 +21,25 @@ class DirectoryDetail extends React.Component {
     }
 
     onSubmit = ({ inputURL }) => {
+        if (!inputURL) {
+            alert("Url을 입력하세요");
+            return;
+        }
+
         let Scraper;
         if (this.props.directory.category === "video") Scraper = videoScraper;
         if (this.props.directory.category === "wishlist") Scraper = wishScraper;
+        if (this.props.directory.category === "blog") Scraper = blogScraper;
+        if (this.props.directory.category === "portal") Scraper = portalScraper;
 
         Scraper(inputURL, (err, result) => {
             if (err) {
                 console.log("Error: ", err.message);
             } if (result) {
+                console.log(result);
                 this.props.createScrap(result, this.props.match.params.id, this.props.directory.category);
             }
         })
-    }
-
-    renderScraps() {
-        let scrap_component;
-        if (this.props.directory)
-            switch (this.props.directory.category) {
-                case "video":
-                    scrap_component = this.props.scraps.map(scrap => {
-                        return <VideoScrap video={scrap} key={scrap.id} />
-                    });
-                    break;
-                case "wishlist":
-                    scrap_component = this.props.scraps.map(scrap => {
-                        return <WishScrap wish={scrap} key={scrap.id} />
-                    });
-                    break;
-                default: return scrap_component;
-            }
-        return scrap_component;
     }
 
     renderTitle = () => {
@@ -60,15 +50,15 @@ class DirectoryDetail extends React.Component {
 
     render() {
         return (
-            < div >
+            <div>
                 <div className="container">
                     <div className="scrap-container">
                         {this.renderTitle()}
                         <UrlForm onSubmit={this.onSubmit} />
-                        {this.renderScraps()}
+                        {renderScraps(this.props.directory, this.props.scraps)}
                     </div>
                 </div>
-            </div >
+            </div>
         );
     }
 }
