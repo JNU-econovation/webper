@@ -1,24 +1,23 @@
 package econo.webper.server.login;
 
-import econo.webper.server.domain.User;
 import econo.webper.server.domain.UserRole;
 import econo.webper.server.domain.UserService;
 import econo.webper.server.jwt.JwtTokenProvider;
 import econo.webper.server.util.JsonExtractor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
 public class GoogleLoginController {
 
-    GoogleLoginService googleLoginService;
+    private final GoogleLoginService googleLoginService;
     private final JwtTokenProvider jwtTokenProvider;
-    UserService userService;
+    private final UserService userService;
 
     public GoogleLoginController(GoogleLoginService googleLoginService, JwtTokenProvider jwtTokenProvider, UserService userService) {
         this.googleLoginService = googleLoginService;
@@ -32,8 +31,9 @@ public class GoogleLoginController {
         ResponseEntity responseEntity = googleLoginService.authenticate(accessToken);
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             GoogleUserinfoDTO googleUserinfoDTO = (GoogleUserinfoDTO) responseEntity.getBody();
-            userService.saveUser(googleUserinfoDTO);
-            String token = jwtTokenProvider.createToken(googleUserinfoDTO.getEmail(), Collections.singletonList(UserRole.USER));
+            List<UserRole> userRoles = Collections.singletonList(UserRole.USER);
+            userService.saveUser(googleUserinfoDTO, userRoles);
+            String token = jwtTokenProvider.createToken(googleUserinfoDTO.getEmail(), userRoles);
             return ResponseEntity.ok(convertStringToMap(token));
         }
         return ResponseEntity.badRequest().build();
@@ -45,8 +45,4 @@ public class GoogleLoginController {
         return map;
     }
 
-    @GetMapping("/test")
-    public ResponseEntity test(@AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(user);
-    }
 }
