@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -19,6 +20,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -65,15 +67,10 @@ public class GoogleLoginControllerTest {
         when(googleLoginService.authenticate(eq("Right_Access_Token")))
                 .thenReturn(responseEntity);
 
-        MvcResult mvcResult = this.mockMvc.perform(post("/login/google")
+        this.mockMvc.perform(post("/login/google")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"access_token\" : \"Right_Access_Token\"}"))
                 .andDo(print())
-                .andExpect(status().isOk())
-                .andReturn();
-
-        String contentAsString = JsonPath.read(mvcResult.getResponse().getContentAsString(), "$.X-AUTH-TOKEN");
-        assertThat(jwtTokenProvider.getUserPk(contentAsString)).isEqualTo("frog@email.com");
-
+                .andExpect(status().isOk());
     }
 }
