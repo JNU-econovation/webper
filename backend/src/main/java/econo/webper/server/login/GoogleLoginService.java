@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class GoogleLoginService {
 
-    RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     @Value("${social.google.url}")
     private String googleRequestUrl;
