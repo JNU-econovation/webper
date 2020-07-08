@@ -41,7 +41,7 @@ public class GoogleLoginController {
 
     private Map<String, String> convertStringToMap(String token) {
         Map<String, String> map = new HashMap<>();
-        map.put("X-AUTH-TOKEN", token);
+        map.put("Authorization", token);
         return map;
     }
 
