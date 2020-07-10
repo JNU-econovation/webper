@@ -1,7 +1,6 @@
 package econo.webper.server.login;
 
 
-import com.jayway.jsonpath.JsonPath;
 import econo.webper.server.domain.UserService;
 import econo.webper.server.jwt.JwtTokenProvider;
 import org.junit.Test;
@@ -12,15 +11,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -59,7 +54,6 @@ public class GoogleLoginControllerTest {
     @Test
     public void GoogleLoginWithRightAccessToken() throws Exception {
         GoogleUserinfoDTO googleUserinfoDTO = new GoogleUserinfoDTO();
-        googleUserinfoDTO.setName("frog");
         googleUserinfoDTO.setEmail("frog@email.com");
         ResponseEntity<GoogleUserinfoDTO> responseEntity = ResponseEntity.ok(googleUserinfoDTO);
 
