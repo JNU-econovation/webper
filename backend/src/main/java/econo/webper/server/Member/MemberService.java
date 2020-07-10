@@ -33,8 +33,9 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
-    public Member findMemberByEmail(String email) {
-        return memberRepository.findByEmail(email).orElseThrow(NoSuchElementException::new);
+    public MemberDetails findMemberByEmail(String email) {
+        Member member = memberRepository.findByEmail(email).orElseThrow(NoSuchElementException::new);
+        return new MemberDetails(member);
     }
 
 
