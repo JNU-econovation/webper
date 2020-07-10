@@ -1,6 +1,7 @@
 package econo.webper.server.jwt;
 
 import econo.webper.server.Member.Member;
+import econo.webper.server.Member.MemberDetails;
 import econo.webper.server.Member.MemberRole;
 import econo.webper.server.Member.MemberDetailsService;
 import io.jsonwebtoken.Claims;
@@ -47,15 +48,15 @@ public class JwtTokenProviderTest {
     public void getAuthenticationTokenTest() {
         // Given
         String jwtToken = jwtTokenProvider.createToken("JongJin", Collections.singletonList(MemberRole.USER));
-        Member member = new Member();
+        MemberDetails memberDetails = new MemberDetails(new Member());
 
         // When
-        when(memberDetailsService.loadUserByUsername("JongJin")).thenReturn(member);
+        when(memberDetailsService.loadUserByUsername("JongJin")).thenReturn(memberDetails);
         Authentication authentication = jwtTokenProvider.getAuthentication(jwtToken);
 
         //Then
-        Member principal = (Member) authentication.getPrincipal();
-        assertThat(principal).isEqualTo(member);
+        MemberDetails principal = (MemberDetails) authentication.getPrincipal();
+        assertThat(principal).isEqualTo(memberDetails);
     }
 
     @Test
@@ -67,7 +68,7 @@ public class JwtTokenProviderTest {
     @Test
     public void resolveTokenTest() {
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.addHeader("Authorization","Token");
+        request.addHeader("Authorization", "Token");
         assertThat(jwtTokenProvider.resolveToken(request)).isEqualTo("Token");
     }
 
