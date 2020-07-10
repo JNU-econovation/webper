@@ -1,7 +1,6 @@
 package econo.webper.server.login;
 
 
-import com.jayway.jsonpath.JsonPath;
 import econo.webper.server.domain.UserService;
 import econo.webper.server.jwt.JwtTokenProvider;
 import org.junit.Test;
@@ -14,9 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -57,7 +54,6 @@ public class GoogleLoginControllerTest {
     @Test
     public void GoogleLoginWithRightAccessToken() throws Exception {
         GoogleUserinfoDTO googleUserinfoDTO = new GoogleUserinfoDTO();
-        googleUserinfoDTO.setName("frog");
         googleUserinfoDTO.setEmail("frog@email.com");
         ResponseEntity<GoogleUserinfoDTO> responseEntity = ResponseEntity.ok(googleUserinfoDTO);
 
@@ -65,15 +61,10 @@ public class GoogleLoginControllerTest {
         when(googleLoginService.authenticate(eq("Right_Access_Token")))
                 .thenReturn(responseEntity);
 
-        MvcResult mvcResult = this.mockMvc.perform(post("/login/google")
+        this.mockMvc.perform(post("/login/google")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"access_token\" : \"Right_Access_Token\"}"))
                 .andDo(print())
-                .andExpect(status().isOk())
-                .andReturn();
-
-        String contentAsString = JsonPath.read(mvcResult.getResponse().getContentAsString(), "$.X-AUTH-TOKEN");
-        assertThat(jwtTokenProvider.getUserPk(contentAsString)).isEqualTo("frog@email.com");
-
+                .andExpect(status().isOk());
     }
 }

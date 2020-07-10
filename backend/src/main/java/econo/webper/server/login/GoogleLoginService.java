@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class GoogleLoginService {
 
-    RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     @Value("${social.google.url}")
     private String googleRequestUrl;
@@ -23,7 +23,7 @@ public class GoogleLoginService {
 
     public ResponseEntity authenticate(String accessToken) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("Authorization", "Bearer" + accessToken);
+        httpHeaders.set("Authorization", "Bearer " + accessToken);
         HttpEntity request = new HttpEntity(httpHeaders);
         try {
             return restTemplate.exchange(googleRequestUrl, HttpMethod.GET, request, GoogleUserinfoDTO.class, 1);
