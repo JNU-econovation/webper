@@ -1,5 +1,6 @@
 package econo.webper.server.domain;
 
+import econo.webper.server.Member.MemberDetails;
 import econo.webper.server.login.GoogleUserinfoDTO;
 import econo.webper.server.Member.Member;
 import econo.webper.server.Member.MemberRole;
@@ -59,10 +60,10 @@ public class UserServiceTest {
         memberService.saveMember(googleUserinfoDTO, Collections.singletonList(MemberRole.USER));
 
         // when
-        Member member = memberService.findMemberByEmail(googleUserinfoDTO.getEmail());
+        MemberDetails memberDetails = memberService.findMemberByEmail(googleUserinfoDTO.getEmail());
 
         // Then
-        assertThat(member.getEmail()).isEqualTo(email);
+        assertThat(memberDetails.getMember().getEmail()).isEqualTo(email);
     }
 
 
