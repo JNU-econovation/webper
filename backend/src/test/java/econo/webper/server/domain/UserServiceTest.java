@@ -22,20 +22,46 @@ public class UserServiceTest {
     public void saveUserTest() {
         // Given
         String email = "jongjin@email.com";
-        String name = "jongjin";
         GoogleUserinfoDTO googleUserinfoDTO = new GoogleUserinfoDTO();
         googleUserinfoDTO.setEmail(email);
-        googleUserinfoDTO.setName(name);
-        userService.saveUser(googleUserinfoDTO, Collections.singletonList(UserRole.USER));
 
         // When
-        User user = userService.findUserByEmail(googleUserinfoDTO.getEmail());
+        User user = userService.saveUser(googleUserinfoDTO, Collections.singletonList(UserRole.USER));
 
+        // Then
+        assertThat(user).isEqualTo(email);
+    }
+
+    @Test
+    public void savedUserTest() {
+        // Given
+        String email = "jongjin@email.com";
+        GoogleUserinfoDTO googleUserinfoDTO = new GoogleUserinfoDTO();
+        googleUserinfoDTO.setEmail(email);
+
+        // When
+        User user = userService.saveUser(googleUserinfoDTO, Collections.singletonList(UserRole.USER));
+        User savedUser = userService.saveUser(googleUserinfoDTO, Collections.singletonList(UserRole.USER));
+
+        // Then
+        assertThat(user).isEqualTo(savedUser);
+    }
+
+    @Test
+    public void findUserByEmailTest() {
+        // Given
+        String email = "jongjin@email.com";
+        GoogleUserinfoDTO googleUserinfoDTO = new GoogleUserinfoDTO();
+        googleUserinfoDTO.setEmail(email);
+        userService.saveUser(googleUserinfoDTO, Collections.singletonList(UserRole.USER));
+
+        // when
+        User user = userService.findUserByEmail(googleUserinfoDTO.getEmail());
 
         // Then
         assertThat(user.getEmail()).isEqualTo(email);
-        assertThat(user.getName()).isEqualTo(name);
-
     }
+
+
 
 }
