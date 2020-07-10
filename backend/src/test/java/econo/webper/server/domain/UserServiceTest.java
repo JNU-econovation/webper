@@ -11,8 +11,8 @@ import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
+@RunWith(SpringRunner.class)
 public class UserServiceTest {
 
     @Autowired
@@ -29,7 +29,7 @@ public class UserServiceTest {
         User user = userService.saveUser(googleUserinfoDTO, Collections.singletonList(UserRole.USER));
 
         // Then
-        assertThat(user).isEqualTo(email);
+        assertThat(user.getEmail()).isEqualTo(email);
     }
 
     @Test
