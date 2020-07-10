@@ -3,6 +3,7 @@ package econo.webper.server.login;
 import econo.webper.server.domain.UserRole;
 import econo.webper.server.domain.UserService;
 import econo.webper.server.jwt.JwtTokenProvider;
+import econo.webper.server.utils.ExceptionMessage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -44,7 +45,7 @@ public class GoogleLoginController {
             String token = jwtTokenProvider.createToken(googleUserinfoDTO.getEmail(), userRoles);
             return ResponseEntity.ok(convertStringToMap(token));
         }
-        return ResponseEntity.badRequest().build();
+        return ResponseEntity.badRequest().body(ExceptionMessage.GOOGLE_OAUTH_ACCESS_TOKEN_UNVALIDATED);
     }
 
     private Map<String, String> convertStringToMap(String token) {
