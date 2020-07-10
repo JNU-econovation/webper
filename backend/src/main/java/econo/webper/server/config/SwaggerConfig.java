@@ -28,9 +28,12 @@ public class SwaggerConfig {
     private ApiInfo metaData() {
         ApiInfo apiInfo = new ApiInfo("Webper Api Documentation",
                 "Spring Boot REST API for Webper",
-                "1.0","Terms of service",
-                new Contact("JongJin Bae","https://imbf.github.io/" ,"qowhdwlsdk@gmail.com"),
-                "","",new ArrayList<>());
+                "1.0",
+                "",
+                new Contact("JongJin Bae", "https://imbf.github.io/", "qowhdwlsdk@gmail.com"),
+                "Apache 2.0",
+                "http://www.apache.org/licenses/LICENSE-2.0",
+                new ArrayList<>());
 
         return apiInfo;
     }
