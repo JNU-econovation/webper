@@ -1,8 +1,8 @@
 package econo.webper.server.jwt;
 
-import econo.webper.server.domain.User;
-import econo.webper.server.domain.UserRole;
-import econo.webper.server.domain.UserUserDetailsService;
+import econo.webper.server.Member.Member;
+import econo.webper.server.Member.MemberRole;
+import econo.webper.server.Member.MemberDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
 public class JwtTokenProviderTest {
 
     @MockBean
-    UserUserDetailsService userUserDetailsService;
+    MemberDetailsService memberDetailsService;
 
     @Autowired
     JwtTokenProvider jwtTokenProvider;
@@ -38,7 +38,7 @@ public class JwtTokenProviderTest {
 
     @Test
     public void createTokenTest() {
-        String jwtToken = jwtTokenProvider.createToken("JongJin", Collections.singletonList(UserRole.USER));
+        String jwtToken = jwtTokenProvider.createToken("JongJin", Collections.singletonList(MemberRole.USER));
 
         assertThat(jwtTokenProvider.getUserPk(jwtToken)).isEqualTo("JongJin");
     }
@@ -46,21 +46,21 @@ public class JwtTokenProviderTest {
     @Test
     public void getAuthenticationTokenTest() {
         // Given
-        String jwtToken = jwtTokenProvider.createToken("JongJin", Collections.singletonList(UserRole.USER));
-        User user = new User();
+        String jwtToken = jwtTokenProvider.createToken("JongJin", Collections.singletonList(MemberRole.USER));
+        Member member = new Member();
 
         // When
-        when(userUserDetailsService.loadUserByUsername("JongJin")).thenReturn(user);
+        when(memberDetailsService.loadUserByUsername("JongJin")).thenReturn(member);
         Authentication authentication = jwtTokenProvider.getAuthentication(jwtToken);
 
         //Then
-        User principal = (User) authentication.getPrincipal();
-        assertThat(principal).isEqualTo(user);
+        Member principal = (Member) authentication.getPrincipal();
+        assertThat(principal).isEqualTo(member);
     }
 
     @Test
     public void getUserPkTest() {
-        String jwtToken = jwtTokenProvider.createToken("JongJin", Collections.singletonList(UserRole.USER));
+        String jwtToken = jwtTokenProvider.createToken("JongJin", Collections.singletonList(MemberRole.USER));
         assertThat(jwtTokenProvider.getUserPk(jwtToken)).isEqualTo("JongJin");
     }
 
@@ -73,7 +73,7 @@ public class JwtTokenProviderTest {
 
     @Test
     public void validatedTokenTest() {
-        String jwtToken = jwtTokenProvider.createToken("JongJin", Collections.singletonList(UserRole.USER));
+        String jwtToken = jwtTokenProvider.createToken("JongJin", Collections.singletonList(MemberRole.USER));
 
         assertThat(jwtTokenProvider.validateToken(jwtToken)).isTrue();
     }
@@ -81,7 +81,7 @@ public class JwtTokenProviderTest {
     @Test
     public void unvalidatedTokenTest() {
         Claims claims = Jwts.claims().setSubject("JongJin");
-        claims.put("roles", Collections.singletonList(UserRole.USER));
+        claims.put("roles", Collections.singletonList(MemberRole.USER));
         Date now = new Date();
         String jwtToken = Jwts.builder()
                 .setClaims(claims)
