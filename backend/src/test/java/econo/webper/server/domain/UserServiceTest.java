@@ -66,6 +66,4 @@ public class UserServiceTest {
         assertThat(memberDetails.getMember().getEmail()).isEqualTo(email);
     }
 
-
-
 }
