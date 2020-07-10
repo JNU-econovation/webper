@@ -1,4 +1,4 @@
-package econo.webper.server.domain;
+package econo.webper.server.Member;
 
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Getter @Builder
 @NoArgsConstructor @AllArgsConstructor @EqualsAndHashCode(of = "id")
 @Entity
-public class User implements UserDetails{
+public class Member implements UserDetails{
 
     @Id
     @GeneratedValue
@@ -31,7 +31,7 @@ public class User implements UserDetails{
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
-    private List<UserRole> roles = new ArrayList<>();
+    private List<MemberRole> roles = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

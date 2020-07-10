@@ -1,6 +1,9 @@
 package econo.webper.server.domain;
 
 import econo.webper.server.login.GoogleUserinfoDTO;
+import econo.webper.server.Member.Member;
+import econo.webper.server.Member.MemberRole;
+import econo.webper.server.Member.MemberService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UserServiceTest {
 
     @Autowired
-    UserService userService;
+    MemberService memberService;
 
     @Test
     public void saveUserTest() {
@@ -26,10 +29,10 @@ public class UserServiceTest {
         googleUserinfoDTO.setEmail(email);
 
         // When
-        User user = userService.saveUser(googleUserinfoDTO, Collections.singletonList(UserRole.USER));
+        Member member = memberService.saveMember(googleUserinfoDTO, Collections.singletonList(MemberRole.USER));
 
         // Then
-        assertThat(user.getEmail()).isEqualTo(email);
+        assertThat(member.getEmail()).isEqualTo(email);
     }
 
     @Test
@@ -40,11 +43,11 @@ public class UserServiceTest {
         googleUserinfoDTO.setEmail(email);
 
         // When
-        User user = userService.saveUser(googleUserinfoDTO, Collections.singletonList(UserRole.USER));
-        User savedUser = userService.saveUser(googleUserinfoDTO, Collections.singletonList(UserRole.USER));
+        Member member = memberService.saveMember(googleUserinfoDTO, Collections.singletonList(MemberRole.USER));
+        Member savedMember = memberService.saveMember(googleUserinfoDTO, Collections.singletonList(MemberRole.USER));
 
         // Then
-        assertThat(user).isEqualTo(savedUser);
+        assertThat(member).isEqualTo(savedMember);
     }
 
     @Test
@@ -53,13 +56,13 @@ public class UserServiceTest {
         String email = "jongjin@email.com";
         GoogleUserinfoDTO googleUserinfoDTO = new GoogleUserinfoDTO();
         googleUserinfoDTO.setEmail(email);
-        userService.saveUser(googleUserinfoDTO, Collections.singletonList(UserRole.USER));
+        memberService.saveMember(googleUserinfoDTO, Collections.singletonList(MemberRole.USER));
 
         // when
-        User user = userService.findUserByEmail(googleUserinfoDTO.getEmail());
+        Member member = memberService.findMemberByEmail(googleUserinfoDTO.getEmail());
 
         // Then
-        assertThat(user.getEmail()).isEqualTo(email);
+        assertThat(member.getEmail()).isEqualTo(email);
     }
 
 
