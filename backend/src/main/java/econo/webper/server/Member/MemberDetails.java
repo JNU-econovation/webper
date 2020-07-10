@@ -29,7 +29,6 @@ public class MemberDetails implements UserDetails {
         return null;
     }
 
-
     @Override
     public String getUsername() {
         return member.getEmail();
