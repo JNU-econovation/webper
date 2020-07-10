@@ -28,7 +28,6 @@ public class UserService {
         }
         User user = User.builder()
                 .email(googleUserinfoDTO.getEmail())
-                .name(googleUserinfoDTO.getName())
                 .roles(userRoles)
                 .build();
         return userRepository.save(user);

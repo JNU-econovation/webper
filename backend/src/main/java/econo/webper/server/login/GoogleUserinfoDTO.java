@@ -7,7 +7,5 @@ import lombok.Setter;
 @Setter
 public class GoogleUserinfoDTO {
 
-    private String name;
-
     private String email;
 }
