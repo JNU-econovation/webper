@@ -27,10 +27,7 @@ public class User implements UserDetails{
 
     private String password;
 
-    @NotNull
     private String name;
-
-    private String introduction;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
