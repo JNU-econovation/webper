@@ -1,5 +1,6 @@
 package econo.webper.server.Member;
 
+import econo.webper.server.directory.Directory;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,6 +27,9 @@ public class Member {
     private String password;
 
     private String name;
+
+    @OneToMany
+    private List<Directory> categories;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
