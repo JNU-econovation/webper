@@ -28,12 +28,35 @@ public class Member {
 
     private String name;
 
-    @OneToMany
-    private List<Directory> categories;
+    @OneToMany(cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<Directory> directories = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<MemberRole> roles = new ArrayList<>();
 
+    public Directory saveDirectory(Directory directory) {
+        if (directory.getParentDirectory() == null) {
+            directories.add(directory);
+            return directory;
+        }
+        Directory parentDirectory = findDirectoryById(directory.getId());
+        if (parentDirectory == null) {
+            return null;
+        }
+        return parentDirectory.saveChildDirectory(directory);
+    }
+
+    public Directory findDirectoryById(Integer id) {
+        Directory result = null;
+        for (Directory directory : directories) {
+            result = directory.findById(id);
+            if (result != null) {
+                return result;
+            }
+        }
+        return null;
+    }
 }
 

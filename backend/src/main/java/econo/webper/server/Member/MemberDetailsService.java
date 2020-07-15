@@ -16,6 +16,6 @@ public class MemberDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return memberService.findMemberByEmail(email);
+        return new MemberDetails(memberService.findMemberByEmail(email));
     }
 }
