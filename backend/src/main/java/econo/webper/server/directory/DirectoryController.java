@@ -25,6 +25,16 @@ public class DirectoryController {
         this.memberService = memberService;
     }
 
+    @GetMapping("/Directory")
+    @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
+    public ResponseEntity getDirectory(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody DirectoryDTO directoryDTO) {
+        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
+        Directory directory = directoryService.getDirectory(savedMember, directoryDTO);
+        if (directory == null) {
+            return ResponseEntity.badRequest().body(ExceptionMessage.NOT_GET_DIRECTORY);
+        }
+        return ResponseEntity.ok(directory);
+    }
 
     @PostMapping("/Directory")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
@@ -58,6 +68,6 @@ public class DirectoryController {
         }
         return ResponseEntity.ok(savedMember);
     }
-
-
 }
+
+
