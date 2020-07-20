@@ -17,4 +17,7 @@ public class DirectoryService {
         return memberService.saveDirectory(member, createDirectoryDTO);
     }
 
+    public boolean deleteDirectory(Member member, DeleteDirectoryDTO deleteDirectoryDTO) {
+        return memberService.deleteDirectory(member, deleteDirectoryDTO);
+    }
 }

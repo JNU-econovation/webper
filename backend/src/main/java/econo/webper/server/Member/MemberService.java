@@ -2,6 +2,7 @@ package econo.webper.server.Member;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import econo.webper.server.directory.CreateDirectoryDTO;
+import econo.webper.server.directory.DeleteDirectoryDTO;
 import econo.webper.server.directory.Directory;
 import econo.webper.server.login.GoogleUserinfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,4 +70,17 @@ public class MemberService {
     }
 
 
+    public boolean deleteDirectory(Member member, DeleteDirectoryDTO deleteDirectoryDTO) {
+        Optional<Member> savedOptionalMember = memberRepository.findById(member.getId());
+        if (!savedOptionalMember.isPresent()) {
+            return false;
+        }
+        Member savedMember = savedOptionalMember.get();
+        boolean isDelete = savedMember.deleteDirectory(deleteDirectoryDTO);
+        if (isDelete == false) {
+            return false;
+        }
+        memberRepository.save(savedMember);
+        return true;
+    }
 }

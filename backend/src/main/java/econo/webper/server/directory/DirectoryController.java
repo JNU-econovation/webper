@@ -40,4 +40,16 @@ public class DirectoryController {
         return ResponseEntity.ok(savedMember);
     }
 
+    @DeleteMapping("/Directory")
+    @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
+    public ResponseEntity deleteDirectory(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody DeleteDirectoryDTO deleteDirectoryDTO) {
+        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
+        boolean isDelete = directoryService.deleteDirectory(savedMember, deleteDirectoryDTO);
+        if (isDelete == false) {
+            return ResponseEntity.badRequest().body(ExceptionMessage.NOT_DELETE_DIRECTORY);
+        }
+        return ResponseEntity.ok(savedMember);
+    }
+
+
 }

@@ -62,5 +62,7 @@ public class Directory {
         return null;
     }
 
-
+    public boolean deleteChildDirectory(Integer deleteDirectoryId) {
+        return childDirectories.removeIf(directory -> directory.getId() == deleteDirectoryId);
+    }
 }
