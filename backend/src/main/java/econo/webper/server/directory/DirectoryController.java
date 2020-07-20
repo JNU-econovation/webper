@@ -9,11 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 @Api(value = "Directory CRUD", tags = {"Directory CRUD - 담당자 : 배종진"})
 @RestController
@@ -29,6 +25,7 @@ public class DirectoryController {
         this.memberService = memberService;
     }
 
+
     @PostMapping("/Directory")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
     public ResponseEntity createDirectory(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody CreateDirectoryDTO createDirectoryDTO) {
@@ -40,11 +37,22 @@ public class DirectoryController {
         return ResponseEntity.ok(savedMember);
     }
 
+    @PutMapping("/Directory")
+    @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
+    public ResponseEntity updateDirectory(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody DirectoryDTO directoryDTO) {
+        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
+        Directory directory = directoryService.updateDirectory(savedMember, directoryDTO);
+        if (directory == null) {
+            return ResponseEntity.badRequest().body(ExceptionMessage.NOT_UPDATE_DIRECTORY);
+        }
+        return ResponseEntity.ok(directory);
+    }
+
     @DeleteMapping("/Directory")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
-    public ResponseEntity deleteDirectory(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody DeleteDirectoryDTO deleteDirectoryDTO) {
+    public ResponseEntity deleteDirectory(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody DirectoryDTO directoryDTO) {
         Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
-        boolean isDelete = directoryService.deleteDirectory(savedMember, deleteDirectoryDTO);
+        boolean isDelete = directoryService.deleteDirectory(savedMember, directoryDTO);
         if (isDelete == false) {
             return ResponseEntity.badRequest().body(ExceptionMessage.NOT_DELETE_DIRECTORY);
         }

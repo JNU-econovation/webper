@@ -5,12 +5,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DeleteDirectoryDTO {
+public class DirectoryDTO {
 
-    private Integer deleteDirectoryId;
+    private Integer Id;
 
     private String title;
 
     private DirectoryCategory category;
 
 }
+

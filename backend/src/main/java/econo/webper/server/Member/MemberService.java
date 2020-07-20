@@ -2,8 +2,9 @@ package econo.webper.server.Member;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import econo.webper.server.directory.CreateDirectoryDTO;
-import econo.webper.server.directory.DeleteDirectoryDTO;
 import econo.webper.server.directory.Directory;
+import econo.webper.server.directory.DirectoryDTO;
+import econo.webper.server.exception.NoSuchMemberException;
 import econo.webper.server.login.GoogleUserinfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,17 +71,26 @@ public class MemberService {
     }
 
 
-    public boolean deleteDirectory(Member member, DeleteDirectoryDTO deleteDirectoryDTO) {
+    public boolean deleteDirectory(Member member, DirectoryDTO directoryDTO) {
         Optional<Member> savedOptionalMember = memberRepository.findById(member.getId());
         if (!savedOptionalMember.isPresent()) {
             return false;
         }
         Member savedMember = savedOptionalMember.get();
-        boolean isDelete = savedMember.deleteDirectory(deleteDirectoryDTO);
+        boolean isDelete = savedMember.deleteDirectory(directoryDTO);
         if (isDelete == false) {
             return false;
         }
         memberRepository.save(savedMember);
         return true;
+    }
+
+    public Directory updateDirectory(Member member, DirectoryDTO directoryDTO) {
+        Optional<Member> savedOptionalMember = memberRepository.findById(member.getId());
+        if (!savedOptionalMember.isPresent()) {
+            throw new NoSuchMemberException("해당 멤버가 존재하지 않습니다.");
+        }
+        Member savedMember = savedOptionalMember.get();
+        return savedMember.updateDirectory(directoryDTO);
     }
 }
