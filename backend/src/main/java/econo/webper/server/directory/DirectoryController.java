@@ -25,7 +25,7 @@ public class DirectoryController {
         this.memberService = memberService;
     }
 
-    @GetMapping("/Directory")
+    @GetMapping("/directory")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
     public ResponseEntity getDirectory(@AuthenticationPrincipal MemberDetails memberDetails, @RequestParam Integer id) {
         Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
@@ -36,7 +36,7 @@ public class DirectoryController {
         return ResponseEntity.ok(directory);
     }
 
-    @PostMapping("/Directory")
+    @PostMapping("/directory")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
     public ResponseEntity createDirectory(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody CreateDirectoryDTO createDirectoryDTO) {
         Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
@@ -47,7 +47,7 @@ public class DirectoryController {
         return ResponseEntity.ok(savedMember);
     }
 
-    @PutMapping("/Directory")
+    @PutMapping("/directory")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
     public ResponseEntity updateDirectory(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody DirectoryDTO directoryDTO) {
         Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
@@ -58,7 +58,7 @@ public class DirectoryController {
         return ResponseEntity.ok(directory);
     }
 
-    @DeleteMapping("/Directory")
+    @DeleteMapping("/directory")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
     public ResponseEntity deleteDirectory(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody DirectoryDTO directoryDTO) {
         Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
