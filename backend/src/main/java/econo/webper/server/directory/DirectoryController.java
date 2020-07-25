@@ -4,6 +4,7 @@ import econo.webper.server.Member.Member;
 import econo.webper.server.Member.MemberDetails;
 import econo.webper.server.Member.MemberRepository;
 import econo.webper.server.Member.MemberService;
+import econo.webper.server.component.Component;
 import econo.webper.server.directory.dto.CreateDirectoryDTO;
 import econo.webper.server.directory.dto.DirectoryDTO;
 import econo.webper.server.utils.ExceptionMessage;
@@ -85,6 +86,7 @@ public class DirectoryController {
         }
         return ResponseEntity.ok(savedMember);
     }
+
 }
 
 
