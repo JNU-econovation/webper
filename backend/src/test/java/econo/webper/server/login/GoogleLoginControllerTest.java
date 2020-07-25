@@ -1,7 +1,5 @@
 package econo.webper.server.login;
 
-
-import econo.webper.server.domain.UserService;
 import econo.webper.server.jwt.JwtTokenProvider;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,9 +28,6 @@ public class GoogleLoginControllerTest {
 
     @MockBean
     GoogleLoginService googleLoginService;
-
-    @Autowired
-    UserService userService;
 
     @Autowired
     JwtTokenProvider jwtTokenProvider;
