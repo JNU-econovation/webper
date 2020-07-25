@@ -1,4 +1,4 @@
-package econo.webper.server.domain;
+package econo.webper.server.Member;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -6,16 +6,16 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserUserDetailsService implements UserDetailsService {
+public class MemberDetailsService implements UserDetailsService {
 
-    private final UserService userService;
+    private final MemberService memberService;
 
-    public UserUserDetailsService(UserService userService) {
-        this.userService = userService;
+    public MemberDetailsService(MemberService memberService) {
+        this.memberService = memberService;
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userService.findUserByEmail(email);
+        return new MemberDetails(memberService.findMemberByEmail(email));
     }
 }

@@ -1,6 +1,6 @@
 package econo.webper.server.jwt;
 
-import econo.webper.server.domain.UserRole;
+import econo.webper.server.Member.MemberRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -29,7 +29,7 @@ public class JwtTokenProvider {
 
     private final UserDetailsService userDetailsService;
 
-    public JwtTokenProvider(@Qualifier("userUserDetailsService") UserDetailsService userDetailsService) {
+    public JwtTokenProvider(@Qualifier("memberDetailsService") UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
@@ -38,7 +38,7 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createToken(String userPk, List<UserRole> roles) {
+    public String createToken(String userPk, List<MemberRole> roles) {
         Claims claims = Jwts.claims().setSubject(userPk);
         claims.put("roles", roles);
         Date now = new Date();

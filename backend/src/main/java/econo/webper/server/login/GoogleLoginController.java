@@ -1,7 +1,7 @@
 package econo.webper.server.login;
 
-import econo.webper.server.domain.UserRole;
-import econo.webper.server.domain.UserService;
+import econo.webper.server.Member.MemberRole;
+import econo.webper.server.Member.MemberService;
 import econo.webper.server.jwt.JwtTokenProvider;
 import econo.webper.server.utils.ExceptionMessage;
 import io.swagger.annotations.Api;
@@ -22,12 +22,12 @@ public class GoogleLoginController {
 
     private final GoogleLoginService googleLoginService;
     private final JwtTokenProvider jwtTokenProvider;
-    private final UserService userService;
+    private final MemberService memberService;
 
-    public GoogleLoginController(GoogleLoginService googleLoginService, JwtTokenProvider jwtTokenProvider, UserService userService) {
+    public GoogleLoginController(GoogleLoginService googleLoginService, JwtTokenProvider jwtTokenProvider, MemberService memberService) {
         this.googleLoginService = googleLoginService;
         this.jwtTokenProvider = jwtTokenProvider;
-        this.userService = userService;
+        this.memberService = memberService;
     }
 
     @ApiOperation(value = "Login By Google OAuth", response = ResponseEntity.class)
@@ -40,9 +40,9 @@ public class GoogleLoginController {
         ResponseEntity responseEntity = googleLoginService.authenticate(googleAccessTokenDTO.getAccess_token());
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             GoogleUserinfoDTO googleUserinfoDTO = (GoogleUserinfoDTO) responseEntity.getBody();
-            List<UserRole> userRoles = Collections.singletonList(UserRole.USER);
-            userService.saveUser(googleUserinfoDTO, userRoles);
-            String token = jwtTokenProvider.createToken(googleUserinfoDTO.getEmail(), userRoles);
+            List<MemberRole> memberRoles = Collections.singletonList(MemberRole.USER);
+            memberService.saveMember(googleUserinfoDTO, memberRoles);
+            String token = jwtTokenProvider.createToken(googleUserinfoDTO.getEmail(), memberRoles);
             return ResponseEntity.ok(convertStringToMap(token));
         }
         return ResponseEntity.badRequest().body(ExceptionMessage.GOOGLE_OAUTH_ACCESS_TOKEN_UNVALIDATED);
