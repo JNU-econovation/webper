@@ -16,12 +16,14 @@ a {
 .container {
   display: flex;
   justify-content: center;
+  background-color: #ffffff;
+  box-shadow: 0 0 5px lightgray;
 }
 
 /* Header */
 .header-container {
   position: fixed;
-  background-color: beige;
+  background-color: white;
   display: grid;
   grid-template-columns: 50px 150px 1fr 100px;
   align-items: center;
@@ -29,6 +31,7 @@ a {
   width: 100%;
   height: 50px;
   z-index: 2;
+  box-shadow: 0 0 5px lightgray;
 }
 
 .menu-icon {
@@ -39,7 +42,7 @@ a {
 }
 
 .menu-icon:hover {
-  filter: opacity(100%)
+  filter: opacity(100%);
 }
 
 .main-link {
@@ -51,7 +54,7 @@ a {
   position: relative;
   display: inline-block;
   /* justify-self: center; */
-  grid-column:  4;
+  grid-column: 4;
 }
 
 .profile-image {
@@ -67,7 +70,7 @@ a {
   right: 10px;
   background-color: #f9f9f9;
   min-width: 100px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -76,7 +79,7 @@ a {
 }
 
 .profile-content div {
-  font-size: 0.80em;
+  font-size: 0.8em;
   padding: 7px 9px;
   cursor: pointer;
   display: flex;
@@ -84,7 +87,7 @@ a {
 }
 
 .profile-content div:hover {
-  background-color:#F7F5F2;
+  background-color: #f7f5f2;
 }
 
 .setting {
@@ -93,7 +96,8 @@ a {
   padding: auto 0;
 }
 
-.setting-icon, .signout-icon{
+.setting-icon,
+.signout-icon {
   width: 17px;
   margin-right: 5px;
 }
@@ -113,7 +117,7 @@ nav {
   /* z-index: 1; */
   top: 0;
   left: 0;
-  background-color: #ebe5d5;
+  background-color: white;
   overflow-x: hidden;
   transition: 0.5s;
   margin-right: 10px;
@@ -129,7 +133,7 @@ nav {
 }
 
 .back-icon:hover {
-  filter: opacity(100%)
+  filter: opacity(100%);
 }
 
 .nav-top-container {
@@ -137,6 +141,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 0 5px lightgray;
 }
 
 div.top-hierarchy {
@@ -144,7 +149,7 @@ div.top-hierarchy {
   font-weight: bolder;
 }
 
-.nav-top-container img{
+.nav-top-container img {
   width: 18px;
   height: 18px;
   /* margin: auto 0; */
@@ -169,7 +174,7 @@ nav div a {
 }
 
 .inner-container:hover {
-  background-color: #F7F5F2;
+  background-color: #f7f5f2;
 }
 
 .directory-title {
@@ -200,9 +205,9 @@ nav div a {
   display: none;
   position: absolute;
   right: 0;
-  background-color: #F7F5F2;
+  background-color: #f7f5f2;
   width: 120px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -243,7 +248,7 @@ nav div a {
 
 .scrap-container {
   display: grid;
-  grid-template-columns: repeat(4, 25%) ;
+  grid-template-columns: repeat(4, 25%);
   grid-row: auto;
   gap: 15px 10px;
   padding: 5px 10px;
@@ -292,14 +297,23 @@ nav div a {
   margin: 0px auto;
 }
 
+.scrap-url {
+  display: flex;
+  justify-content: center;
+  border-radius: 3px;
+  padding: 5px;
+  box-shadow: 0 0 5px lightgray;
+}
+
 .scrap-item {
+  justify-content: center;
   border-radius: 3px;
   padding: 5px;
   box-shadow: 0 0 5px lightgray;
 }
 
 .scrap-item:hover {
-  background-color: #F7F5F2;
+  background-color: #f7f5f2;
 }
 
 .scrap-img {
@@ -320,9 +334,53 @@ nav div a {
   display: flex;
   justify-content: center;
   align-items: center;
+  vertical-align: middle;
+}
+form {
+  display: inline-block;
+  text-align: center;
+}
+
+form > button {
+  width: 75px;
+  background-color: #d3f5f3;
+  border: none;
+  color: gray;
+  padding: 7px 0;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+form > button:hover {
+  -webkit-animation: hover 1200ms linear 2 alternate;
+  animation: hover 1200ms linear 2 alternate;
+  background-color: #d3f5f3;
 }
 .url-input {
-  width: 90%;
+  width: 100%;
+  border: 2.5px solid #d3f5f3;
+  border-rarius: 10px;
+}
+
+/*footer*/
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  width: 100%;
+  height: 130px;
+  flex-direction: column;
+}
+
+.footer > div {
+  padding: 5px;
 }
 
 /* Modal */
@@ -330,7 +388,7 @@ nav div a {
   height: 100%;
   width: 100%;
   position: fixed;
-  background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+  background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
   left: 0;
   top: 0;
 }
@@ -340,8 +398,7 @@ nav div a {
   background-color: #ebe5d5;
   margin: 15% auto;
   padding: 20px;
-  width:50%;
-
+  width: 50%;
 }
 
 .modal-title {
@@ -361,8 +418,6 @@ nav div a {
   color: red;
 }
 
-
-
 /* 이 밑으로는 원래 login 위한 css파일. 안쓰는 코드들은 삭제 바람 */
 
 .center {
@@ -375,12 +430,12 @@ nav div a {
   left: 50%;
   transform: translate(-50%, -50%); */
 
-  /* position: absolute;
+/* position: absolute;
   top: 50%;
   heigth: 100px;
   margin-top: -50px; */
 
-  /* position: absolute;
+/* position: absolute;
   top: 50%;
   transform: translateY(-50%);
 } */
