@@ -50,7 +50,9 @@ class BlogScrap extends React.Component {
                     <img onClick={this.editModeOn} className="scrap-edit-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" />
                 </div>
                 <a href={this.props.blog.redirectionLink} target="_blank" rel="noopener noreferrer">
-                    <img className="scrap-img" src={this.props.blog.thumbnails || window.location.origin + "/images/emptyImage.png"} alt={this.props.blog.title} />
+                    <div className="crop blog">
+                        <img className="scrap-img blog" src={this.props.blog.thumbnails || window.location.origin + "/images/emptyImage.png"} alt={this.props.blog.title} />
+                    </div>
                 </a>
                 <div className="detail-container">
                     <div>{this.props.blog.title}</div>
