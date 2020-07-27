@@ -66,8 +66,8 @@ class DirectoryDetail extends React.Component {
           <img
             className="scrap-img"
             alt="ScrapDefault"
-            src={window.location.origin + "/images/ScrapDefault.png"}
-          ></img>
+            src={window.location.origin + "/images/scrapDefault2.png"}
+          />
         </div>
       );
   };

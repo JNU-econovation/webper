@@ -6,6 +6,7 @@ const Modal = props => {
         <div onClick={props.onDismiss} className="modal-background">
             <div onClick={(e) => e.stopPropagation()} className="modal">
                 <div className="modal-title">{props.title}</div>
+                <hr />
                 <div className="modal-content">{props.content}
                 </div>
             </div>
