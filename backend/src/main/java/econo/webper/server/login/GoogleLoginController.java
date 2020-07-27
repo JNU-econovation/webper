@@ -30,7 +30,7 @@ public class GoogleLoginController {
         this.memberService = memberService;
     }
 
-    @CrossOrigin(origins = "http://domain2.com", maxAge = 3600)
+    @CrossOrigin(origins = "http://www.webper.net:3000", maxAge = 3600)
     @ApiOperation(value = "Login By Google OAuth", response = ResponseEntity.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Login Success"),
