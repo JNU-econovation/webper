@@ -38,6 +38,8 @@ class LoginButton extends React.Component {
 
     onSignOutClick = () => {
         this.auth.signOut();
+        const { cookies } = this.props;
+        cookies.remove('Authrization', { path: '/' });
     }
 
     renderAuthButton() {
@@ -61,12 +63,10 @@ class LoginButton extends React.Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
-    console.log(ownProps.cookies);
+const mapStateToProps = (state) => {
     return {
         authorization: state.auth.authorization,
-        isSignedIn: state.auth.isSignedIn,
-        cookies: ownProps.cookies
+        isSignedIn: state.auth.isSignedIn
     };
 }
 
