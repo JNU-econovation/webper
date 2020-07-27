@@ -22,7 +22,8 @@ class LoginButton extends React.Component {
             this.props.signIn(
                 this.auth.currentUser.get().getId(),
                 this.auth.currentUser.get().getBasicProfile().getImageUrl(),
-                this.auth.currentUser.get().getBasicProfile().getGivenName()
+                this.auth.currentUser.get().getBasicProfile().getGivenName(),
+                this.auth.currentUser.get().wc.access_token
             );
         } else {
             this.props.signOut();
@@ -31,6 +32,8 @@ class LoginButton extends React.Component {
 
     onSignInClick = () => {
         this.auth.signIn();
+        // const { cookies } = this.props;
+        // cookies.set('Authrization', this.props.authrization, { path: '/' });
     };
 
     onSignOutClick = () => {
@@ -58,8 +61,13 @@ class LoginButton extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return { isSignedIn: state.auth.isSignedIn };
+const mapStateToProps = (state, ownProps) => {
+    // console.log(ownProps.cookies);
+    return {
+        //authorization: state.auth.authorization
+        isSignedIn: state.auth.isSignedIn,
+        cookies: ownProps.cookies
+    };
 }
 
 export default connect(mapStateToProps, { signIn, signOut })(LoginButton);
