@@ -11,6 +11,7 @@ a {
   position: relative;
   top: 50px;
   transition: 0.5s;
+  min-height: 100vh;
 }
 
 .container {
@@ -312,7 +313,8 @@ nav div a {
   box-shadow: 0 0 5px lightgray;
 }
 
-.scrap-item:hover, .scrap-url:hover {
+.scrap-item:hover,
+.scrap-url:hover {
   background-color: #f7f5f2;
 }
 
@@ -402,10 +404,10 @@ form button:hover {
 }
 
 .modal hr {
-  border:none;
-	height: 50px;
-	box-shadow: 0 5px 5px -5px lightgray;
-  margin: -50px auto 10px; 
+  border: none;
+  height: 50px;
+  box-shadow: 0 5px 5px -5px lightgray;
+  margin: -50px auto 10px;
 }
 
 .modal-title {

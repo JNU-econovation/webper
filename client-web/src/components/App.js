@@ -37,10 +37,9 @@ const App = (props) => {
             <Route path="/delete/:id" exact component={DeleteDirectory} />
             <Route path="/edit/:id" exact component={EditDirectory} />
             <Route path="/setting" exact component={Setting} />
-
-            <Footer />
           </div>
         </Switch>
+        <Footer />
       </Router>
     </div>
   );
