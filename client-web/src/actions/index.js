@@ -17,9 +17,9 @@ export const signOut = () => {
     }
 }
 
-export const createDir = directory_detail => async (dispatch, getState) => {
-    const { userId } = getState().auth;
-    const response = await server.post('/dirs', { ...directory_detail, userId });
+export const createDir = directory_detail => async (dispatch) => {
+    console.log("requestbody:", directory_detail);
+    const response = await server.post('/Directory', { ...directory_detail });
     dispatch({ type: "CREATE_DIR", payload: response.data });
     history.goBack();
 }
