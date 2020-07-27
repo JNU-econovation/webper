@@ -17,7 +17,7 @@ public class AppConfig {
 
     @Bean
     public WebMvcConfigurer webMvcConfigurer() {
-        return new WebMvcConfigurerAdapter() {
+        return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
