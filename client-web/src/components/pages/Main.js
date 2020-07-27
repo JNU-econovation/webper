@@ -24,9 +24,6 @@ class Main extends React.Component {
         if (!this.props.scraps) return null;
 
         const scraps = this.props.scraps.filter(scrap => scrap.directoryId == directory.id);
-
-        // console.log(directory.id, directory.directoryTitle, scraps);
-
         const scrapComponents = renderScraps(directory, scraps);
         return scrapComponents;
     }
@@ -51,8 +48,7 @@ class Main extends React.Component {
         if (!this.props.isSignedIn)
             history.push('/user_login')
 
-        // const { cookies } = this.props;
-        // cookies.set('name', 'Young', { path: '/' });
+
 
         return (
             <div>
@@ -70,10 +66,8 @@ class Main extends React.Component {
 };
 
 const mapStateToProps = (state, ownProps) => {
-    // console.log(ownProps.cookies);
     return {
         isSignedIn: state.auth.isSignedIn,
-        cookies: ownProps.cookies,
         setting: state.setting,
         dirs: state.dirs,
         scraps: Object.values(state.scraps).reverse()

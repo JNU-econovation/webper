@@ -2,13 +2,12 @@ import server from '../apis/server';
 import history from '../history';
 import { formValues } from 'redux-form';
 
-export const signIn = (userId, userImage, username) => async (dispatch, getState) => {
-    dispatch({ type: "SIGN_IN", payload: { userId, userImage, username } });
-
-    // 서버 구축 후에 이 부분에 
-    // 1. user테이블에 user정보 추가하는 요청 보낵
-    // 2. user테이블의 userId를 foreign key로 참조하는 setting 테이블에 해당 user의 setting정보를 initial Value로 설정하는 요청 보냄
-
+export const signIn = (userId, userImage, username, token) => async (dispatch, getState) => {
+    console.log(userId, userImage, username, token);
+    const response = await server.post('login/google', { access_tocken: token });
+    console.log("response:", response);
+    // dispatch({ type: "SIGN_IN", payload: { userId, userImage, username } });
+    dispatch({ type: "SIGN_IN", payload: { userId, userImage, username, authorization: response.Authrization } });
     history.push('/');
 };
 
@@ -32,6 +31,8 @@ export const fetchAllDirs = () => async dispatch => {
 }
 
 export const fetchDirs = parentId => async dispatch => {
+    //if (parentId === 0)
+    //   parentId = null;
     const response = await server.get(`/dirs?parentId=${parentId}`);
 
     dispatch({ type: "FETCH_DIRS", payload: response.data });
