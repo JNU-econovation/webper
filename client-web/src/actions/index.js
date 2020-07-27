@@ -4,7 +4,7 @@ import { formValues } from 'redux-form';
 
 export const signIn = (userId, userImage, username, token) => async (dispatch, getState) => {
     console.log(userId, userImage, username, token);
-    const response = await server.post('login/google', { access_tocken: token });
+    const response = await server.post('login/google', { access_token: token });
     console.log("response:", response);
     // dispatch({ type: "SIGN_IN", payload: { userId, userImage, username } });
     dispatch({ type: "SIGN_IN", payload: { userId, userImage, username, authorization: response.Authrization } });
