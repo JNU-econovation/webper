@@ -93,12 +93,12 @@ public class MemberService {
         return savedMember.updateDirectory(directoryDTO);
     }
 
-    public Directory getDirectory(Member member, DirectoryDTO directoryDTO) {
+    public Directory getDirectory(Member member, Integer id) {
         Optional<Member> savedOptionalMember = memberRepository.findById(member.getId());
         if (!savedOptionalMember.isPresent()) {
             throw new NoSuchMemberException("해당 멤버가 존재하지 않습니다.");
         }
         Member savedMember = savedOptionalMember.get();
-        return savedMember.findDirectoryById(directoryDTO.getId());
+        return savedMember.findDirectoryById(id);
     }
 }

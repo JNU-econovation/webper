@@ -27,9 +27,9 @@ public class DirectoryController {
 
     @GetMapping("/Directory")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
-    public ResponseEntity getDirectory(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody DirectoryDTO directoryDTO) {
+    public ResponseEntity getDirectory(@AuthenticationPrincipal MemberDetails memberDetails, @RequestParam Integer id) {
         Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
-        Directory directory = directoryService.getDirectory(savedMember, directoryDTO);
+        Directory directory = directoryService.getDirectory(savedMember, id);
         if (directory == null) {
             return ResponseEntity.badRequest().body(ExceptionMessage.NOT_GET_DIRECTORY);
         }

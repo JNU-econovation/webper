@@ -25,7 +25,7 @@ public class DirectoryService {
         return memberService.deleteDirectory(member, directoryDTO);
     }
 
-    public Directory getDirectory(Member member, DirectoryDTO directoryDTO) {
-        return memberService.getDirectory(member, directoryDTO);
+    public Directory getDirectory(Member member, Integer id) {
+        return memberService.getDirectory(member, id);
     }
 }
