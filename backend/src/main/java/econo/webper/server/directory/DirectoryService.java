@@ -36,7 +36,13 @@ public class DirectoryService {
 
     public List<DirectoryDTO> getDirectoryDTOs(Member savedMember) {
         List<DirectoryDTO> directoryDTOs = new ArrayList<>();
-        savedMember.getDirectories().forEach(directory -> directoryDTOs.add(new DirectoryDTO(directory.getId(),directory.getTitle(),directory.getCategory())));
+        Integer parentDirectoryId = null;
+        for (Directory directory : savedMember.getDirectories()) {
+            if (directory.getParentDirectory() != null) {
+                parentDirectoryId = directory.getParentDirectory().getId();
+            }
+            directoryDTOs.add(new DirectoryDTO(directory.getId(), directory.getTitle(), directory.getCategory(), parentDirectoryId));
+        }
         return directoryDTOs;
     }
 }
