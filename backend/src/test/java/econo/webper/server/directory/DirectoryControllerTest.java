@@ -50,22 +50,23 @@ public class DirectoryControllerTest {
                 "\"title\" : \"Example\"" +
                 "}";
 
-        mockMvc.perform(post("/Directory")
+        mockMvc.perform(post("/directory")
                 .header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonParam))
                 .andDo(print());
-        mockMvc.perform(post("/Directory")
+        mockMvc.perform(post("/directory")
                 .header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonParam))
                 .andDo(print());
+
         jsonParam = "{" +
                 "\"category\" : \"BLOG\"," +
                 "\"parentDirectoryId\" : 1," +
                 "\"title\" : \"Example\"" +
                 "}";
-        mockMvc.perform(post("/Directory")
+        mockMvc.perform(post("/directory")
                 .header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonParam))
@@ -76,13 +77,13 @@ public class DirectoryControllerTest {
                 "\"parentDirectoryId\" : 2," +
                 "\"title\" : \"Example\"" +
                 "}";
-        mockMvc.perform(post("/Directory")
+        mockMvc.perform(post("/directory")
                 .header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonParam))
                 .andDo(print());
 
-        mockMvc.perform(get("/Directory")
+        mockMvc.perform(get("/directory")
                 .header("Authorization", token)
                 .param("id","1"))
                 .andDo(print());
@@ -93,16 +94,33 @@ public class DirectoryControllerTest {
                 "\"title\" : \"Change Example\"" +
                 "}";
 
-        mockMvc.perform(put("/Directory")
+        mockMvc.perform(put("/directory")
                 .header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonParam))
                 .andDo(print());
 
-        mockMvc.perform(delete("/Directory")
+        mockMvc.perform(delete("/directory")
                 .header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonParam))
+                .andDo(print());
+
+
+        jsonParam = "{" +
+                "\"category\" : \"BLOG\"," +
+                "\"parentDirectoryId\" : null," +
+                "\"title\" : \"Example\"" +
+                "}";
+
+        mockMvc.perform(post("/directory")
+                .header("Authorization", token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonParam))
+                .andDo(print());
+
+        mockMvc.perform(get("/root-directory")
+                .header("Authorization", token))
                 .andDo(print());
 
 
