@@ -100,10 +100,8 @@ public class DirectoryControllerTest {
                 .content(jsonParam))
                 .andDo(print());
 
-        mockMvc.perform(delete("/directory")
-                .header("Authorization", token)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonParam))
+        mockMvc.perform(delete("/directory/1")
+                .header("Authorization", token))
                 .andDo(print());
 
 
