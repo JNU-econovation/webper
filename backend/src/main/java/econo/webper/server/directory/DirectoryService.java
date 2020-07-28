@@ -4,6 +4,7 @@ import econo.webper.server.Member.Member;
 import econo.webper.server.Member.MemberService;
 import econo.webper.server.directory.dto.CreateDirectoryDTO;
 import econo.webper.server.directory.dto.DirectoryDTO;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,8 +15,11 @@ public class DirectoryService {
 
     private final MemberService memberService;
 
-    public DirectoryService(MemberService memberService) {
+    private final DirectoryRepository directoryRepository;
+
+    public DirectoryService(MemberService memberService, DirectoryRepository directoryRepository) {
         this.memberService = memberService;
+        this.directoryRepository = directoryRepository;
     }
 
     public Directory createDirectory(Member member, CreateDirectoryDTO createDirectoryDTO) {
@@ -44,5 +48,9 @@ public class DirectoryService {
             directoryDTOs.add(new DirectoryDTO(directory.getId(), directory.getTitle(), directory.getCategory(), parentDirectoryId));
         }
         return directoryDTOs;
+    }
+
+    public Directory getLastIdDirectory() {
+        return directoryRepository.findAll(Sort.by(Sort.Direction.DESC,"id")).get(0);
     }
 }

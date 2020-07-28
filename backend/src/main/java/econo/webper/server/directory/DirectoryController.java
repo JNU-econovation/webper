@@ -58,7 +58,13 @@ public class DirectoryController {
         if (directory == null) {
             return ResponseEntity.badRequest().body(ExceptionMessage.NOT_CREATE_DIRECTORY);
         }
-        return ResponseEntity.ok(savedMember);
+        Directory createdDirectory = directoryService.getLastIdDirectory();
+        Integer parentDirectoryId = null;
+        if (createdDirectory.getParentDirectory() != null) {
+            parentDirectoryId = createdDirectory.getParentDirectory().getId();
+        }
+        DirectoryDTO directoryDTO = new DirectoryDTO(createdDirectory.getId(), createdDirectory.getTitle(),createdDirectory.getCategory(), parentDirectoryId);
+        return ResponseEntity.ok(directoryDTO);
     }
 
     @PutMapping("/directory")
