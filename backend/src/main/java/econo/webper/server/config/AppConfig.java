@@ -21,7 +21,7 @@ public class AppConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://webper.net:3000")
+                        .allowedOrigins("http://www.webper.net:3000")
                         .allowedMethods("*")
                         .allowCredentials(false)
                         .maxAge(3000);
