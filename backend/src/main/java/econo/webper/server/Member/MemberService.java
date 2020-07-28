@@ -1,9 +1,9 @@
 package econo.webper.server.Member;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import econo.webper.server.directory.CreateDirectoryDTO;
+import econo.webper.server.directory.dto.CreateDirectoryDTO;
 import econo.webper.server.directory.Directory;
-import econo.webper.server.directory.DirectoryDTO;
+import econo.webper.server.directory.dto.DirectoryDTO;
 import econo.webper.server.exception.NoSuchMemberException;
 import econo.webper.server.login.GoogleUserinfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;

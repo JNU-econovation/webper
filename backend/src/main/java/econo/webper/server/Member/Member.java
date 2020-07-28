@@ -1,7 +1,7 @@
 package econo.webper.server.Member;
 
 import econo.webper.server.directory.Directory;
-import econo.webper.server.directory.DirectoryDTO;
+import econo.webper.server.directory.dto.DirectoryDTO;
 
 import lombok.*;
 
