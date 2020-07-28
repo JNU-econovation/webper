@@ -44,7 +44,7 @@ class DirectoryDetail extends React.Component {
 
     renderTitle = () => {
         if (this.props.directory)
-            return <h2 className="title">{this.props.directory.directoryTitle}</h2>
+            return <h2 className="title">{this.props.directory.title}</h2>
         else return null;
     }
 

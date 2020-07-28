@@ -32,16 +32,10 @@ class LoginButton extends React.Component {
 
     onSignInClick = () => {
         this.auth.signIn();
-        const { cookies } = this.props;
-	console.log("auth:", this.props.authorization);
-	    cookies.set('Authorization', this.props.authorization, { path: '/' });
-	localStorage.setItem('Authorization', this.props.authorization);
     };
 
     onSignOutClick = () => {
         this.auth.signOut();
-        const { cookies } = this.props;
-        cookies.remove('Authorization', { path: '/' });
     }
 
     renderAuthButton() {
