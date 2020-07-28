@@ -11,10 +11,10 @@ class DirForm extends React.Component {
                     <label>Directory Type </label>
                     <Field name="category" component="select">
                         <option></option>
-                        <option value="wishlist">Wish List</option>
-                        <option value="blog">Blog</option>
-                        <option value="video">Youtube</option>
-                        <option value="portal">Portal</option>
+                        <option value="WISHLIST">Wish List</option>
+                        <option value="BLOG">Blog</option>
+                        <option value="VIDEO">Youtube</option>
+                        <option value="PORTAL">Portal</option>
                     </Field>
                 </div>
                 <div>

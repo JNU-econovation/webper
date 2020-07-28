@@ -3,11 +3,8 @@ import history from '../history';
 import { formValues } from 'redux-form';
 
 export const signIn = (userId, userImage, username, token) => async (dispatch, getState) => {
-    console.log(userId, userImage, username, token);
     const response = await server.post('login/google', { access_token: token });
-    console.log("response:", response);
-    // dispatch({ type: "SIGN_IN", payload: { userId, userImage, username } });
-    dispatch({ type: "SIGN_IN", payload: { userId, userImage, username, authorization: response.Authrization } });
+    dispatch({ type: "SIGN_IN", payload: { userId, userImage, username, authorization: response.data.Authorization } });
     history.push('/');
 };
 
@@ -18,8 +15,11 @@ export const signOut = () => {
 }
 
 export const createDir = directory_detail => async (dispatch) => {
-    console.log("requestbody:", directory_detail);
-    const response = await server.post('/Directory', { ...directory_detail });
+
+	if (directory_detail.parentDirectoryId == 0)
+		directory_detail.parentDirectoryId = null;
+	console.log("requestbody:", directory_detail);
+	const response = await server.post('/Directory', { ...directory_detail });
     dispatch({ type: "CREATE_DIR", payload: response.data });
     history.goBack();
 }
@@ -30,10 +30,10 @@ export const fetchAllDirs = () => async dispatch => {
     dispatch({ type: "FETCH_ALL_DIRS", payload: response.data });
 }
 
-export const fetchDirs = parentId => async dispatch => {
-    //if (parentId === 0)
-    //   parentId = null;
-    const response = await server.get(`/dirs?parentId=${parentId}`);
+export const fetchDirs = parentDirectoryId => async dispatch => {
+    if (parentDirectoryId == 0)
+       parentDirectoryId = null;
+    const response = await server.get(`/Directory?parentDirectoryId=${parentDirectoryId}`);
 
     dispatch({ type: "FETCH_DIRS", payload: response.data });
 }
