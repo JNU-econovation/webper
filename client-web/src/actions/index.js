@@ -2,56 +2,76 @@ import server from '../apis/server';
 import history from '../history';
 import { formValues } from 'redux-form';
 
+const getHeader = () => {
+	let Authorization = localStorage.getItem('Authorization');
+	return {
+		headers: {
+			'Authorization': Authorization
+		}
+	}
+}
+
 export const signIn = (userId, userImage, username, token) => async (dispatch, getState) => {
-    console.log(userId, userImage, username, token);
-    const response = await server.post('login/google', { access_token: token });
-    console.log("response:", response);
-    // dispatch({ type: "SIGN_IN", payload: { userId, userImage, username } });
-    dispatch({ type: "SIGN_IN", payload: { userId, userImage, username, authorization: response.Authrization } });
+	const response = await server.post('login/google', { access_token: token });
+    	localStorage.setItem('Authorization', response.data.Authorization);
+	dispatch({ type: "SIGN_IN", payload: { userId, userImage, username } });
     history.push('/');
 };
 
 export const signOut = () => {
+    	localStorage.removeItem('Authorization');
     return {
         type: "SIGN_OUT"
     }
 }
 
-export const createDir = directory_detail => async (dispatch, getState) => {
-    const { userId } = getState().auth;
-    const response = await server.post('/dirs', { ...directory_detail, userId });
-    dispatch({ type: "CREATE_DIR", payload: response.data });
-    history.goBack();
+export const createDir = directory_detail => async (dispatch) => {
+
+    if (directory_detail.parentDirectoryId == 0)
+	directory_detail.parentDirectoryId = null;
+	const response = await server.post('/directory', { ...directory_detail }, getHeader);
+	response.data['parentDirectory'] = response.data['parentDirectoryId'];
+	delete response.data.parentDirectoryId;
+	console.log("in creatDir response:", response);
+	dispatch({ type: "CREATE_DIR", payload: response.data });
+    history.push('/');
 }
 
 export const fetchAllDirs = () => async dispatch => {
-    const response = await server.get('/dirs');
+    const response = await server.get('/directory');
 
     dispatch({ type: "FETCH_ALL_DIRS", payload: response.data });
 }
 
-export const fetchDirs = parentId => async dispatch => {
-    //if (parentId === 0)
-    //   parentId = null;
-    const response = await server.get(`/dirs?parentId=${parentId}`);
+export const fetchRootDirs = () => async dispatch => {
+	const response = await server.get('/root-directory', getHeader());
+	dispatch({ type: "FETCH_DIRS", payload: response.data });
+	history.goBack();
+}
 
-    dispatch({ type: "FETCH_DIRS", payload: response.data });
+export const fetchDirs = parentDirectoryId => async dispatch => {
+    if (parentDirectoryId == 0)
+       parentDirectoryId = null;
+    const response = await server.get(`/directory?id=${parentDirectoryId}`);
+
+	console.log(response.data);
+    dispatch({ type: "FETCH_DIRS", payload: response.data.childDirectories });
 }
 
 export const fetchDir = id => async dispatch => {
-    const response = await server.get(`/dirs/${id}`);
+    const response = await server.get(`/directory?id=${id}`);
     dispatch({ type: "FETCH_DIR", payload: response.data });
 }
 
 export const deleteDir = id => async dispatch => {
-    const response = await server.delete(`/dirs/${id}`);
+    const response = await server.delete(`/directory/${id}`);
 
     dispatch({ type: "DELETE_DIR", payload: id });
     history.push('/');
 }
 
 export const editDir = (id, formValues) => async dispatch => {
-    const response = await server.patch(`/dirs/${id}`, formValues);
+    const response = await server.patch(`/directory/${id}`, formValues);
 
     dispatch({ type: "EDIT_DIR", payload: response.data });
     history.goBack();

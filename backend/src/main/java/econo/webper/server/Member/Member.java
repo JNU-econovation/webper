@@ -1,7 +1,7 @@
 package econo.webper.server.Member;
 
 import econo.webper.server.directory.Directory;
-import econo.webper.server.directory.DirectoryDTO;
+import econo.webper.server.directory.dto.DirectoryDTO;
 
 import lombok.*;
 
@@ -52,6 +52,9 @@ public class Member {
 
     public Directory findDirectoryById(Integer id) {
         Directory result = null;
+        if (id == null) {
+            return null;
+        }
         for (Directory directory : directories) {
             result = directory.findById(id);
             if (result != null) {
@@ -61,13 +64,13 @@ public class Member {
         return null;
     }
 
-    public boolean deleteDirectory(DirectoryDTO directoryDTO) {
-        Directory directoryById = findDirectoryById(directoryDTO.getId());
+    public boolean deleteDirectory(Integer id) {
+        Directory directoryById = findDirectoryById(id);
         if (directoryById.getParentDirectory() == null) {
-            return directories.removeIf(directory -> directory.getId() == directoryDTO.getId());
+            return directories.removeIf(directory -> directory.getId() == id);
         }
         Directory parentDirectory = directoryById.getParentDirectory();
-        return parentDirectory.deleteChildDirectory(directoryDTO.getId());
+        return parentDirectory.deleteChildDirectory(id);
     }
 
     public Directory updateDirectory(DirectoryDTO directoryDTO) {

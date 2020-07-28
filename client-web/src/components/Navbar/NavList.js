@@ -36,7 +36,7 @@ class NavList extends React.Component {
             <React.Fragment>
                 <div className="inner-container" style={{ paddingLeft: this.props.padding_left }}>
                     <img onClick={this.handleDrop} src={window.location.origin + "/images/dropdown.png"} alt="dropdownicon" className={`dropdown-icon ${this.getClassName()}`} />
-                    <Link to={`/detail/${this.props.directory_detail.id}/${this.props.directory_detail.category}`} className="directory-title">{this.props.directory_detail.directoryTitle}</Link>
+                    <Link to={`/detail/${this.props.directory_detail.id}/${this.props.directory_detail.category}`} className="directory-title">{this.props.directory_detail.title}</Link>
                     <div className="button-container">
                         <CreateButton id={this.props.directory_detail.id} />
                         <MoreButton id={this.props.directory_detail.id} />
