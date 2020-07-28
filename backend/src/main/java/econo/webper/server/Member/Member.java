@@ -52,6 +52,9 @@ public class Member {
 
     public Directory findDirectoryById(Integer id) {
         Directory result = null;
+        if (id == null) {
+            return null;
+        }
         for (Directory directory : directories) {
             result = directory.findById(id);
             if (result != null) {
