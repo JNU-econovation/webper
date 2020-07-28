@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/login/google").anonymous()
+                .antMatchers("/login/google").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .cors()
