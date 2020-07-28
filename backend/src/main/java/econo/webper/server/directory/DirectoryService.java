@@ -26,8 +26,8 @@ public class DirectoryService {
         return memberService.updateDirectory(member, directoryDTO);
     }
 
-    public boolean deleteDirectory(Member member, DirectoryDTO directoryDTO) {
-        return memberService.deleteDirectory(member, directoryDTO);
+    public boolean deleteDirectory(Member member, Integer id) {
+        return memberService.deleteDirectory(member, id);
     }
 
     public Directory getDirectory(Member member, Integer id) {
@@ -36,7 +36,13 @@ public class DirectoryService {
 
     public List<DirectoryDTO> getDirectoryDTOs(Member savedMember) {
         List<DirectoryDTO> directoryDTOs = new ArrayList<>();
-        savedMember.getDirectories().forEach(directory -> directoryDTOs.add(new DirectoryDTO(directory.getId(),directory.getTitle(),directory.getCategory())));
+        Integer parentDirectoryId = null;
+        for (Directory directory : savedMember.getDirectories()) {
+            if (directory.getParentDirectory() != null) {
+                parentDirectoryId = directory.getParentDirectory().getId();
+            }
+            directoryDTOs.add(new DirectoryDTO(directory.getId(), directory.getTitle(), directory.getCategory(), parentDirectoryId));
+        }
         return directoryDTOs;
     }
 }

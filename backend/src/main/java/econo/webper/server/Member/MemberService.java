@@ -70,13 +70,13 @@ public class MemberService {
     }
 
 
-    public boolean deleteDirectory(Member member, DirectoryDTO directoryDTO) {
+    public boolean deleteDirectory(Member member, Integer id) {
         Optional<Member> savedOptionalMember = memberRepository.findById(member.getId());
         if (!savedOptionalMember.isPresent()) {
             return false;
         }
         Member savedMember = savedOptionalMember.get();
-        boolean isDelete = savedMember.deleteDirectory(directoryDTO);
+        boolean isDelete = savedMember.deleteDirectory(id);
         if (isDelete == false) {
             return false;
         }

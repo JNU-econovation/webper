@@ -18,5 +18,7 @@ public class DirectoryDTO {
 
     private DirectoryCategory category;
 
+    private Integer parentDirectoryId;
+
 }
 
