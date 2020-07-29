@@ -19,12 +19,12 @@ public class Component {
 
     private Integer directoryId;
 
-    private ComponentCategory componentCategory;
+    private ComponentCategory category;
 
-    public Component(String title, Integer directoryId, ComponentCategory componentCategory) {
+    public Component(String title, Integer directoryId, ComponentCategory category) {
         this.title = title;
         this.directoryId = directoryId;
-        this.componentCategory = componentCategory;
+        this.category = category;
     }
 
     public String objectToJson() throws JsonProcessingException {

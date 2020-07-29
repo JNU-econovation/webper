@@ -18,8 +18,8 @@ public class Blog extends Component {
 
     private String redirectionLink;
 
-    public Blog(String title, Integer directoryId, ComponentCategory componentCategory, String thumbnailURL, String description, String redirectionLink) {
-        super(title, directoryId, componentCategory);
+    public Blog(String title, Integer directoryId, ComponentCategory category, String thumbnailURL, String description, String redirectionLink) {
+        super(title, directoryId, category);
         this.thumbnailURL = thumbnailURL;
         this.description = description;
         this.redirectionLink = redirectionLink;
