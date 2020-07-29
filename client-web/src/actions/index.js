@@ -23,6 +23,7 @@ export const signOut = () => {
     return {
         type: "SIGN_OUT"
     }
+	history.push('/');
 }
 
 export const createDir = directory_detail => async (dispatch) => {

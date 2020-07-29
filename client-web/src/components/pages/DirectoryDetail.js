@@ -13,7 +13,6 @@ class DirectoryDetail extends React.Component {
   componentDidMount() {
     this.props.fetchScraps(
       this.props.match.params.id,
-      this.props.match.params.category
     );
   }
 
@@ -21,7 +20,6 @@ class DirectoryDetail extends React.Component {
     if (this.props.match.params.id !== nextProps.match.params.id) {
       this.props.fetchScraps(
         nextProps.match.params.id,
-        nextProps.match.params.category
       );
     }
   }
