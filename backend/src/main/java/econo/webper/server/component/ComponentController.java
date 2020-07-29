@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.ws.Response;
+
 @Api(value = "Component CRUD", tags = {"Component CRUD - 담당자 : 배종진"})
 @RestController
 public class ComponentController {
@@ -71,17 +73,34 @@ public class ComponentController {
         return getResponseEntity(component);
     }
 
-    private ResponseEntity getResponseEntity(Component component) {
+    @GetMapping("/component")
+    @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
+    public ResponseEntity getComponent(@AuthenticationPrincipal MemberDetails memberDetails, @RequestParam Integer id) {
+        Component component = componentService.findById(id);
         if (component == null) {
-            ResponseEntity.badRequest().body(ExceptionMessage.NOT_CREATE_COMPONENTS);
+            return ResponseEntity.badRequest().body(ExceptionMessage.NOT_GET_COMPONENT);
         }
-        String createdComponentJsonData;
+        String componentJsonData;
         try {
-            createdComponentJsonData = componentService.getLastCreatedComponent().objectToJson();
+            componentJsonData = component.objectToJson();
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.ok(ExceptionMessage.JSON_PROCESSING_EXCEPTION);
         }
-        return ResponseEntity.ok(createdComponentJsonData);
+        return ResponseEntity.ok(componentJsonData);
+    }
+
+    private ResponseEntity getResponseEntity(Component component) {
+        if (component == null) {
+            ResponseEntity.badRequest().body(ExceptionMessage.NOT_CREATE_COMPONENTS);
+        }
+        String ComponentJsonData;
+        try {
+            ComponentJsonData = componentService.getLastCreatedComponent().objectToJson();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(ExceptionMessage.JSON_PROCESSING_EXCEPTION);
+        }
+        return ResponseEntity.ok(ComponentJsonData);
     }
 }
