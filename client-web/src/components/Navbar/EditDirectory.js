@@ -16,8 +16,10 @@ class EditDirectory extends React.Component {
             <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
                 <label>Directory Title</label>
                 <Field name="directoryTitle" component="input" placeholder="Enter the name of directory" autoComplete="off" />
-                <button type="submit">Rename</button>
-                <button onClick={() => history.goBack()}>Cancel</button>
+                <div>
+                    <button type="submit">Rename</button>
+                    <button onClick={() => history.goBack()}>Cancel</button>
+                </div>
             </form>
         )
     }

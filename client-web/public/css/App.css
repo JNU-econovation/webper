@@ -312,7 +312,7 @@ nav div a {
   box-shadow: 0 0 5px lightgray;
 }
 
-.scrap-item:hover {
+.scrap-item:hover, .scrap-url:hover {
   background-color: #f7f5f2;
 }
 
@@ -341,7 +341,7 @@ form {
   text-align: center;
 }
 
-form > button {
+form button {
   width: 75px;
   background-color: #d3f5f3;
   border: none;
@@ -356,7 +356,7 @@ form > button {
   border-radius: 10px;
 }
 
-form > button:hover {
+form button:hover {
   -webkit-animation: hover 1200ms linear 2 alternate;
   animation: hover 1200ms linear 2 alternate;
   background-color: #d3f5f3;
@@ -395,14 +395,23 @@ form > button:hover {
 
 .modal {
   text-align: center;
-  background-color: #ebe5d5;
+  background-color: #ffffff;
   margin: 15% auto;
   padding: 20px;
   width: 50%;
 }
 
+.modal hr {
+  border:none;
+	height: 50px;
+	box-shadow: 0 5px 5px -5px lightgray;
+  margin: -50px auto 10px; 
+}
+
 .modal-title {
   margin: 10px;
+  font-size: 1.5em;
+  font-weight: 500;
 }
 
 .modal-title img {
@@ -412,6 +421,14 @@ form > button:hover {
 .modal-content {
   padding: 10px;
   font-size: 0.85em;
+}
+
+.modal-content div {
+  padding: 5px;
+}
+
+.modal-content label {
+  padding-right: 10px;
 }
 
 .error-message {
