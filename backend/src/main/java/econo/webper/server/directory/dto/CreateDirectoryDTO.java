@@ -1,5 +1,6 @@
-package econo.webper.server.directory;
+package econo.webper.server.directory.dto;
 
+import econo.webper.server.directory.DirectoryCategory;
 import lombok.Getter;
 import lombok.Setter;
 

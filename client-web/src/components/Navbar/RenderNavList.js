@@ -1,20 +1,26 @@
 import React from 'react';
 import NavList from './NavList';
 import { connect } from 'react-redux'
-import { fetchDirs } from '../../actions';
+import { fetchRootDirs, fetchDirs } from '../../actions';
 
 class RenderNavList extends React.Component {
 
     componentDidMount() {
-        this.props.fetchDirs(this.props.parentId);
+	if (this.props.parentId === 0)
+		this.props.fetchRootDirs();
+	else
+	    this.props.fetchDirs(this.props.parentId);
     }
 
     render() {
         if (this.props.dirs.length === 0)
             return null;
-        const dirs = this.props.dirs.filter(dir => dir.parentId == this.props.parentId);
-
-        return (
+	    let parentId = this.props.parentId;
+	if (parentId === 0)
+	    parentId = null;
+        const dirs = this.props.dirs.filter(dir => (dir.parentDirectoryId == parentId));
+        console.log("in renderNavlist, parentId", this.props.parentId, "dirs:", dirs);
+	return (
             <React.Fragment>
                 {dirs.map(dir => {
                     return <NavList directory_detail={dir} padding_left={this.props.padding_left} key={dir.id} />
@@ -31,4 +37,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { fetchDirs })(RenderNavList);
+export default connect(mapStateToProps, { fetchRootDirs, fetchDirs })(RenderNavList);

@@ -13,10 +13,10 @@ const getGeneralWishInfo = async (url, domain, callback) => {
             return callback(error, null);
         } else {
             const $ = cheerio.load(decode(html));
-            result.name = getName($);
-            result.thumbnails = getThumbnails($);
+            result.title = getName($);
+            result.thumbnailURL = getThumbnails($);
             result.price = getPrice($);
-            result.shoppingmall = url.split("://")[1].split('/')[0];
+            result.shoppingMall = url.split("://")[1].split('/')[0];
             result.redirectionLink = url;
 
             console.log(result);
@@ -64,7 +64,7 @@ const decode = html => {
 }
 
 const getName = $ => {
-    let name; const namelist = [];
+    let name = ""; const namelist = [];
     namelist[0] = $('meta[property="og:title"]').attr('content');;
     namelist[1] = $('title').text();
 
@@ -77,7 +77,7 @@ const getName = $ => {
 }
 
 const getThumbnails = $ => {
-    let thumbnails; const thumblist = [];
+    let thumbnails = ""; const thumblist = [];
     thumblist[0] = $('meta[property="og:image"]').attr('content');
 
     thumblist.forEach(list => {
@@ -88,7 +88,7 @@ const getThumbnails = $ => {
 }
 
 const getPrice = $ => {
-    let price; const pricelist = [];
+    let price = ""; const pricelist = [];
     pricelist[0] = $('meta[property="product:price:amount"]').attr('content');
 
     pricelist.forEach(list => {

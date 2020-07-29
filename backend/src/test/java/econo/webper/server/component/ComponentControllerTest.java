@@ -1,4 +1,4 @@
-package econo.webper.server.directory;
+package econo.webper.server.component;
 
 import econo.webper.server.Member.Member;
 import econo.webper.server.Member.MemberRepository;
@@ -15,13 +15,14 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Collections;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
-public class DirectoryControllerTest {
+public class ComponentControllerTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -63,75 +64,27 @@ public class DirectoryControllerTest {
 
         jsonParam = "{" +
                 "\"category\" : \"BLOG\"," +
-                "\"parentDirectoryId\" : 1," +
-                "\"title\" : \"Example\"" +
+                "\"description\" : \"Description Example\"," +
+                "\"directoryId\" : 1," +
+                "\"redirectionLink\" : \"RedirectionLink Example\"," +
+                "\"thumbnailURL\" : \"ThumbnailURL Example\"," +
+                "\"title\" : \"Title Example\"" +
                 "}";
-        mockMvc.perform(post("/directory")
+
+        mockMvc.perform(post("/component/blog")
                 .header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonParam))
                 .andDo(print());
-
-        jsonParam = "{" +
-                "\"category\" : \"BLOG\"," +
-                "\"parentDirectoryId\" : 2," +
-                "\"title\" : \"Example\"" +
-                "}";
-        mockMvc.perform(post("/directory")
+        mockMvc.perform(post("/component/blog")
                 .header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonParam))
                 .andDo(print());
-
-        mockMvc.perform(get("/directory")
-                .header("Authorization", token)
-                .param("id","1"))
-                .andDo(print());
-
-        jsonParam = "{" +
-                "\"category\" : \"BLOG\"," +
-                "\"id\" : 1," +
-                "\"title\" : \"Change Example\"" +
-                "}";
-
-        mockMvc.perform(put("/directory")
-                .header("Authorization", token)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonParam))
-                .andDo(print());
-
-        mockMvc.perform(delete("/directory/1")
+        mockMvc.perform(get("/directory/1/components")
                 .header("Authorization", token))
                 .andDo(print());
-
-
-        jsonParam = "{" +
-                "\"category\" : \"BLOG\"," +
-                "\"parentDirectoryId\" : null," +
-                "\"title\" : \"Example\"" +
-                "}";
-
-        mockMvc.perform(post("/directory")
-                .header("Authorization", token)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonParam))
-                .andDo(print());
-
-        mockMvc.perform(get("/root-directory")
-                .header("Authorization", token))
-                .andDo(print());
-
-
-
-
     }
+
+
 }
-
-
-
-
-
-
-
-
-

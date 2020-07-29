@@ -29,14 +29,14 @@ class PortalScrap extends React.Component {
 
     renderContents() {
         if (this.state.onEdit === true) {
-            const editable_info_name = { name: "name", favicon: "icon", redirectionLink: "url" }
+            const editable_info_name = { title: "name", faviconURL: "icon", redirectionLink: "url" }
             return (
                 <React.Fragment>
                     <EditScrap
-                        category='portal'
+                        category='PORTAL'
                         scrap_detail={this.props.portal}
-                        initialValues={_.pick(this.props.portal, 'name', 'favicon', 'redirectionLink')}
-                        image={this.props.portal.favicon}
+                        initialValues={_.pick(this.props.portal, 'title', 'faviconURL', 'redirectionLink')}
+                        image={this.props.portal.favicoURL}
                         editable_info_name={editable_info_name}
                         saveCallback={() => { this.setState({ onEdit: false }); this.editModeOff(); }}
                     />
@@ -50,10 +50,10 @@ class PortalScrap extends React.Component {
                     <img onClick={this.editModeOn} className="scrap-edit-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" />
                 </div>
                 <a href={this.props.portal.redirectionLink} target="_blank" rel="noopener noreferrer">
-                    <img className="scrap-img" src={this.props.portal.favicon || window.location.origin + "/images/emptyImage.png"} alt={this.props.portal.name} />
+                    <img className="scrap-img" src={this.props.portal.faviconURL || window.location.origin + "/images/emptyImage.png"} alt={this.props.portal.title} />
                 </a>
                 <div className="detail-container">
-                    <div>{this.props.portal.name}</div>
+                    <div>{this.props.portal.title}</div>
                 </div>
             </React.Fragment>
         )

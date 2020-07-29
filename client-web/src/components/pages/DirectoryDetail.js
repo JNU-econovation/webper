@@ -27,10 +27,10 @@ class DirectoryDetail extends React.Component {
         }
 
         let Scraper;
-        if (this.props.directory.category === "video") Scraper = videoScraper;
-        if (this.props.directory.category === "wishlist") Scraper = wishScraper;
-        if (this.props.directory.category === "blog") Scraper = blogScraper;
-        if (this.props.directory.category === "portal") Scraper = portalScraper;
+        if (this.props.directory.category === "VIDEO") Scraper = videoScraper;
+        if (this.props.directory.category === "WISHLIST") Scraper = wishScraper;
+        if (this.props.directory.category === "BLOG") Scraper = blogScraper;
+        if (this.props.directory.category === "PORTAL") Scraper = portalScraper;
 
         Scraper(inputURL, (err, result) => {
             if (err) {
@@ -44,7 +44,7 @@ class DirectoryDetail extends React.Component {
 
     renderTitle = () => {
         if (this.props.directory)
-            return <h2 className="title">{this.props.directory.directoryTitle}</h2>
+            return <h2 className="title">{this.props.directory.title}</h2>
         else return null;
     }
 
