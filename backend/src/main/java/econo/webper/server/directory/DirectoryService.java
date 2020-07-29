@@ -53,4 +53,12 @@ public class DirectoryService {
     public Directory getLastIdDirectory() {
         return directoryRepository.findAll(Sort.by(Sort.Direction.DESC,"id")).get(0);
     }
+
+    public DirectoryDTO createDirectoryDTO(Directory directory) {
+        Integer parentDirectoryId = null;
+        if (directory.getParentDirectory() != null) {
+            parentDirectoryId = directory.getParentDirectory().getId();
+        }
+        return new DirectoryDTO(directory.getId(), directory.getTitle(),directory.getCategory(), parentDirectoryId);
+    }
 }

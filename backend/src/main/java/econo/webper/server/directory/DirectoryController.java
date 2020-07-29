@@ -47,7 +47,8 @@ public class DirectoryController {
         if (directory == null) {
             return ResponseEntity.badRequest().body(ExceptionMessage.NOT_GET_DIRECTORY);
         }
-        return ResponseEntity.ok(directory);
+        DirectoryDTO directoryDTO = directoryService.createDirectoryDTO(directory);
+        return ResponseEntity.ok(directoryDTO);
     }
 
     @PostMapping("/directory")
@@ -59,11 +60,7 @@ public class DirectoryController {
             return ResponseEntity.badRequest().body(ExceptionMessage.NOT_CREATE_DIRECTORY);
         }
         Directory createdDirectory = directoryService.getLastIdDirectory();
-        Integer parentDirectoryId = null;
-        if (createdDirectory.getParentDirectory() != null) {
-            parentDirectoryId = createdDirectory.getParentDirectory().getId();
-        }
-        DirectoryDTO directoryDTO = new DirectoryDTO(createdDirectory.getId(), createdDirectory.getTitle(),createdDirectory.getCategory(), parentDirectoryId);
+        DirectoryDTO directoryDTO = directoryService.createDirectoryDTO(createdDirectory);
         return ResponseEntity.ok(directoryDTO);
     }
 
