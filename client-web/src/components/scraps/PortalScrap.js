@@ -9,18 +9,14 @@ class PortalScrap extends React.Component {
     const id = this.props.portal.id;
     this.setState({ onEdit: true });
     document.querySelector("body").addEventListener("click", this.dismiss);
-    document
-      .querySelector(`#scrap${id}`)
-      .addEventListener("click", this.stopPropagation);
+    document.querySelector(`#scrap${id}`).addEventListener("click", this.stopPropagation);
   };
 
   editModeOff = () => {
     const id = this.props.portal.id;
     this.setState({ onEdit: false });
     document.querySelector("body").removeEventListener("click", this.dismiss);
-    document
-      .querySelector(`#scrap${id}`)
-      .removeEventListener("click", this.stopPropagation);
+    document.querySelector(`#scrap${id}`).removeEventListener("click", this.stopPropagation);
   };
 
   dismiss = () => {
@@ -53,11 +49,11 @@ class PortalScrap extends React.Component {
         <div className="scrap-edit-button-container">
           <img onClick={this.editModeOn} className="scrap-edit-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" />
         </div>
-        <a href={this.props.portal.redirectionLink} target="_blank" rel="noopener noreferrer">
+        <a href={this.props.portal.redirectionLink} target="_blank" rel="noopener noreferrer" >
           <div className="portal-scrap-img-container">
-            <img
-              className="portal-scrap-img" src={this.props.portal.faviconURL || window.location.origin + "/images/emptyImage.png"} alt={this.props.portal.title}
-            />
+            <img className="scrap-img portal"
+              src={this.props.portal.faviconURL || window.location.origin + "/images/emptyImage.png"}
+              alt={this.props.portal.title} />
           </div>
         </a>
         <div className="detail-container">
