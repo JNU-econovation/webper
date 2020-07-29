@@ -39,6 +39,7 @@ const App = (props) => {
             <Route path="/setting" exact component={Setting} />
           </div>
         </Switch>
+        <hr />
         <Footer />
       </Router>
     </div>
