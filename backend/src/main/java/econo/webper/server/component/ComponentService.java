@@ -63,8 +63,9 @@ public class ComponentService {
                 wishListDTO.getThumbnailURL(),
                 wishListDTO.getRedirectionLink(),
                 wishListDTO.getPrice(),
-                wishListDTO.getDeliveryType(),
-                wishListDTO.getDescription());
+                wishListDTO.getDeliveryInfo(),
+                wishListDTO.getDescription(),
+                wishListDTO.getShoppingMall());
         return memberService.saveComponent(member, wishList);
     }
 

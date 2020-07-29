@@ -113,7 +113,7 @@ public class MemberService {
         if (directoryById == null) {
             return null;
         }
-        String componentCategory = component.getComponentCategory().name();
+        String componentCategory = component.getCategory().name();
         String directoryCategory = directoryById.getCategory().name();
         if (directoryCategory != componentCategory) {
             return null;

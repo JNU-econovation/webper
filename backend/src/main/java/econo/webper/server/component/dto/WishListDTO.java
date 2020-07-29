@@ -20,7 +20,9 @@ public class WishListDTO {
 
     private int price;
 
-    private String deliveryType;
+    private String deliveryInfo;
 
     private String description;
+
+    private String shoppingMall;
 }
