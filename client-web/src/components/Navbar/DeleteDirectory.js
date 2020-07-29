@@ -19,10 +19,12 @@ class DeleteDirectory extends React.Component {
         return (
             <React.Fragment>
                 {message}
-                <div>
-                    <button onClick={() => this.props.deleteDir(this.props.match.params.id)}>Delete</button>
-                    <button onClick={() => history.goBack()}>Cancel</button>
-                </div>
+                <form>
+                    <div>
+                        <button onClick={() => this.props.deleteDir(this.props.match.params.id)}>Delete</button>
+                        <button onClick={() => history.goBack()}>Cancel</button>
+                    </div>
+                </form>
             </React.Fragment>
         )
     }

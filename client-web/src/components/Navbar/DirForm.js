@@ -8,7 +8,7 @@ class DirForm extends React.Component {
         return (
             <form onSubmit={this.props.handleSubmit(this.onSubmit)} >
                 <div>
-                    <label>Directory Type </label>
+                    <label>Directory Type</label>
                     <Field name="category" component="select">
                         <option></option>
                         <option value="WISHLIST">Wish List</option>
@@ -18,7 +18,7 @@ class DirForm extends React.Component {
                     </Field>
                 </div>
                 <div>
-                    <label>Directory Title </label>
+                    <label>Directory Title</label>
                     <Field name="title" component="input" placeholder="Enter the name of new directory" autoComplete="off" />
                 </div>
 
