@@ -290,7 +290,12 @@ nav div a {
   background-color: white;
 }
 
-.scrap-edit-container {
+.scrap-edit-container div {
+  display: flex;
+}
+
+.scrap-edit-container label {
+  margin-right: 5px;
 }
 
 .scrap-edit-input {
@@ -307,7 +312,6 @@ nav div a {
 }
 
 .scrap-item {
-  justify-content: center;
   border-radius: 3px;
   padding: 5px;
   box-shadow: 0 0 5px lightgray;
@@ -323,13 +327,23 @@ nav div a {
   /* max-width: 250px; */
 }
 
+.crop.blog {
+  max-height: 240px;
+  overflow: hidden;
+}
+
+.scrap-img.blog {
+  object-fit: cover;
+}
+
 .detail-container {
-  padding: 3px;
+  padding: 5px;
   font-size: 0.85em;
 }
 
 .detail-container div {
   width: auto;
+  padding: 2px 0px;
 }
 
 .urlform {
@@ -338,12 +352,13 @@ nav div a {
   align-items: center;
   vertical-align: middle;
 }
-form {
+
+.urlform form {
   display: inline-block;
   text-align: center;
 }
 
-form button {
+form > button {
   width: 75px;
   background-color: #d3f5f3;
   border: none;
@@ -358,7 +373,7 @@ form button {
   border-radius: 10px;
 }
 
-form button:hover {
+form > button:hover {
   -webkit-animation: hover 1200ms linear 2 alternate;
   animation: hover 1200ms linear 2 alternate;
   background-color: #d3f5f3;
@@ -366,7 +381,7 @@ form button:hover {
 .url-input {
   width: 100%;
   border: 2.5px solid #d3f5f3;
-  border-rarius: 10px;
+  border-radius: 10px;
 }
 
 /*footer*/
@@ -431,6 +446,27 @@ form button:hover {
 
 .modal-content label {
   padding-right: 10px;
+}
+
+.modal-content button {
+  width: 75px;
+  background-color: #d3f5f3;
+  border: none;
+  color: gray;
+  padding: 7px 0;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.modal-content button:hover {
+  -webkit-animation: hover 1200ms linear 2 alternate;
+  animation: hover 1200ms linear 2 alternate;
+  background-color: #d3f5f3;
 }
 
 .error-message {
