@@ -29,14 +29,14 @@ class VideoScrap extends React.Component {
 
     renderContents() {
         if (this.state.onEdit === true) {
-            const editable_info_name = { videoTitle: "title", redirectionLink: "url" }
+            const editable_info_name = { title: "title", redirectionLink: "url" }
             return (
                 <React.Fragment>
                     <EditScrap
-                        category='video'
+                        category='VIDEO'
                         scrap_detail={this.props.video}
-                        initialValues={_.pick(this.props.video, 'videoTitle', 'redirectionLink')}
-                        image={this.props.video.thumbnails}
+                        initialValues={_.pick(this.props.video, 'title', 'redirectionLink')}
+                        image={this.props.video.thumbnailURL}
                         editable_info_name={editable_info_name}
                         saveCallback={() => { this.setState({ onEdit: false }); this.editModeOff(); }}
                     />
@@ -50,10 +50,10 @@ class VideoScrap extends React.Component {
                     <img onClick={this.editModeOn} className="scrap-edit-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" />
                 </div>
                 <a href={this.props.video.redirectionLink} target="_blank" rel="noopener noreferrer">
-                    <img className="scrap-img" src={this.props.video.thumbnails || window.location.origin + "/images/emptyImage.png"} alt={this.props.video.videoTitle} />
+                    <img className="scrap-img" src={this.props.video.thumbnailURL || window.location.origin + "/images/emptyImage.png"} alt={this.props.video.title} />
                 </a>
                 <div className="detail-container">
-                    <div>{this.props.video.videoTitle}</div>
+                    <div>{this.props.video.title}</div>
                 </div>
             </React.Fragment>
         )

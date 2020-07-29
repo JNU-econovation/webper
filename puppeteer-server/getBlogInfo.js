@@ -4,7 +4,8 @@ const iconv = require('iconv-lite');
 const resultFormat = require('./resultFormat');
 
 const getBlogInfo = async (url, callback) => {
-    let result = resultFormat.blogFormat;
+console.log("in getBlogInfo", url);
+	let result = resultFormat.blogFormat;
     await getHtml(url, (err, html) => {
         if (err) {
             console.log("getHtml 오류");
@@ -14,7 +15,7 @@ const getBlogInfo = async (url, callback) => {
         } else {
             const $ = cheerio.load(decode(html));
             result.title = getTitle($);
-            result.thumbnails = getThumbnails($, url);
+            result.thumbnailURL = getThumbnails($, url);
             result.description = getDescription($)
             result.redirectionLink = url;
 

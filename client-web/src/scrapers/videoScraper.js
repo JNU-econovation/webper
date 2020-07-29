@@ -10,9 +10,9 @@ const videoScrapers = async (url, callback) => {
     const videoId = findVideoId(url);
     const video = await fetchVideo(videoId);
     const video_detail = {
-        videoId: videoId,
-        videoTitle: video.title,
-        thumbnails: video.thumbnails.medium.url,
+       // videoId: videoId,
+       title: video.title,
+        thumbnailURL: video.thumbnails.medium.url,
         redirectionLink: `https://www.youtube.com/watch?v=${videoId}`
     }
     return callback(null, video_detail);

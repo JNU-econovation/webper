@@ -29,14 +29,14 @@ class BlogScrap extends React.Component {
 
     renderContents() {
         if (this.state.onEdit === true) {
-            const editable_info_name = { title: "title", thumbnails: "thumbnails", description: "description", redirectionLink: "url" }
+            const editable_info_name = { title: "title", thumbnailURL: "thumbnailURL", description: "description", redirectionLink: "url" }
             return (
                 <React.Fragment>
                     <EditScrap
-                        category='blog'
+                        category='BLOG'
                         scrap_detail={this.props.blog}
-                        initialValues={_.pick(this.props.blog, 'title', 'thumbnails', 'description', 'redirectionLink')}
-                        image={this.props.blog.thumbnails}
+                        initialValues={_.pick(this.props.blog, 'title', 'thumbnailURL', 'description', 'redirectionLink')}
+                        image={this.props.blog.thumbnailURL}
                         editable_info_name={editable_info_name}
                         saveCallback={() => { this.setState({ onEdit: false }); this.editModeOff(); }}
                     />
@@ -50,7 +50,7 @@ class BlogScrap extends React.Component {
                     <img onClick={this.editModeOn} className="scrap-edit-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" />
                 </div>
                 <a href={this.props.blog.redirectionLink} target="_blank" rel="noopener noreferrer">
-                    <img className="scrap-img" src={this.props.blog.thumbnails || window.location.origin + "/images/emptyImage.png"} alt={this.props.blog.title} />
+                    <img className="scrap-img" src={this.props.blog.thumbnailURL || window.location.origin + "/images/emptyImage.png"} alt={this.props.blog.title} />
                 </a>
                 <div className="detail-container">
                     <div>{this.props.blog.title}</div>

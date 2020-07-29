@@ -35,7 +35,7 @@ class Main extends React.Component {
 
             return (
                 <div className="title">
-                    {directory.directoryTitle}
+                    {directory.title}
                     {this.render4Scraps(directory)}
                 </div>
             )
