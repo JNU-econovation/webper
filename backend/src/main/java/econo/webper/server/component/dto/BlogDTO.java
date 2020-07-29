@@ -12,7 +12,7 @@ public class BlogDTO {
 
     private Integer directoryId;
 
-    private ComponentCategory componentCategory;
+    private ComponentCategory category;
 
     private String thumbnailURL;
 

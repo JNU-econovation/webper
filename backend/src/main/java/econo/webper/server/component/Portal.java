@@ -16,8 +16,8 @@ public class Portal extends Component {
 
     private String description;
 
-    public Portal(String title, Integer directoryId, ComponentCategory componentCategory, String faviconURL, String redirectionLink, String description) {
-        super(title, directoryId, componentCategory);
+    public Portal(String title, Integer directoryId, ComponentCategory category, String faviconURL, String redirectionLink, String description) {
+        super(title, directoryId, category);
         this.faviconURL = faviconURL;
         this.redirectionLink = redirectionLink;
         this.description = description;

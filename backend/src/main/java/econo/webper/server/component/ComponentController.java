@@ -32,6 +32,9 @@ public class ComponentController {
     public ResponseEntity saveBlog(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody BlogDTO blogDTO) {
         Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
         Component component = componentService.saveBlog(savedMember, blogDTO);
+        if (component.getCategory() != blogDTO.getCategory()) {
+            return ResponseEntity.badRequest().body(ExceptionMessage.NOT_CREATE_COMPONENTS);
+        }
         return getResponseEntity(component);
     }
 
@@ -40,6 +43,9 @@ public class ComponentController {
     public ResponseEntity saveVideo(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody VideoDTO videoDTO) {
         Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
         Component component = componentService.saveVideo(savedMember, videoDTO);
+        if (component.getCategory() != videoDTO.getCategory()) {
+            return ResponseEntity.badRequest().body(ExceptionMessage.NOT_CREATE_COMPONENTS);
+        }
         return getResponseEntity(component);
     }
 
@@ -48,6 +54,9 @@ public class ComponentController {
     public ResponseEntity saveWishList(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody WishListDTO wishListDTO) {
         Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
         Component component = componentService.saveWishList(savedMember, wishListDTO);
+        if (component.getCategory() != wishListDTO.getCategory()) {
+            return ResponseEntity.badRequest().body(ExceptionMessage.NOT_CREATE_COMPONENTS);
+        }
         return getResponseEntity(component);
     }
 
@@ -56,20 +65,40 @@ public class ComponentController {
     public ResponseEntity savePortal(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody PortalDTO portalDTO) {
         Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
         Component component = componentService.savePortal(savedMember, portalDTO);
+        if (component.getCategory() != portalDTO.getCategory()) {
+            return ResponseEntity.badRequest().body(ExceptionMessage.NOT_CREATE_COMPONENTS);
+        }
         return getResponseEntity(component);
+    }
+
+    @GetMapping("/component")
+    @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
+    public ResponseEntity getComponent(@AuthenticationPrincipal MemberDetails memberDetails, @RequestParam Integer id) {
+        Component component = componentService.findById(id);
+        if (component == null) {
+            return ResponseEntity.badRequest().body(ExceptionMessage.NOT_GET_COMPONENT);
+        }
+        String componentJsonData;
+        try {
+            componentJsonData = component.objectToJson();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(ExceptionMessage.JSON_PROCESSING_EXCEPTION);
+        }
+        return ResponseEntity.ok(componentJsonData);
     }
 
     private ResponseEntity getResponseEntity(Component component) {
         if (component == null) {
             ResponseEntity.badRequest().body(ExceptionMessage.NOT_CREATE_COMPONENTS);
         }
-        String createdComponentJsonData;
+        String ComponentJsonData;
         try {
-            createdComponentJsonData= componentService.getLastCreatedComponent().objectToJson();
+            ComponentJsonData = componentService.getLastCreatedComponent().objectToJson();
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.ok(ExceptionMessage.JSON_PROCESSING_EXCEPTION);
         }
-        return ResponseEntity.ok(createdComponentJsonData);
+        return ResponseEntity.ok(ComponentJsonData);
     }
 }

@@ -30,7 +30,7 @@ public class ComponentService {
     public Component saveBlog(Member member, BlogDTO blogDTO) {
         Blog blog = new Blog(blogDTO.getTitle(),
                 blogDTO.getDirectoryId(),
-                blogDTO.getComponentCategory(),
+                blogDTO.getCategory(),
                 blogDTO.getThumbnailURL(),
                 blogDTO.getDescription(),
                 blogDTO.getThumbnailURL());
@@ -40,7 +40,7 @@ public class ComponentService {
     public Component savePortal(Member member, PortalDTO portalDTO) {
         Portal portal = new Portal(portalDTO.getTitle(),
                 portalDTO.getDirectoryId(),
-                portalDTO.getComponentCategory(),
+                portalDTO.getCategory(),
                 portalDTO.getFaviconURL(),
                 portalDTO.getRedirectionLink(),
                 portalDTO.getDescription());
@@ -50,7 +50,7 @@ public class ComponentService {
     public Component saveVideo(Member member, VideoDTO videoDTO) {
         Video video = new Video(videoDTO.getTitle(),
                 videoDTO.getDirectoryId(),
-                videoDTO.getComponentCategory(),
+                videoDTO.getCategory(),
                 videoDTO.getThumbnailURL(),
                 videoDTO.getRedirectionLink());
         return memberService.saveComponent(member, video);
@@ -59,12 +59,13 @@ public class ComponentService {
     public Component saveWishList(Member member, WishListDTO wishListDTO) {
         WishList wishList = new WishList(wishListDTO.getTitle(),
                 wishListDTO.getDirectoryId(),
-                wishListDTO.getComponentCategory(),
+                wishListDTO.getCategory(),
                 wishListDTO.getThumbnailURL(),
                 wishListDTO.getRedirectionLink(),
                 wishListDTO.getPrice(),
-                wishListDTO.getDeliveryType(),
-                wishListDTO.getDescription());
+                wishListDTO.getDeliveryInfo(),
+                wishListDTO.getDescription(),
+                wishListDTO.getShoppingMall());
         return memberService.saveComponent(member, wishList);
     }
 

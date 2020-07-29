@@ -12,7 +12,7 @@ public class WishListDTO {
 
     private Integer directoryId;
 
-    private ComponentCategory componentCategory;
+    private ComponentCategory category;
 
     private String thumbnailURL;
 
@@ -20,7 +20,9 @@ public class WishListDTO {
 
     private int price;
 
-    private String deliveryType;
+    private String deliveryInfo;
 
     private String description;
+
+    private String shoppingMall;
 }

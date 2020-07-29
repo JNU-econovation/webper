@@ -12,7 +12,7 @@ public class PortalDTO {
 
     private Integer directoryId;
 
-    private ComponentCategory componentCategory;
+    private ComponentCategory category;
 
     private String faviconURL;
 
