@@ -1,12 +1,37 @@
 package econo.webper.server.component;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Entity
+import javax.persistence.*;
+
+@Entity @NoArgsConstructor @Getter
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Component {
+
     @Id
     @GeneratedValue
     private Integer id;
+
+    private String title;
+
+    private Integer directoryId;
+
+    private ComponentCategory componentCategory;
+
+    public Component(String title, Integer directoryId, ComponentCategory componentCategory) {
+        this.title = title;
+        this.directoryId = directoryId;
+        this.componentCategory = componentCategory;
+    }
+
+    public String objectToJson() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.writeValueAsString(this);
+    }
+
+
+
 }

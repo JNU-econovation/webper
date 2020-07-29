@@ -1,9 +1,11 @@
 package econo.webper.server.directory;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import econo.webper.server.Member.Member;
 import econo.webper.server.Member.MemberDetails;
 import econo.webper.server.Member.MemberRepository;
 import econo.webper.server.Member.MemberService;
+import econo.webper.server.component.Component;
 import econo.webper.server.directory.dto.CreateDirectoryDTO;
 import econo.webper.server.directory.dto.DirectoryDTO;
 import econo.webper.server.utils.ExceptionMessage;
@@ -13,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Api(value = "Directory CRUD", tags = {"Directory CRUD - 담당자 : 배종진"})
@@ -85,6 +88,27 @@ public class DirectoryController {
         }
         return ResponseEntity.ok(savedMember);
     }
+
+    @GetMapping("/directory/{id}/components")
+    @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
+    public ResponseEntity getDirectoryComponents(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable Integer id) {
+        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
+        Directory directory = directoryService.getDirectory(savedMember, id);
+        if (directory == null) {
+            ResponseEntity.badRequest().body(ExceptionMessage.NOT_GET_DIRECTORY);
+        }
+        List<String> componentsJsonData = new ArrayList<>();
+        for (Component component : directory.getComponents()) {
+            try {
+                componentsJsonData.add(component.objectToJson());
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+                return ResponseEntity.badRequest().body(ExceptionMessage.JSON_PROCESSING_EXCEPTION);
+            }
+        }
+        return ResponseEntity.ok(componentsJsonData);
+    }
+
 }
 
 

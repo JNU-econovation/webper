@@ -2,6 +2,7 @@ package econo.webper.server.Member;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import econo.webper.server.directory.dto.CreateDirectoryDTO;
+import econo.webper.server.component.Component;
 import econo.webper.server.directory.Directory;
 import econo.webper.server.directory.dto.DirectoryDTO;
 import econo.webper.server.exception.NoSuchMemberException;
@@ -100,5 +101,28 @@ public class MemberService {
         }
         Member savedMember = savedOptionalMember.get();
         return savedMember.findDirectoryById(id);
+    }
+
+    public Component saveComponent(Member member, Component component) {
+        Optional<Member> savedOptionalMember = memberRepository.findById(member.getId());
+        if (!savedOptionalMember.isPresent()) {
+            throw new NoSuchMemberException("해당 멤버가 존재하지 않습니다.");
+        }
+        Member savedMember = savedOptionalMember.get();
+        Directory directoryById = savedMember.findDirectoryById(component.getDirectoryId());
+        if (directoryById == null) {
+            return null;
+        }
+        String componentCategory = component.getComponentCategory().name();
+        String directoryCategory = directoryById.getCategory().name();
+        if (directoryCategory != componentCategory) {
+            return null;
+        }
+        boolean isSave = directoryById.saveComponent(component);
+        if (isSave == false) {
+            return null;
+        }
+        memberRepository.save(savedMember);
+        return component;
     }
 }
