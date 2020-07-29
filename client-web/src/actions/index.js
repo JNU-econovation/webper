@@ -29,16 +29,13 @@ export const createDir = directory_detail => async (dispatch) => {
 
     if (directory_detail.parentDirectoryId == 0)
 	directory_detail.parentDirectoryId = null;
-	const response = await server.post('/directory', { ...directory_detail }, getHeader);
-	response.data['parentDirectory'] = response.data['parentDirectoryId'];
-	delete response.data.parentDirectoryId;
-	console.log("in creatDir response:", response);
+	const response = await server.post('/directory', { ...directory_detail }, getHeader());
 	dispatch({ type: "CREATE_DIR", payload: response.data });
     history.push('/');
 }
 
 export const fetchAllDirs = () => async dispatch => {
-    const response = await server.get('/directory');
+    const response = await server.get('/directory', getHeader());
 
     dispatch({ type: "FETCH_ALL_DIRS", payload: response.data });
 }
@@ -52,19 +49,18 @@ export const fetchRootDirs = () => async dispatch => {
 export const fetchDirs = parentDirectoryId => async dispatch => {
     if (parentDirectoryId == 0)
        parentDirectoryId = null;
-    const response = await server.get(`/directory?id=${parentDirectoryId}`);
-
-	console.log(response.data);
+    const response = await server.get(`/directory?id=${parentDirectoryId}`, getHeader());
     dispatch({ type: "FETCH_DIRS", payload: response.data.childDirectories });
 }
 
 export const fetchDir = id => async dispatch => {
-    const response = await server.get(`/directory?id=${id}`);
+    const response = await server.get(`/directory?id=${id}`, getHeader());
     dispatch({ type: "FETCH_DIR", payload: response.data });
 }
 
 export const deleteDir = id => async dispatch => {
-    const response = await server.delete(`/directory/${id}`);
+	console.log("deleteDir!!!!");
+    const response = await server.delete(`/directory/${id}`, getHeader());
 
     dispatch({ type: "DELETE_DIR", payload: id });
     history.push('/');
@@ -77,17 +73,17 @@ export const editDir = (id, formValues) => async dispatch => {
     history.goBack();
 }
 
-export const createScrap = (video_detail, directoryId, category) => async (dispatch, getState) => {
-    const { userId } = getState().auth;
-    const response = await server.post(`/${category}s`, { ...video_detail, userId, directoryId });
-
+export const createScrap = (video_detail, directoryId, category) => async dispatch => {
+    const response = await server.post(`/component/${category.toLowerCase()}`, { ...video_detail, directoryId, category: category }, getHeader());
+	console.log("in CreateScrap", response.data);
     dispatch({ type: "CREATE_SCRAP", payload: response.data });
     history.push(`/detail/${directoryId}/${category}`);
 }
 
-export const fetchScraps = (directoryId, category) => async (dispatch) => {
-    const response = await server.get(`/${category}s?directoryId=${directoryId}`);
+export const fetchScraps = (directoryId) => async dispatch => {
+    const response = await server.get(`/directory/${directoryId}/components`);
 
+	console.log("in fetchScraps", response.data);
     dispatch({ type: "FETCH_SCRAPS", payload: response.data });
     // history.push(`/detail/${directoryId}/${category}`);
 }

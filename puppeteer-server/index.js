@@ -9,7 +9,7 @@ const app = express();
 
 app.get('/wish', async (req, res) => {
     console.log('/wish요청 처리중');
-    const domain = req.query.shoppingmall;
+    const domain = req.query.shoppingMall;
     let data;
     // if domain is not registered in this application => generalInfo
     if (domain === 'default') {

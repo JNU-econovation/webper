@@ -1,21 +1,21 @@
 module.exports.wishFormat = {
-    name: "",
-    thumbnails: "",
+    title: "",
+    thumbnailURL: "",
     price: "",
-    shoppingmall: "",
-    delivery: "",
+    shoppingMall: "",
+    deliveryInfo: "",
     redirectionLink: ""
 };
 
 module.exports.blogFormat = {
     title: "",
-    thumbnails: "",
+    thumbnailURL: "",
     description: "",
     redirectionLink: ""
 }
 
 module.exports.portalFormat = {
-    name: "",
-    favicon: "",
+    title: "",
+    faviconURL: "",
     redirectionLink: ""
 }

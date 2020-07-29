@@ -29,14 +29,14 @@ class WishScrap extends React.Component {
 
     renderContents() {
         if (this.state.onEdit === true) {
-            const editable_info_name = { name: "product", thumbnails: "thumbnails", price: "price", shoppingmall: "shoppingmall", delivery: "delivery", description: "description", redirectionLink: "url" }
+            const editable_info_name = { title: "product", thumbnailURL: "thumbnailURL", price: "price", shoppingMall: "shoppingMall", deliveryInfo: "deliveryInfo", description: "description", redirectionLink: "url" }
             return (
                 <React.Fragment>
                     <EditScrap
                         category='wishlist'
                         scrap_detail={this.props.wish}
-                        initialValues={_.pick(this.props.wish, 'name', 'thumbnails', 'price', 'shoppingmall', 'delivery', 'description', 'redirectionLink')}
-                        image={this.props.wish.thumbnails}
+                        initialValues={_.pick(this.props.wish, 'title', 'thumbnailURL', 'price', 'shoppingMall', 'deliveryInfo', 'description', 'redirectionLink')}
+                        image={this.props.wish.thumbnailURL}
                         editable_info_name={editable_info_name}
                         saveCallback={() => { this.setState({ onEdit: false }); this.editModeOff(); }}
                     />
@@ -50,13 +50,13 @@ class WishScrap extends React.Component {
                     <img onClick={this.editModeOn} className="scrap-edit-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" />
                 </div>
                 <a href={this.props.wish.redirectionLink} target="_blank" rel="noopener noreferrer">
-                    <img className="scrap-img" src={this.props.wish.thumbnails || window.location.origin + "/images/emptyImage.png"} alt={this.props.wish.name} />
+                    <img className="scrap-img" src={this.props.wish.thumbnailURL || window.location.origin + "/images/emptyImage.png"} alt={this.props.wish.title} />
                 </a>
                 <div className="detail-container">
-                    <div>{this.props.wish.name}</div>
+                    <div>{this.props.wish.title}</div>
                     <div>{this.props.wish.price}</div>
-                    <div>{this.props.wish.shoppingmall}</div>
-                    <div>{this.props.wish.delivery}</div>
+                    <div>{this.props.wish.shoppingMall}</div>
+                    <div>{this.props.wish.deliveryInfo}</div>
                     <div>{this.props.wish.description}</div>
                 </div>
             </React.Fragment>

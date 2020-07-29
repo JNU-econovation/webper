@@ -7,13 +7,14 @@ import { fetchDir, deleteDir } from '../../actions';
 class DeleteDirectory extends React.Component {
     componentDidMount() {
         this.props.fetchDir(this.props.match.params.id)
+    console.log("in Delete",this.props.directory);
     }
 
     renderContent() {
         let message = <div>이 디렉토리와 담겨있는 스크랩들을 정말로 삭제하시겠습니까?</div>
 
         if (this.props.directory)
-            message = <div><span>{this.props.directory.directoryTitle}</span> 디렉토리와 담겨있는 스크랩들을 정말로 삭제하시겠습니까?</div>
+            message = <div><span>{this.props.directory.title}</span> 디렉토리와 담겨있는 스크랩들을 정말로 삭제하시겠습니까?</div>
 
         return (
             <React.Fragment>

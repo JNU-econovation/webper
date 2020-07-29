@@ -11,7 +11,7 @@ const portalScraper = async (url, callback) => {
         return callback(null, { ...response.data, description: "" });
     } catch (err) {
         alert("자동으로 scrap해올 수 없는 페이지입니다. 직접 컴포넌트를 만들어주세요!");
-        return callback(null, { name: "edit버튼을 눌러 직접 작성해주세요", favicon: window.origin + "/images/emptyImage.png", redirectionLink: url });
+        return callback(null, { name: "edit버튼을 눌러 직접 작성해주세요", faviconURL: window.origin + "/images/emptyImage.png", redirectionLink: url });
     }
 }
 

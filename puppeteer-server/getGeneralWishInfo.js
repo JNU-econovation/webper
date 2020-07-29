@@ -13,8 +13,8 @@ const getGeneralWishInfo = async (url, domain, callback) => {
             return callback(error, null);
         } else {
             const $ = cheerio.load(decode(html));
-            result.name = getName($);
-            result.thumbnails = getThumbnails($);
+            result.title = getName($);
+            result.thumbnailURL = getThumbnails($);
             result.price = getPrice($);
             result.shoppingmall = url.split("://")[1].split('/')[0];
             result.redirectionLink = url;
