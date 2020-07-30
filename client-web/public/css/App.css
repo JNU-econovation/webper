@@ -259,6 +259,7 @@ nav div a {
   grid-row: auto;
   gap: 15px 10px;
   padding: 5px 10px;
+  min-width: 70vw;
   max-width: 1000px;
 }
 
@@ -316,33 +317,43 @@ nav div a {
   border-radius: 3px;
   padding: 5px;
   box-shadow: 0 0 5px lightgray;
+  min-width: 15vw;
 }
 
 .drag-drop-zone {
+  display: flex;
   padding: 1em;
   width: inherit;
   height: inherit;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  font-size: 1.2em;
+  color: gray;
+  border: 3px solid #d3f5f3;
+  border-radius: 3px;
 }
 
 .drag-drop-zone.inside-drag-area {
+  background-color: #d3f5f3;
   opacity: 0.7;
+}
+
+.drag-drop-zone div {
+  justify-self: center;
+  text-align: center;
 }
 
 .scrap-item {
   border-radius: 3px;
   padding: 5px;
   box-shadow: 0 0 5px lightgray;
+  min-width: 15vw;
 }
 
 .scrap-item:hover,
 .scrap-url:hover {
   background-color: #f7f5f2;
-}
-
-.portal-scrap-img-container {
-  /* width: 240px; */
-  /* height: 150px; */
-  text-align: center;
 }
 
 .scrap-img {
@@ -355,15 +366,21 @@ nav div a {
   overflow: hidden;
 }
 
-.portal {
-  width: 50%;
-  display: inline-block;
-  vertical-align: middle;
-  margin: 3vh auto;
+.portal-scrap-img-container {
+  /* width: 240px;
+  height: 150px; */
+  text-align: center;
 }
 
 .scrap-img.blog {
   object-fit: cover;
+}
+
+.scrap-img.portal {
+  width: 50%;
+  display: inline-block; 
+  vertical-align: middle;
+  margin: 3vh auto;
 }
 
 .detail-container {
