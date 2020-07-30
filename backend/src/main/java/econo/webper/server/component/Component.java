@@ -1,13 +1,13 @@
 package econo.webper.server.component;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity @NoArgsConstructor @Getter
+@Entity
+@NoArgsConstructor
+@Getter
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Component {
 
@@ -27,11 +27,15 @@ public class Component {
         this.category = category;
     }
 
-    public String objectToJson() throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(this);
+    public boolean isSameId(Integer id) {
+        return this.id == id;
     }
 
+    public boolean update(Object updateDTO) {
+        return false;
+    }
 
-
+    protected void updateTitle(String title) {
+        this.title = title;
+    }
 }

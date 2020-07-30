@@ -1,5 +1,6 @@
 package econo.webper.server.Member;
 
+import econo.webper.server.component.Component;
 import econo.webper.server.directory.Directory;
 import econo.webper.server.directory.dto.DirectoryDTO;
 
@@ -80,6 +81,17 @@ public class Member {
         }
         return directoryById.updateDirectory(directoryDTO.getTitle(), directoryDTO.getCategory());
 
+    }
+
+    public Component findComponentById(Integer id) {
+        Component result = null;
+        for (Directory directory : directories) {
+            result = directory.findComponentById(id);
+            if (result != null) {
+                return result;
+            }
+        }
+        return null;
     }
 }
 

@@ -2,10 +2,7 @@ package econo.webper.server.component;
 
 import econo.webper.server.Member.Member;
 import econo.webper.server.Member.MemberService;
-import econo.webper.server.component.dto.BlogDTO;
-import econo.webper.server.component.dto.PortalDTO;
-import econo.webper.server.component.dto.VideoDTO;
-import econo.webper.server.component.dto.WishListDTO;
+import econo.webper.server.component.dto.*;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +21,7 @@ public class ComponentService {
     }
 
     public Component getLastCreatedComponent() {
-        return componentRepository.findAll(Sort.by(Sort.Direction.DESC,"id")).get(0);
+        return componentRepository.findAll(Sort.by(Sort.Direction.DESC, "id")).get(0);
     }
 
     public Component saveBlog(Member member, BlogDTO blogDTO) {
@@ -69,7 +66,50 @@ public class ComponentService {
         return memberService.saveComponent(member, wishList);
     }
 
-    public Component findById(Integer id) {
-        return componentRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    public Component findById(Member member, Integer id) {
+        return member.findComponentById(id);
+    }
+
+    public Component updateBlog(Member member, BlogUpdateDTO blogUpdateDTO) {
+        Component component = findById(member, blogUpdateDTO.getId());
+        if (component == null) {
+            return null;
+        }
+        if (!component.update(blogUpdateDTO)) {
+            return null;
+        }
+        return component;
+    }
+
+    public Component updatePortal(Member member, PortalUpdateDTO portalUpdateDTO) {
+        Component component = findById(member, portalUpdateDTO.getId());
+        if (component == null) {
+            return null;
+        }
+        if (!component.update(portalUpdateDTO)) {
+            return null;
+        }
+        return component;
+    }
+
+    public Component updateVideo(Member member, VideoUpdateDTO videoUpdateDTO) {
+        Component component = findById(member, videoUpdateDTO.getId());
+        if (component == null) {
+            return null;
+        }
+        if (!component.update(videoUpdateDTO)) {
+            return null;
+        }
+        return component;
+    }
+    public Component updateWishList(Member member, WishListUpdateDTO wishListUpdateDTO) {
+        Component component = findById(member, wishListUpdateDTO.getId());
+        if (component == null) {
+            return null;
+        }
+        if (!component.update(wishListUpdateDTO)) {
+            return null;
+        }
+        return component;
     }
 }

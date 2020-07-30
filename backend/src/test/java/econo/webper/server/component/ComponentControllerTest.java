@@ -84,6 +84,18 @@ public class ComponentControllerTest {
         mockMvc.perform(get("/directory/1/components")
                 .header("Authorization", token))
                 .andDo(print());
+        mockMvc.perform(get("/component")
+                .param("id","1")
+                .header("Authorization", token))
+                .andDo(print());
+        mockMvc.perform(get("/component")
+                .param("id","2")
+                .header("Authorization", token))
+                .andDo(print());
+        mockMvc.perform(get("/component")
+                .param("id","3")
+                .header("Authorization", token))
+                .andDo(print());
     }
 
 

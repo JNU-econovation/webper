@@ -1,7 +1,7 @@
 package econo.webper.server.component;
 
 
-import lombok.Builder;
+import econo.webper.server.component.dto.BlogUpdateDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,5 +24,16 @@ public class Blog extends Component {
         this.description = description;
         this.redirectionLink = redirectionLink;
     }
+
+    @Override
+    public boolean update(Object updateDTO) {
+         BlogUpdateDTO blogUpdateDTO = (BlogUpdateDTO) updateDTO;
+         super.updateTitle(blogUpdateDTO.getTitle());
+         this.thumbnailURL = blogUpdateDTO.getThumbnailURL();
+         this.description = blogUpdateDTO.getDescription();
+         this.redirectionLink = blogUpdateDTO.getRedirectionLink();
+         return true;
+    }
+
 
 }

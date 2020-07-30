@@ -34,8 +34,8 @@ public class DirectoryService {
         return memberService.deleteDirectory(member, id);
     }
 
-    public Directory getDirectory(Member member, Integer id) {
-        return memberService.getDirectory(member, id);
+    public Directory findDirectoryById(Member member, Integer id) {
+        return memberService.findDirectoryById(member, id);
     }
 
     public List<DirectoryDTO> getDirectoryDTOs(Member savedMember) {

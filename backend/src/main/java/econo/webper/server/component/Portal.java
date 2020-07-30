@@ -1,5 +1,7 @@
 package econo.webper.server.component;
 
+import econo.webper.server.component.dto.BlogUpdateDTO;
+import econo.webper.server.component.dto.PortalUpdateDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,5 +23,15 @@ public class Portal extends Component {
         this.faviconURL = faviconURL;
         this.redirectionLink = redirectionLink;
         this.description = description;
+    }
+
+    @Override
+    public boolean update(Object updateDTO) {
+        PortalUpdateDTO portalUpdateDTO = (PortalUpdateDTO) updateDTO;
+        super.updateTitle(portalUpdateDTO.getTitle());
+        this.faviconURL = portalUpdateDTO.getFaviconURL();
+        this.description = portalUpdateDTO.getDescription();
+        this.redirectionLink = portalUpdateDTO.getRedirectionLink();
+        return true;
     }
 }
