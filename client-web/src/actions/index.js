@@ -69,7 +69,6 @@ export const fetchRandomDir = () => async dispatch => {
 }
 
 export const deleteDir = id => async dispatch => {
-	console.log("deleteDir!!!!");
     const response = await server.delete(`/directory/${id}`, getHeader());
 
     dispatch({ type: "DELETE_DIR", payload: id });
