@@ -16,8 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Api(value = "Directory CRUD", tags = {"Directory CRUD - 담당자 : 배종진"})
 @RestController
@@ -33,16 +31,6 @@ public class DirectoryController {
         this.directoryService = directoryService;
         this.memberService = memberService;
         this.objectMapper = objectMapper;
-    }
-    @GetMapping("/root-directory")
-    @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
-    public ResponseEntity getRootDirectories(@AuthenticationPrincipal MemberDetails memberDetails) {
-        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
-        List<DirectoryDTO> directoryDTOs = directoryService.getDirectoryDTOs(savedMember);
-        if (directoryDTOs.size() == 0) {
-            return ResponseEntity.badRequest().body(ExceptionMessage.NOT_GET_ROOT_DIRECTORY);
-        }
-        return ResponseEntity.ok(directoryDTOs);
     }
 
     @GetMapping("/directory")
@@ -70,7 +58,7 @@ public class DirectoryController {
         return ResponseEntity.ok(directoryDTO);
     }
 
-    @PutMapping("/directory")
+    @PatchMapping("/directory")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
     public ResponseEntity updateDirectory(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody DirectoryDTO directoryDTO) {
         Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());

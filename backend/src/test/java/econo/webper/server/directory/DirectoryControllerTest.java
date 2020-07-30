@@ -94,7 +94,7 @@ public class DirectoryControllerTest {
                 "\"title\" : \"Change Example\"" +
                 "}";
 
-        mockMvc.perform(put("/directory")
+        mockMvc.perform(patch("/directory")
                 .header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonParam))
