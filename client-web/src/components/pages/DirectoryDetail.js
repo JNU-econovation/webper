@@ -71,8 +71,8 @@ class DirectoryDetail extends React.Component {
   };
 
   render() {
-	  console.log(this.props.directory);
-	  console.log(this.props.scraps);
+    console.log(this.props.directory);
+    console.log(this.props.scraps);
     return (
       <div>
         <div className="container">
@@ -80,11 +80,11 @@ class DirectoryDetail extends React.Component {
             {this.renderTitle()}
             <UrlForm onSubmit={this.onSubmit} />
             {this.renderDefault()}
-            <RenderScraps 
-	    directory={this.props.directory}
-	    scraps={this.props.scraps}
-	    onDelete={this.props.deleteScrap} 
-		/>
+            <RenderScraps
+              directory={this.props.directory}
+              scraps={this.props.scraps}
+              onDelete={this.props.deleteScrap}
+            />
           </div>
         </div>
       </div>

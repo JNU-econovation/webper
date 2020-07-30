@@ -30,16 +30,16 @@ class PortalScrap extends React.Component {
   onDelete = () => {
     this.props.onDelete(this.props.portal.id);
   }
-	
+
   renderButtons = () => {
-  	if (this.props.main !== "true")
-		return (
-			<div className="scrap-button-container">
-				<img onClick={this.onDelete} className="scrap-button" src={window.location.origin + "/images/trash.png"} alt="scrap delete button" />
-				<img onClick={this.editModeOn} className="scrap-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" />
-			</div>
-			)
- 	return null;
+    if (this.props.main !== "true")
+      return (
+        <div className="scrap-button-container">
+          <img onClick={this.onDelete} className="scrap-button" src={window.location.origin + "/images/trash.png"} alt="scrap delete button" />
+          <img onClick={this.editModeOn} className="scrap-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" />
+        </div>
+      )
+    return null;
   }
 
   renderContents() {
@@ -61,7 +61,7 @@ class PortalScrap extends React.Component {
 
     return (
       <React.Fragment>
-	 {this.renderButtons()}
+        {this.renderButtons()}
         <a href={this.props.portal.redirectionLink} target="_blank" rel="noopener noreferrer" >
           <div className="portal-scrap-img-container">
             <img className="scrap-img portal"

@@ -8,12 +8,12 @@ import { fetchDir, editDir } from '../../actions';
 class EditDirectory extends React.Component {
 
     componentDidMount() {
-    	this.props.fetchDir(this.props.match.params.id);
+        this.props.fetchDir(this.props.match.params.id);
     }
 
     onSubmit = formValues => {
-       console.log("in Edit",this.props);
-	    this.props.editDir(this.props.match.params.id, this.props.directory.category, this.props.directory.parentDirectoryId, formValues);
+        console.log("in Edit", this.props);
+        this.props.editDir(this.props.match.params.id, this.props.directory.category, this.props.directory.parentDirectoryId, formValues);
     }
 
     renderContent() {

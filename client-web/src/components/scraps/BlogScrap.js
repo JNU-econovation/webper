@@ -32,14 +32,14 @@ class BlogScrap extends React.Component {
     }
 
     renderButtons = () => {
-    	if (this.props.main !== "true")
-	    return (
+        if (this.props.main !== "true")
+            return (
                 <div className="scrap-button-container">
-		    <img onClick={this.onDelete} className="scrap-button" src={window.location.origin + "/images/trash.png"} alt="scrap delete button" />
+                    <img onClick={this.onDelete} className="scrap-button" src={window.location.origin + "/images/trash.png"} alt="scrap delete button" />
                     <img onClick={this.editModeOn} className="scrap-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" />
                 </div>
-	    )
-	 return null;
+            )
+        return null;
     }
 
     renderContents() {
@@ -61,7 +61,7 @@ class BlogScrap extends React.Component {
 
         return (
             <React.Fragment>
-		{this.renderButtons()}
+                {this.renderButtons()}
                 <a href={this.props.blog.redirectionLink} target="_blank" rel="noopener noreferrer">
                     <div className="crop blog">
                         <img className="scrap-img blog" src={this.props.blog.thumbnailURL || window.location.origin + "/images/emptyImage.png"} alt={this.props.blog.title} />

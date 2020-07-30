@@ -7,7 +7,7 @@ import { fetchDir, deleteDir } from '../../actions';
 class DeleteDirectory extends React.Component {
     componentDidMount() {
         this.props.fetchDir(this.props.match.params.id)
-    console.log("in Delete",this.props.directory);
+        console.log("in Delete", this.props.directory);
     }
 
     renderContent() {
