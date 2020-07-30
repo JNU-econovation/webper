@@ -35,14 +35,7 @@ public class ComponentController {
         if (component == null) {
             return ResponseEntity.badRequest().body(ExceptionMessage.NOT_GET_COMPONENT);
         }
-        String componentJsonData;
-        try {
-            componentJsonData = component.objectToJson();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.ok(ExceptionMessage.JSON_PROCESSING_EXCEPTION);
-        }
-        return ResponseEntity.ok(componentJsonData);
+        return ResponseEntity.ok(component);
     }
 
     @PostMapping("/component/blog")
@@ -93,13 +86,8 @@ public class ComponentController {
         if (component == null) {
             ResponseEntity.badRequest().body(ExceptionMessage.NOT_CREATE_COMPONENTS);
         }
-        String ComponentJsonData;
-        try {
-            ComponentJsonData = componentService.getLastCreatedComponent().objectToJson();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.ok(ExceptionMessage.JSON_PROCESSING_EXCEPTION);
-        }
-        return ResponseEntity.ok(ComponentJsonData);
+        Component lastCreatedComponent = componentService.getLastCreatedComponent();
+        return ResponseEntity.ok(lastCreatedComponent);
     }
+
 }
