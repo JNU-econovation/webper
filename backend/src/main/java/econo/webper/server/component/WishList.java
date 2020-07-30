@@ -13,7 +13,7 @@ public class WishList extends Component {
 
     private String redirectionLink;
 
-    private int price;
+    private String price;
 
     private String deliveryInfo;
 
@@ -21,7 +21,7 @@ public class WishList extends Component {
 
     private String shoppingMall;
 
-    public WishList(String title, Integer directoryId, ComponentCategory category, String thumbnailURL, String redirectionLink, int price, String deliveryInfo, String description, String shoppingmall) {
+    public WishList(String title, Integer directoryId, ComponentCategory category, String thumbnailURL, String redirectionLink, String price, String deliveryInfo, String description, String shoppingmall) {
         super(title, directoryId, category);
         this.thumbnailURL = thumbnailURL;
         this.redirectionLink = redirectionLink;

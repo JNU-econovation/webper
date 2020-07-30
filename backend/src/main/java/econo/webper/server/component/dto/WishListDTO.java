@@ -18,7 +18,7 @@ public class WishListDTO {
 
     private String redirectionLink;
 
-    private int price;
+    private String price;
 
     private String deliveryInfo;
 
