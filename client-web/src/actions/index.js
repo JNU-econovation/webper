@@ -66,10 +66,9 @@ export const deleteDir = id => async dispatch => {
     history.push('/');
 }
 
-export const editDir = (id, formValues) => async dispatch => {
-    const response = await server.patch(`/directory/${id}`, formValues);
-
-    dispatch({ type: "EDIT_DIR", payload: response.data });
+export const editDir = (id, category, parentId, formValues) => async dispatch => {
+    const response = await server.patch(`/directory`, {...formValues, id: id, category: category, parentDirectoryId: parentId});
+    dispatch({ type: "EDIT_DIR", payload: {id, category, parentDirectoryId : parentId, ...formValues} });
     history.goBack();
 }
 
@@ -77,7 +76,7 @@ export const createScrap = (video_detail, directoryId, category) => async dispat
     const response = await server.post(`/component/${category.toLowerCase()}`, { ...video_detail, directoryId, category: category }, getHeader());
 	console.log("in CreateScrap", response.data);
     dispatch({ type: "CREATE_SCRAP", payload: response.data });
-    history.push(`/detail/${directoryId}/${category}`);
+    history.push(`/detail/${directoryId}/${category.toLowerCase()}`);
 }
 
 export const fetchScraps = (directoryId) => async dispatch => {
@@ -88,8 +87,15 @@ export const fetchScraps = (directoryId) => async dispatch => {
     // history.push(`/detail/${directoryId}/${category}`);
 }
 
+export const deleteScrap = (id, directoryId, category) => async dispatch => {
+    const response = await server.delete(`/component/${id}`, getHeader());
+
+    dispatch({ type: "DELETE_SCRAP", payload: id});
+    history.push(`/detail/${directoryId}/${category.toLowerCase()}`);
+}
+
 export const editScrap = (id, formValues, directoryId, category) => async dispatch => {
-    const response = await server.patch(`/${category}s/${id}`, formValues);
+    const response = await server.patch(`/component/${category.toLowerCase()}`, {...formValues, id : id}, getHeader());
 
     dispatch({ type: "EDIT_SCRAP", payload: response.data });
     history.push(`/detail/${directoryId}/${category}`);

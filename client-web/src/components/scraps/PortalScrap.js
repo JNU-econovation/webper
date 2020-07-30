@@ -27,6 +27,10 @@ class PortalScrap extends React.Component {
     e.stopPropagation();
   }
 
+  onDelete = () => {
+    this.props.onDelete(this.props.portal.id);
+  }
+
   renderContents() {
     if (this.state.onEdit === true) {
       const editable_info_name = { title: "name", faviconURL: "icon", redirectionLink: "url" }
@@ -46,8 +50,9 @@ class PortalScrap extends React.Component {
 
     return (
       <React.Fragment>
-        <div className="scrap-edit-button-container">
-          <img onClick={this.editModeOn} className="scrap-edit-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" />
+        <div className="scrap-button-container">
+	  <img onClick={this.onDelete} className="scrap-button" src={window.location.origin + "/images/trash.png"} alt="scrap delete button" />
+          <img onClick={this.editModeOn} className="scrap-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" />
         </div>
         <a href={this.props.portal.redirectionLink} target="_blank" rel="noopener noreferrer" >
           <div className="portal-scrap-img-container">
@@ -57,7 +62,7 @@ class PortalScrap extends React.Component {
           </div>
         </a>
         <div className="detail-container">
-          <div>{this.props.portal.title}</div>
+          <div className="portal-title">{this.props.portal.title}</div>
         </div>
       </React.Fragment>
     )

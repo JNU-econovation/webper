@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import history from '../../history';
 import { fetchDir, fetchScraps } from '../../actions';
-import renderScraps from './renderScraps';
+import RenderScraps from './RenderScraps';
 
 class Main extends React.Component {
 
@@ -24,8 +24,8 @@ class Main extends React.Component {
         if (!this.props.scraps) return null;
 
         const scraps = this.props.scraps.filter(scrap => scrap.directoryId == directory.id);
-        const scrapComponents = renderScraps(directory, scraps);
-        return scrapComponents;
+        //const scrapComponents = renderScraps(directory, scraps);
+       // return scrapComponents;
     }
 
     renderDir() {
@@ -36,7 +36,7 @@ class Main extends React.Component {
             return (
                 <div className="title">
                     {directory.title}
-                    {this.render4Scraps(directory)}
+                   {this.render4Scraps(directory)}
                 </div>
             )
         })
@@ -47,8 +47,6 @@ class Main extends React.Component {
     render() {
         if (!this.props.isSignedIn)
             history.push('/user_login')
-
-
 
         return (
             <div>

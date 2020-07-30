@@ -271,13 +271,13 @@ nav div a {
 }
 
 .scrap-button {
-  width: 15px;
-  padding: 2px;
+  width: 18px;
+  padding: 2px 4px;
   cursor: pointer;
   border-radius: 3px;
 }
 
-.scrap-edit-button:hover {
+.scrap-button:hover {
   box-shadow: 0 0 5px lightgray;
   background-color: white;
 }
@@ -391,6 +391,10 @@ nav div a {
 .detail-container div {
   width: auto;
   padding: 2px 0px;
+}
+
+.detail-container > .portal-title {
+  text-align: center;
 }
 
 .urlform {

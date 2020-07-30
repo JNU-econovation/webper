@@ -3,19 +3,24 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import Modal from '../Modal';
 import history from '../../history';
-import { editDir } from '../../actions';
+import { fetchDir, editDir } from '../../actions';
 
 class EditDirectory extends React.Component {
 
+    componentDidMount() {
+    	this.props.fetchDir(this.props.match.params.id);
+    }
+
     onSubmit = formValues => {
-        this.props.editDir(this.props.match.params.id, formValues);
+       console.log("in Edit",this.props);
+	    this.props.editDir(this.props.match.params.id, this.props.directory.category, this.props.directory.parentDirectoryId, formValues);
     }
 
     renderContent() {
         return (
             <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
                 <label>Directory Title</label>
-                <Field name="directoryTitle" component="input" placeholder="Enter the name of directory" autoComplete="off" />
+                <Field name="title" component="input" placeholder="Enter the new name of directory" autoComplete="off" />
                 <div>
                     <button type="submit">Rename</button>
                     <button onClick={() => history.goBack()}>Cancel</button>
@@ -40,4 +45,8 @@ const Wrapped = reduxForm({
     form: 'editDirForm'
 })(EditDirectory);
 
-export default connect(null, { editDir })(Wrapped);
+const mapStateToProps = (state, ownProps) => {
+    return { directory: state.dirs[ownProps.match.params.id] }
+}
+
+export default connect(mapStateToProps, { fetchDir, editDir })(Wrapped);

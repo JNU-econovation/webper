@@ -27,6 +27,10 @@ class VideoScrap extends React.Component {
         e.stopPropagation();
     }
 
+    onDelete = () => {
+    	this.props.onDelete(this.props.video.id);
+    }
+
     renderContents() {
         if (this.state.onEdit === true) {
             const editable_info_name = { title: "title", redirectionLink: "url" }
@@ -47,8 +51,8 @@ class VideoScrap extends React.Component {
         return (
             <React.Fragment>
                 <div className="scrap-button-container">
+                    <img onClick={this.onDelete} className="scrap-button" src={window.location.origin + "/images/trash.png"} alt="scrap delete button" />
                     <img onClick={this.editModeOn} className="scrap-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" />
-                    <img className="scrap-button" src={window.location.origin + "/images/trash.png"} alt="scrap delete button" />
 		</div>
                 <a href={this.props.video.redirectionLink} target="_blank" rel="noopener noreferrer">
                     <img className="scrap-img" src={this.props.video.thumbnailURL || window.location.origin + "/images/emptyImage.png"} alt={this.props.video.title} />

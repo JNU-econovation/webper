@@ -6,8 +6,8 @@ import wishScraper from "../../scrapers/wishScraper";
 import blogScraper from "../../scrapers/blogScraper";
 import portalScraper from "../../scrapers/portalScraper";
 
-import { createScrap, fetchScraps } from "../../actions";
-import renderScraps from "./renderScraps";
+import { createScrap, deleteScrap, fetchScraps } from "../../actions";
+import RenderScraps from "./RenderScraps";
 
 class DirectoryDetail extends React.Component {
   componentDidMount() {
@@ -56,6 +56,7 @@ class DirectoryDetail extends React.Component {
       return <h2 className="title">{this.props.directory.title}</h2>
     else return null;
   }
+
   renderDefault = () => {
     if (this.props.scraps.length === 0)
       return (
@@ -70,6 +71,8 @@ class DirectoryDetail extends React.Component {
   };
 
   render() {
+	  console.log(this.props.directory);
+	  console.log(this.props.scraps);
     return (
       <div>
         <div className="container">
@@ -77,7 +80,11 @@ class DirectoryDetail extends React.Component {
             {this.renderTitle()}
             <UrlForm onSubmit={this.onSubmit} />
             {this.renderDefault()}
-            {renderScraps(this.props.directory, this.props.scraps)}
+            <RenderScraps 
+	    directory={this.props.directory}
+	    scraps={this.props.scraps}
+	    onDelete={this.props.deleteScrap} 
+		/>
           </div>
         </div>
       </div>
@@ -92,4 +99,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { createScrap, fetchScraps })(DirectoryDetail);
+export default connect(mapStateToProps, { createScrap, deleteScrap, fetchScraps })(DirectoryDetail);
