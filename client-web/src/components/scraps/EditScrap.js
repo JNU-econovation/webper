@@ -29,7 +29,7 @@ class EditScrap extends React.Component {
     render() {
         return (
             <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-                <div className="scrap-edit-button-container">
+                <div className="scrap-button-container">
                     <button className="scrap-save-button" type="submit">save</button>
                 </div>
                 <div className="scrap-edit-container">

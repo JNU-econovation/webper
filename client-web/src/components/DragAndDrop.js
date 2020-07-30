@@ -53,7 +53,7 @@ const DragAndDrop = props => {
             onDragEnter={e => handleDragEnter(e)}
             onDragLeave={e => handleDragLeave(e)}
         >
-            <p>Drag URL here!</p>
+            <div>Drag URL here!</div>
         </div>
     );
 };

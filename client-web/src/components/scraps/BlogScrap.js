@@ -27,16 +27,31 @@ class BlogScrap extends React.Component {
         e.stopPropagation();
     }
 
+    onDelete = () => {
+        this.props.onDelete(this.props.blog.id);
+    }
+
+    renderButtons = () => {
+        if (this.props.main !== "true")
+            return (
+                <div className="scrap-button-container">
+                    <img onClick={this.onDelete} className="scrap-button" src={window.location.origin + "/images/trash.png"} alt="scrap delete button" />
+                    <img onClick={this.editModeOn} className="scrap-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" />
+                </div>
+            )
+        return null;
+    }
+
     renderContents() {
         if (this.state.onEdit === true) {
-            const editable_info_name = { title: "title", thumbnails: "thumbnails", description: "description", redirectionLink: "url" }
+            const editable_info_name = { title: "title", thumbnailURL: "thumbnailURL", description: "description", redirectionLink: "url" }
             return (
                 <React.Fragment>
                     <EditScrap
-                        category='blog'
+                        category='BLOG'
                         scrap_detail={this.props.blog}
-                        initialValues={_.pick(this.props.blog, 'title', 'thumbnails', 'description', 'redirectionLink')}
-                        image={this.props.blog.thumbnails}
+                        initialValues={_.pick(this.props.blog, 'title', 'thumbnailURL', 'description', 'redirectionLink')}
+                        image={this.props.blog.thumbnailURL}
                         editable_info_name={editable_info_name}
                         saveCallback={() => { this.setState({ onEdit: false }); this.editModeOff(); }}
                     />
@@ -46,12 +61,10 @@ class BlogScrap extends React.Component {
 
         return (
             <React.Fragment>
-                <div className="scrap-edit-button-container">
-                    <img onClick={this.editModeOn} className="scrap-edit-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" />
-                </div>
+                {this.renderButtons()}
                 <a href={this.props.blog.redirectionLink} target="_blank" rel="noopener noreferrer">
                     <div className="crop blog">
-                        <img className="scrap-img blog" src={this.props.blog.thumbnails || window.location.origin + "/images/emptyImage.png"} alt={this.props.blog.title} />
+                        <img className="scrap-img blog" src={this.props.blog.thumbnailURL || window.location.origin + "/images/emptyImage.png"} alt={this.props.blog.title} />
                     </div>
                 </a>
                 <div className="detail-container">

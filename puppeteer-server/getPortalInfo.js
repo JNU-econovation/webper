@@ -13,8 +13,8 @@ const getPortalInfo = async (url, callback) => {
             return callback(error, null);
         } else {
             const $ = cheerio.load(decode(html));
-            result.name = getName($);
-            result.favicon = getFavicon($, url);
+            result.title = getName($);
+            result.faviconURL = getFavicon($, url);
             result.redirectionLink = url;
 
             console.log(result);

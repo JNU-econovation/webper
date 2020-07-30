@@ -60,10 +60,10 @@ public class UserServiceTest {
         memberService.saveMember(googleUserinfoDTO, Collections.singletonList(MemberRole.USER));
 
         // when
-        MemberDetails memberDetails = memberService.findMemberByEmail(googleUserinfoDTO.getEmail());
+        Member memberDetails = memberService.findMemberByEmail(googleUserinfoDTO.getEmail());
 
         // Then
-        assertThat(memberDetails.getMember().getEmail()).isEqualTo(email);
+        assertThat(memberDetails.getEmail()).isEqualTo(email);
     }
 
 }

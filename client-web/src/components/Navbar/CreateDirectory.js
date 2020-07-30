@@ -8,7 +8,7 @@ import DirForm from './DirForm';
 class CreateDirectory extends React.Component {
 
     onSubmit = (formValues) => {
-        this.props.createDir({ ...formValues, parentId: this.props.match.params.id });
+        this.props.createDir({ ...formValues, parentDirectoryId: this.props.match.params.id });
     }
 
     renderContent() {

@@ -71,4 +71,9 @@ public class Directory {
         this.category = category;
         return this;
     }
+
+    public boolean saveComponent(Component component) {
+        return components.add(component);
+    }
+
 }

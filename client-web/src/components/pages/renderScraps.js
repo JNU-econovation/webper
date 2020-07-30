@@ -9,22 +9,22 @@ const renderScraps = (directory, scraps) => {
     let scrap_component;
     if (directory)
         switch (directory.category) {
-            case "video":
+            case "VIDEO":
                 scrap_component = scraps.map(scrap => {
                     return <VideoScrap video={scrap} key={scrap.id} />
                 });
                 break;
-            case "wishlist":
+            case "WISHLIST":
                 scrap_component = scraps.map(scrap => {
                     return <WishScrap wish={scrap} key={scrap.id} />
                 });
                 break;
-            case "blog":
+            case "BLOG":
                 scrap_component = scraps.map(scrap => {
                     return <BlogScrap blog={scrap} key={scrap.id} />
                 });
                 break;
-            case "portal":
+            case "PORTAL":
                 scrap_component = scraps.map(scrap => {
                     return <PortalScrap portal={scrap} key={scrap.id} />
                 });

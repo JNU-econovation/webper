@@ -6,14 +6,13 @@ import wishScraper from "../../scrapers/wishScraper";
 import blogScraper from "../../scrapers/blogScraper";
 import portalScraper from "../../scrapers/portalScraper";
 
-import { createScrap, fetchScraps } from "../../actions";
-import renderScraps from "./renderScraps";
+import { createScrap, deleteScrap, fetchScraps } from "../../actions";
+import RenderScraps from "./RenderScraps";
 
 class DirectoryDetail extends React.Component {
   componentDidMount() {
     this.props.fetchScraps(
       this.props.match.params.id,
-      this.props.match.params.category
     );
   }
 
@@ -21,7 +20,6 @@ class DirectoryDetail extends React.Component {
     if (this.props.match.params.id !== nextProps.match.params.id) {
       this.props.fetchScraps(
         nextProps.match.params.id,
-        nextProps.match.params.category
       );
     }
   }
@@ -33,10 +31,10 @@ class DirectoryDetail extends React.Component {
     }
 
     let Scraper;
-    if (this.props.directory.category === "video") Scraper = videoScraper;
-    if (this.props.directory.category === "wishlist") Scraper = wishScraper;
-    if (this.props.directory.category === "blog") Scraper = blogScraper;
-    if (this.props.directory.category === "portal") Scraper = portalScraper;
+    if (this.props.directory.category === "VIDEO") Scraper = videoScraper;
+    if (this.props.directory.category === "WISHLIST") Scraper = wishScraper;
+    if (this.props.directory.category === "BLOG") Scraper = blogScraper;
+    if (this.props.directory.category === "PORTAL") Scraper = portalScraper;
 
     Scraper(inputURL, (err, result) => {
       if (err) {
@@ -55,9 +53,9 @@ class DirectoryDetail extends React.Component {
 
   renderTitle = () => {
     if (this.props.directory)
-      return <h2 className="title">{this.props.directory.directoryTitle}</h2>;
+      return <h2 className="title">{this.props.directory.title}<span className="category"> / {this.props.directory.category}</span></h2>
     else return null;
-  };
+  }
 
   renderDefault = () => {
     if (this.props.scraps.length === 0)
@@ -73,6 +71,8 @@ class DirectoryDetail extends React.Component {
   };
 
   render() {
+    console.log(this.props.directory);
+    console.log(this.props.scraps);
     return (
       <div>
         <div className="container">
@@ -80,7 +80,11 @@ class DirectoryDetail extends React.Component {
             {this.renderTitle()}
             <UrlForm onSubmit={this.onSubmit} />
             {this.renderDefault()}
-            {renderScraps(this.props.directory, this.props.scraps)}
+            <RenderScraps
+              directory={this.props.directory}
+              scraps={this.props.scraps}
+              onDelete={this.props.deleteScrap}
+            />
           </div>
         </div>
       </div>
@@ -95,6 +99,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { createScrap, fetchScraps })(
-  DirectoryDetail
-);
+export default connect(mapStateToProps, { createScrap, deleteScrap, fetchScraps })(DirectoryDetail);

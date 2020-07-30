@@ -1,83 +1,78 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import history from '../../history';
-import { fetchDir, fetchScraps } from '../../actions';
-import renderScraps from './renderScraps';
+import { fetchRandomDir } from '../../actions';
+import RenderScraps from './RenderScraps';
 
 class Main extends React.Component {
 
     componentDidMount() {
-        const mainDirs = Object.values(this.props.setting.mainDirs);
-        if (this.props.setting.mainDirs)
-            mainDirs.forEach(dirId => {
-                this.props.fetchDir(dirId);
-            });
-
-        if (this.props.dirs)
-            mainDirs.forEach(dirId => {
-                if (this.props.dirs[dirId])
-                    this.props.fetchScraps(dirId, this.props.dirs[dirId].category);
-            })
+	this.props.fetchRandomDir();
     }
 
-    render4Scraps(directory) {
-        if (!this.props.scraps) return null;
-
-        const scraps = this.props.scraps.filter(scrap => scrap.directoryId == directory.id);
-
-        // console.log(directory.id, directory.directoryTitle, scraps);
-
-        const scrapComponents = renderScraps(directory, scraps);
-        return scrapComponents;
+    renderEmpty() {
+    	return (
+		<h1>
+			Create your first webper directory!
+		</h1>
+	)
+    }
+	
+    renderTitle() {
+	let title;
+	title = "webper";
+    	if (this.props.userName)
+    		title = `${this.props.userName}의 webper`;
+	return <h1>{title}</h1> 
     }
 
-    renderDir() {
-        const dir = Object.values(this.props.setting.mainDirs).map(dir => {
-            const directory = this.props.dirs[dir];
-            if (!directory) return;
-
-            return (
-                <div className="title">
-                    {directory.directoryTitle}
-                    {this.render4Scraps(directory)}
-                </div>
-            )
-        })
-
-        return dir;
+    renderRandomDir() {
+	if (this.props.directory.length === 0)
+	    return (
+		<div className="container">
+		    {this.renderEmpty()}
+		</div>
+	    )
+	const directory = this.props.directory[0];
+	return (
+	    <div>
+		{this.renderTitle()}
+		<div className="container">
+			<div className="scrap-container main">
+				<h2 className="title">
+					<Link to={`/detail/${directory.id}/${directory.category}`}>{directory.title}</Link>
+				</h2>
+				<RenderScraps
+					directory={directory}
+					scraps={Object.values(directory.components)}
+					main="true"
+				/>
+			</div>
+		</div>
+	    </div>
+	)
     }
 
     render() {
         if (!this.props.isSignedIn)
             history.push('/user_login')
 
-        // const { cookies } = this.props;
-        // cookies.set('name', 'Young', { path: '/' });
-
         return (
-            <div>
-                <div className="container">
-                    <div className="scrap-container">
-                        <h1 className="title">
-                            {this.props.setting.webperTitle || ""}
-                        </h1>
-                        {this.renderDir()}
-                    </div>
-                </div>
+            <div className="container">
+                 {this.renderRandomDir()}
             </div>
         );
     };
 };
 
 const mapStateToProps = (state, ownProps) => {
-    // console.log(ownProps.cookies);
     return {
         isSignedIn: state.auth.isSignedIn,
-        cookies: ownProps.cookies,
-        setting: state.setting,
-        dirs: state.dirs,
+        userName: state.auth.userName,
+	directory: Object.values(state.main),
         scraps: Object.values(state.scraps).reverse()
     };
 };
 
-export default connect(mapStateToProps, { fetchDir, fetchScraps })(Main);
+export default connect(mapStateToProps, { fetchRandomDir })(Main);

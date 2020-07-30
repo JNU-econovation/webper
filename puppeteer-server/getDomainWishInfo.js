@@ -14,21 +14,26 @@ const getDomainWishInfo = async (url, domain, callback) => {
 
         const [el] = await page.$x(domainXpaths[domain].name);
         const txt = await el.getProperty('textContent');
-        result.name = await txt.jsonValue();
+       	if (txt)
+	    result.title = await txt.jsonValue();
 
         const [el2] = await page.$x(domainXpaths[domain].thumbnails);
         const src = await el2.getProperty('src');
-        result.thumbnails = await src.jsonValue();
+        if (src)
+	    result.thumbnailURL = await src.jsonValue();
 
         const [el3] = await page.$x(domainXpaths[domain].price);
         const txt2 = await el3.getProperty('textContent');
-        result.price = trim(await txt2.jsonValue());
+        if (txt2)
+	    result.price = trim(await txt2.jsonValue());
 
         const [el4] = await page.$x(domainXpaths[domain].delivery);
         const txt3 = await el4.getProperty('textContent');
-        result.delivery = trim(await txt3.jsonValue());
+        if (txt3)
+	    result.deliveryInfo = trim(await txt3.jsonValue());
 
-        result.shoppingmall = domain;
+        result.shoppingMall = domain;
+	    console.log("shoppingMall:",result.shoppingMall, "domain:", domain);
         result.redirectionLink = url;
 
         console.log(result);

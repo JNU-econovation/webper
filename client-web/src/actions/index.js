@@ -2,77 +2,108 @@ import server from '../apis/server';
 import history from '../history';
 import { formValues } from 'redux-form';
 
-export const signIn = (userId, userImage, username) => async (dispatch, getState) => {
-    dispatch({ type: "SIGN_IN", payload: { userId, userImage, username } });
+const getHeader = () => {
+	let Authorization = localStorage.getItem('Authorization');
+	return {
+		headers: {
+			'Authorization': Authorization
+		}
+	}
+}
 
-    // 서버 구축 후에 이 부분에 
-    // 1. user테이블에 user정보 추가하는 요청 보낵
-    // 2. user테이블의 userId를 foreign key로 참조하는 setting 테이블에 해당 user의 setting정보를 initial Value로 설정하는 요청 보냄
-
+export const signIn = (userId, userImage, userName, token) => async (dispatch, getState) => {
+	const response = await server.post('login/google', { access_token: token });
+    	localStorage.setItem('Authorization', response.data.Authorization);
+	dispatch({ type: "SIGN_IN", payload: { userId, userImage, userName } });
     history.push('/');
 };
 
 export const signOut = () => {
+    	localStorage.removeItem('Authorization');
     return {
         type: "SIGN_OUT"
     }
+	history.push('/user_login');
 }
 
-export const createDir = directory_detail => async (dispatch, getState) => {
-    const { userId } = getState().auth;
-    const response = await server.post('/dirs', { ...directory_detail, userId });
-    dispatch({ type: "CREATE_DIR", payload: response.data });
+export const createDir = directory_detail => async (dispatch) => {
+    if (directory_detail.parentDirectoryId == 0)
+	directory_detail.parentDirectoryId = null;
+	const response = await server.post('/directory', { ...directory_detail }, getHeader());
+	dispatch({ type: "CREATE_DIR", payload: response.data });
     history.goBack();
 }
 
 export const fetchAllDirs = () => async dispatch => {
-    const response = await server.get('/dirs');
+    const response = await server.get('/directory', getHeader());
 
     dispatch({ type: "FETCH_ALL_DIRS", payload: response.data });
 }
 
-export const fetchDirs = parentId => async dispatch => {
-    const response = await server.get(`/dirs?parentId=${parentId}`);
+export const fetchRootDirs = () => async dispatch => {
+	const response = await server.get('/root-directory', getHeader());
+	dispatch({ type: "FETCH_DIRS", payload: response.data });
+	//history.goBack();
+}
 
-    dispatch({ type: "FETCH_DIRS", payload: response.data });
+export const fetchDirs = parentDirectoryId => async dispatch => {
+    if (parentDirectoryId == 0)
+       parentDirectoryId = null;
+    const response = await server.get(`/directory?id=${parentDirectoryId}`, getHeader());
+    dispatch({ type: "FETCH_DIRS", payload: response.data.childDirectories });
 }
 
 export const fetchDir = id => async dispatch => {
-    const response = await server.get(`/dirs/${id}`);
+    const response = await server.get(`/directory?id=${id}`, getHeader());
     dispatch({ type: "FETCH_DIR", payload: response.data });
 }
 
-export const deleteDir = id => async dispatch => {
-    const response = await server.delete(`/dirs/${id}`);
-
-    dispatch({ type: "DELETE_DIR", payload: id });
-    history.push('/');
+export const fetchRandomDir = () => async dispatch => {
+	try {
+		const response = await server.get('/directory/random', getHeader())
+		console.log("Random", response);
+		dispatch({ type: "FETCH_RANDOM_DIR", payload: response.data})
+	} catch (err) {
+		console.log(err);
+	}
 }
 
-export const editDir = (id, formValues) => async dispatch => {
-    const response = await server.patch(`/dirs/${id}`, formValues);
+export const deleteDir = id => async dispatch => {
+    const response = await server.delete(`/directory/${id}`, getHeader());
 
+    dispatch({ type: "DELETE_DIR", payload: id });
+    history.goBack();
+}
+
+export const editDir = (id, category, parentId, formValues) => async dispatch => {
+    const response = await server.patch(`/directory`, {...formValues, id: id, category: category, parentDirectoryId: parentId});
+    //dispatch({ type: "EDIT_DIR", payload: {id, category, parentDirectoryId : parentId, ...formValues} });
     dispatch({ type: "EDIT_DIR", payload: response.data });
     history.goBack();
 }
 
-export const createScrap = (video_detail, directoryId, category) => async (dispatch, getState) => {
-    const { userId } = getState().auth;
-    const response = await server.post(`/${category}s`, { ...video_detail, userId, directoryId });
-
+export const createScrap = (video_detail, directoryId, category) => async dispatch => {
+    const response = await server.post(`/component/${category.toLowerCase()}`, { ...video_detail, directoryId, category: category }, getHeader());
     dispatch({ type: "CREATE_SCRAP", payload: response.data });
-    history.push(`/detail/${directoryId}/${category}`);
+    history.push(`/detail/${directoryId}/${category.toLowerCase()}`);
 }
 
-export const fetchScraps = (directoryId, category) => async (dispatch) => {
-    const response = await server.get(`/${category}s?directoryId=${directoryId}`);
+export const fetchScraps = (directoryId) => async dispatch => {
+    const response = await server.get(`/directory/${directoryId}/components`);
 
     dispatch({ type: "FETCH_SCRAPS", payload: response.data });
     // history.push(`/detail/${directoryId}/${category}`);
 }
 
+export const deleteScrap = (id, directoryId, category) => async dispatch => {
+    const response = await server.delete(`/component/${id}`, getHeader());
+
+    dispatch({ type: "DELETE_SCRAP", payload: id});
+    history.push(`/detail/${directoryId}/${category.toLowerCase()}`);
+}
+
 export const editScrap = (id, formValues, directoryId, category) => async dispatch => {
-    const response = await server.patch(`/${category}s/${id}`, formValues);
+    const response = await server.patch(`/component/${category.toLowerCase()}`, {...formValues, id : id}, getHeader());
 
     dispatch({ type: "EDIT_SCRAP", payload: response.data });
     history.push(`/detail/${directoryId}/${category}`);
