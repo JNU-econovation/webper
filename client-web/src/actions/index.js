@@ -26,7 +26,6 @@ export const signOut = () => {
 }
 
 export const createDir = directory_detail => async (dispatch) => {
-
     if (directory_detail.parentDirectoryId == 0)
 	directory_detail.parentDirectoryId = null;
 	const response = await server.post('/directory', { ...directory_detail }, getHeader());
