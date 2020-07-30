@@ -70,7 +70,7 @@ public class DirectoryController {
         return ResponseEntity.ok(directoryDTO);
     }
 
-    @PutMapping("/directory")
+    @PatchMapping("/directory")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
     public ResponseEntity updateDirectory(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody DirectoryDTO directoryDTO) {
         Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
