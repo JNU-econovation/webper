@@ -13,9 +13,9 @@ const Header = () => {
     return (
         <div className="header-container">
             <img onClick={openNav} alt="menubar-icon" src={window.location.origin + "/images/menuicon.png"} className="menu-icon button" />
-            <Link to='/'>
+            <a href="/">
                 <img alt="main" src={window.location.origin + "/images/logo.png"} className="main-link" />
-            </Link>
+            </a>
             <ProfileButton />
         </div>
     )

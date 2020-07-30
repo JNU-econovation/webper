@@ -39,7 +39,7 @@ class Main extends React.Component {
 	    <div>
 		{this.renderTitle()}
 		<div className="container">
-			<div className="scrap-container">
+			<div className="scrap-container main">
 				<h2 className="title">
 					<Link to={`/detail/${directory.id}/${directory.category}`}>{directory.title}</Link>
 				</h2>

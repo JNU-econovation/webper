@@ -253,6 +253,12 @@ nav div a {
   grid-column: 1 / 5;
 }
 
+.category {
+  font-size: 0.5em;
+  font-weight: lighter;
+  color: gray;
+}
+
 .scrap-container {
   display: grid;
   grid-template-columns: repeat(4, 25%);
