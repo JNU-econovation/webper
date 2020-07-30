@@ -46,9 +46,10 @@ class VideoScrap extends React.Component {
 
         return (
             <React.Fragment>
-                <div className="scrap-edit-button-container">
-                    <img onClick={this.editModeOn} className="scrap-edit-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" />
-                </div>
+                <div className="scrap-button-container">
+                    <img onClick={this.editModeOn} className="scrap-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" />
+                    <img className="scrap-button" src={window.location.origin + "/images/trash.png"} alt="scrap delete button" />
+		</div>
                 <a href={this.props.video.redirectionLink} target="_blank" rel="noopener noreferrer">
                     <img className="scrap-img" src={this.props.video.thumbnailURL || window.location.origin + "/images/emptyImage.png"} alt={this.props.video.title} />
                 </a>

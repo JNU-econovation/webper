@@ -263,14 +263,14 @@ nav div a {
   max-width: 1000px;
 }
 
-.scrap-edit-button-container {
+.scrap-button-container {
   padding: 3px;
   padding-bottom: 5px;
   display: flex;
   justify-content: flex-end;
 }
 
-.scrap-edit-button {
+.scrap-button {
   width: 15px;
   padding: 2px;
   cursor: pointer;
