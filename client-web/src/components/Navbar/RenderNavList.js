@@ -19,7 +19,6 @@ class RenderNavList extends React.Component {
 	if (parentId === 0)
 	    parentId = null;
         const dirs = this.props.dirs.filter(dir => (dir.parentDirectoryId == parentId));
-        console.log("in renderNavlist, parentId", this.props.parentId, "dirs:", dirs);
 	return (
             <React.Fragment>
                 {dirs.map(dir => {

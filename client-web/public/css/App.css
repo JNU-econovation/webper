@@ -310,7 +310,7 @@ nav div a {
   margin: 0px auto;
 }
 
-/* url from 관련 */
+/* url form 관련 */
 .scrap-url {
   display: flex;
   justify-content: center;
@@ -391,9 +391,12 @@ nav div a {
 .detail-container div {
   width: auto;
   padding: 2px 0px;
+  display: inline-block;
+  word-break: break-word;
 }
 
 .detail-container > .portal-title {
+  width: 100%;
   text-align: center;
 }
 

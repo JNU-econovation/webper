@@ -17,22 +17,22 @@ class RenderScraps extends React.Component {
 		switch (this.props.directory.category) {
 		    case "VIDEO":
 			scrap_component = this.props.scraps.map(scrap => {
-			    return <VideoScrap video={scrap} key={scrap.id} onDelete={this.onDeleteScrap} />
+			    return <VideoScrap video={scrap} key={scrap.id} onDelete={this.onDeleteScrap} main={this.props.main} />
 			});
 			break;
 		    case "WISHLIST":
 			scrap_component = this.props.scraps.map(scrap => {
-			    return <WishScrap wish={scrap} key={scrap.id} onDelete={this.onDeleteScrap} />
+			    return <WishScrap wish={scrap} key={scrap.id} onDelete={this.onDeleteScrap} main={this.props.main} />
 			});
 			break;
 		    case "BLOG":
 			scrap_component = this.props.scraps.map(scrap => {
-			    return <BlogScrap blog={scrap} key={scrap.id} onDelete={this.onDeleteScrap} />
+			    return <BlogScrap blog={scrap} key={scrap.id} onDelete={this.onDeleteScrap} main={this.props.main} />
 			});
 			break;
 		    case "PORTAL":
 			scrap_component = this.props.scraps.map(scrap => {
-			    return <PortalScrap portal={scrap} key={scrap.id} onDelete={this.onDeleteScrap} />
+			    return <PortalScrap portal={scrap} key={scrap.id} onDelete={this.onDeleteScrap} main={this.props.main} />
 			});
 			break;
 

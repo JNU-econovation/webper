@@ -31,6 +31,17 @@ class WishScrap extends React.Component {
     	this.props.onDelete(this.props.wish.id);
     }
 
+    renderButtons = () => {
+    	if (this.props.main !== "true")
+	    return (
+                <div className="scrap-button-container">
+                   <img onClick={this.onDelete} className="scrap-button" src={window.location.origin + "/images/trash.png"} alt="scrap delete button" />
+		   <img onClick={this.editModeOn} className="scrap-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" />
+                </div>
+	    )
+	return null;
+    }
+
     renderContents() {
         if (this.state.onEdit === true) {
             const editable_info_name = { title: "product", thumbnailURL: "thumbnailURL", price: "price", shoppingMall: "shoppingMall", deliveryInfo: "deliveryInfo", description: "description", redirectionLink: "url" }
@@ -50,10 +61,7 @@ class WishScrap extends React.Component {
 
         return (
             <React.Fragment>
-                <div className="scrap-button-container">
-                   <img onClick={this.onDelete} className="scrap-button" src={window.location.origin + "/images/trash.png"} alt="scrap delete button" />
-		   <img onClick={this.editModeOn} className="scrap-button" src={window.location.origin + "/images/more.png"} alt="scrap edit button" />
-                </div>
+		{this.renderButtons()}
                 <a href={this.props.wish.redirectionLink} target="_blank" rel="noopener noreferrer">
                     <img className="scrap-img" src={this.props.wish.thumbnailURL || window.location.origin + "/images/emptyImage.png"} alt={this.props.wish.title} />
                 </a>
