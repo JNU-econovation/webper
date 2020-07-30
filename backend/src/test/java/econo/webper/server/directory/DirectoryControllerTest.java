@@ -121,8 +121,15 @@ public class DirectoryControllerTest {
                 .header("Authorization", token))
                 .andDo(print());
 
-
-
+        mockMvc.perform(get("/directory/random")
+                .header("Authorization", token))
+                .andDo(print());
+        mockMvc.perform(get("/directory/random")
+                .header("Authorization", token))
+                .andDo(print());
+        mockMvc.perform(get("/directory/random")
+                .header("Authorization", token))
+                .andDo(print());
 
     }
 }
