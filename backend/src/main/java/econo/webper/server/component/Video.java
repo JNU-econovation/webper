@@ -1,5 +1,6 @@
 package econo.webper.server.component;
 
+import econo.webper.server.component.dto.VideoUpdateDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,5 +19,14 @@ public class Video extends Component {
         super(title, directoryId, category);
         this.thumbnailURL = thumbnailURL;
         this.redirectionLink = redirectionLink;
+    }
+
+    @Override
+    public boolean update(Object updateDTO) {
+        VideoUpdateDTO videoUpdateDTO = (VideoUpdateDTO) updateDTO;
+        super.updateTitle(videoUpdateDTO.getTitle());
+        this.thumbnailURL = videoUpdateDTO.getThumbnailURL();
+        this.redirectionLink = videoUpdateDTO.getRedirectionLink();
+        return true;
     }
 }

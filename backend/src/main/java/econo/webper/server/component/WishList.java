@@ -1,5 +1,7 @@
 package econo.webper.server.component;
 
+import econo.webper.server.component.dto.VideoUpdateDTO;
+import econo.webper.server.component.dto.WishListUpdateDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -29,5 +31,18 @@ public class WishList extends Component {
         this.deliveryInfo = deliveryInfo;
         this.description = description;
         this.shoppingMall = shoppingmall;
+    }
+
+    @Override
+    public boolean update(Object updateDTO) {
+        WishListUpdateDTO wishListUpdateDTO = (WishListUpdateDTO) updateDTO;
+        super.updateTitle(wishListUpdateDTO.getTitle());
+        this.thumbnailURL = wishListUpdateDTO.getThumbnailURL();
+        this.redirectionLink = wishListUpdateDTO.getRedirectionLink();
+        this.price = wishListUpdateDTO.getPrice();
+        this.deliveryInfo = wishListUpdateDTO.getDeliveryInfo();
+        this.description = wishListUpdateDTO.getDescription();
+        this.shoppingMall = wishListUpdateDTO.getShoppingMall();
+        return true;
     }
 }
