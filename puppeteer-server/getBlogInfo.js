@@ -111,7 +111,7 @@ const getDescription = $ => {
             description = list;
     });
 
-    if (descriptionlist.length > 70) descriptionlist = descriptionlist.substring(0, 70) + "...";
+    if (description.length > 120) description = description.substring(0, 120) + "...";
     return description;
 }
 
