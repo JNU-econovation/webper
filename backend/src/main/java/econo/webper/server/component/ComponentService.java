@@ -69,7 +69,7 @@ public class ComponentService {
         return memberService.saveComponent(member, wishList);
     }
 
-    public Component findById(Integer id) {
-        return componentRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    public Component findById(Member member, Integer id) {
+        return member.findComponentById(id);
     }
 }

@@ -27,6 +27,24 @@ public class ComponentController {
         this.componentService = componentService;
     }
 
+    @GetMapping("/component")
+    @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
+    public ResponseEntity getComponent(@AuthenticationPrincipal MemberDetails memberDetails, @RequestParam Integer id) {
+        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
+        Component component = componentService.findById(savedMember, id);
+        if (component == null) {
+            return ResponseEntity.badRequest().body(ExceptionMessage.NOT_GET_COMPONENT);
+        }
+        String componentJsonData;
+        try {
+            componentJsonData = component.objectToJson();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(ExceptionMessage.JSON_PROCESSING_EXCEPTION);
+        }
+        return ResponseEntity.ok(componentJsonData);
+    }
+
     @PostMapping("/component/blog")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
     public ResponseEntity saveBlog(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody BlogDTO blogDTO) {
@@ -69,23 +87,6 @@ public class ComponentController {
             return ResponseEntity.badRequest().body(ExceptionMessage.NOT_CREATE_COMPONENTS);
         }
         return getResponseEntity(component);
-    }
-
-    @GetMapping("/component")
-    @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
-    public ResponseEntity getComponent(@AuthenticationPrincipal MemberDetails memberDetails, @RequestParam Integer id) {
-        Component component = componentService.findById(id);
-        if (component == null) {
-            return ResponseEntity.badRequest().body(ExceptionMessage.NOT_GET_COMPONENT);
-        }
-        String componentJsonData;
-        try {
-            componentJsonData = component.objectToJson();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.ok(ExceptionMessage.JSON_PROCESSING_EXCEPTION);
-        }
-        return ResponseEntity.ok(componentJsonData);
     }
 
     private ResponseEntity getResponseEntity(Component component) {

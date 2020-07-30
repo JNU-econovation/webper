@@ -33,5 +33,7 @@ public class Component {
     }
 
 
-
+    public boolean isSameId(Integer id) {
+        return this.id == id;
+    }
 }

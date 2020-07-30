@@ -76,4 +76,19 @@ public class Directory {
         return components.add(component);
     }
 
+    public Component findComponentById(Integer id) {
+        Component result = null;
+        for (Component component : components) {
+            if (component.isSameId(id)) {
+                return component;
+            }
+        }
+        for (Directory childDirectory : childDirectories) {
+            result = childDirectory.findComponentById(id);
+            if (result != null) {
+                return result;
+            }
+        }
+        return null;
+    }
 }
