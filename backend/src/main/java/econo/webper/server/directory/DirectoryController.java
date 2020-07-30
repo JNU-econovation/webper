@@ -16,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @Api(value = "Directory CRUD", tags = {"Directory CRUD - 담당자 : 배종진"})
 @RestController
@@ -37,7 +39,7 @@ public class DirectoryController {
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
     public ResponseEntity getDirectory(@AuthenticationPrincipal MemberDetails memberDetails, @RequestParam Integer id) {
         Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
-        Directory directory = directoryService.getDirectory(savedMember, id);
+        Directory directory = directoryService.findDirectoryById(savedMember, id);
         if (directory == null) {
             return ResponseEntity.badRequest().body(ExceptionMessage.NOT_GET_DIRECTORY);
         }
@@ -84,18 +86,12 @@ public class DirectoryController {
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
     public ResponseEntity getDirectoryComponents(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable Integer id){
         Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
-        Directory directory = directoryService.getDirectory(savedMember, id);
+        Directory directory = directoryService.findDirectoryById(savedMember, id);
         if (directory == null) {
             ResponseEntity.badRequest().body(ExceptionMessage.NOT_GET_DIRECTORY);
         }
-        String componentsJsonData;
-        try {
-            componentsJsonData = objectMapper.writeValueAsString(directory.getComponents());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.ok(ExceptionMessage.JSON_PROCESSING_EXCEPTION);
-        }
-        return ResponseEntity.ok(componentsJsonData);
+        List<Component> components = directory.getComponents();
+        return ResponseEntity.ok(components);
     }
 
 }

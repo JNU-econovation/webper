@@ -1,7 +1,5 @@
 package econo.webper.server.component;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,12 +24,6 @@ public class Component {
         this.directoryId = directoryId;
         this.category = category;
     }
-
-    public String objectToJson() throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(this);
-    }
-
 
     public boolean isSameId(Integer id) {
         return this.id == id;
