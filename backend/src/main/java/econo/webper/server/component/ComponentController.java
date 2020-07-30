@@ -113,6 +113,17 @@ public class ComponentController {
         return ResponseEntity.ok(component);
     }
 
+    @DeleteMapping("/component/{id}")
+    @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
+    public ResponseEntity deleteComponent(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable Integer id) {
+        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
+        boolean isDelete = componentService.deleteComponent(savedMember, id);
+        if (!isDelete) {
+            ResponseEntity.badRequest().body(ExceptionMessage.NOT_DELETE_COMPONENT);
+        }
+        return ResponseEntity.ok().build();
+    }
+
     private ResponseEntity getResponseEntity(Component component) {
         if (component == null) {
             ResponseEntity.badRequest().body(ExceptionMessage.NOT_CREATE_COMPONENTS);

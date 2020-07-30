@@ -91,4 +91,8 @@ public class Directory {
         }
         return null;
     }
+
+    public boolean deleteComponent(Integer id) {
+        return components.removeIf(component -> component.isSameId(id));
+    }
 }

@@ -37,12 +37,24 @@ public class WishList extends Component {
     public boolean update(Object updateDTO) {
         WishListUpdateDTO wishListUpdateDTO = (WishListUpdateDTO) updateDTO;
         super.updateTitle(wishListUpdateDTO.getTitle());
-        this.thumbnailURL = wishListUpdateDTO.getThumbnailURL();
-        this.redirectionLink = wishListUpdateDTO.getRedirectionLink();
-        this.price = wishListUpdateDTO.getPrice();
-        this.deliveryInfo = wishListUpdateDTO.getDeliveryInfo();
-        this.description = wishListUpdateDTO.getDescription();
-        this.shoppingMall = wishListUpdateDTO.getShoppingMall();
+        if (wishListUpdateDTO.getThumbnailURL() != null) {
+            this.thumbnailURL = wishListUpdateDTO.getThumbnailURL();
+        }
+        if (wishListUpdateDTO.getRedirectionLink() != null) {
+            this.redirectionLink = wishListUpdateDTO.getRedirectionLink();
+        }
+        if (wishListUpdateDTO.getPrice() != null) {
+            this.price = wishListUpdateDTO.getPrice();
+        }
+        if (wishListUpdateDTO.getDeliveryInfo() != null) {
+            this.deliveryInfo = wishListUpdateDTO.getDeliveryInfo();
+        }
+        if (wishListUpdateDTO.getDescription() != null) {
+            this.description = wishListUpdateDTO.getDescription();
+        }
+        if (wishListUpdateDTO.getShoppingMall() != null) {
+            this.shoppingMall = wishListUpdateDTO.getShoppingMall();
+        }
         return true;
     }
 }

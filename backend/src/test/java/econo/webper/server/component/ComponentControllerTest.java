@@ -15,8 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Collections;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @SpringBootTest
@@ -56,11 +55,6 @@ public class ComponentControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonParam))
                 .andDo(print());
-        mockMvc.perform(post("/directory")
-                .header("Authorization", token)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonParam))
-                .andDo(print());
 
         jsonParam = "{" +
                 "\"category\" : \"BLOG\"," +
@@ -76,27 +70,169 @@ public class ComponentControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonParam))
                 .andDo(print());
-        mockMvc.perform(post("/component/blog")
-                .header("Authorization", token)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonParam))
-                .andDo(print());
         mockMvc.perform(get("/directory/1/components")
                 .header("Authorization", token))
                 .andDo(print());
         mockMvc.perform(get("/component")
-                .param("id","1")
+                .param("id", "1")
                 .header("Authorization", token))
                 .andDo(print());
         mockMvc.perform(get("/component")
-                .param("id","2")
+                .param("id", "2")
                 .header("Authorization", token))
                 .andDo(print());
         mockMvc.perform(get("/component")
-                .param("id","3")
+                .param("id", "3")
+                .header("Authorization", token))
+                .andDo(print());
+        jsonParam = "{" +
+                "\"description\" : \"Changed Description\"," +
+                "\"redirectionLink\" : \"Changed RedirectionLink\"," +
+                "\"thumbnailURL\" : \"Changed ThumbnailURL\"," +
+                "\"id\" : 1," +
+                "\"title\" : \"Changed Title\"" +
+                "}";
+        mockMvc.perform(patch("/component/blog")
+                .header("Authorization", token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonParam))
+                .andDo(print());
+
+        jsonParam = "{" +
+                "\"category\" : \"PORTAL\"," +
+                "\"parentDirectoryId\" : null," +
+                "\"title\" : \"Portal Directory Example\"" +
+                "}";
+
+        mockMvc.perform(post("/directory")
+                .header("Authorization", token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonParam))
+                .andDo(print());
+
+        jsonParam = "{" +
+                "\"category\" : \"PORTAL\"," +
+                "\"description\" : \"Portal Example\"," +
+                "\"directoryId\" : 2," +
+                "\"faviconURL\" : \"FaviconURL Example\"," +
+                "\"redirectionLink\" : \"RedirectionLink Example\"," +
+                "\"title\" : \"Title Example\"" +
+                "}";
+        mockMvc.perform(post("/component/portal")
+                .header("Authorization", token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonParam))
+                .andDo(print());
+
+        jsonParam = "{" +
+                "\"description\" : \"Changed Description\"," +
+                "\"redirectionLink\" : \"Changed RedirectionLink\"," +
+                "\"faviconURL\" : \"Changed faviconURL\"," +
+                "\"id\" : 2," +
+                "\"title\" : \"Changed Title\"" +
+                "}";
+
+        mockMvc.perform(patch("/component/portal")
+                .header("Authorization", token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonParam))
+                .andDo(print());
+
+        jsonParam = "{" +
+                "\"category\" : \"VIDEO\"," +
+                "\"parentDirectoryId\" : null," +
+                "\"title\" : \"Video Directory Example\"" +
+                "}";
+
+        mockMvc.perform(post("/directory")
+                .header("Authorization", token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonParam))
+                .andDo(print());
+
+        jsonParam = "{" +
+                "\"category\" : \"VIDEO\"," +
+                "\"directoryId\" : 3," +
+                "\"thumbnailURL\" : \"ThumbnailURL Example\"," +
+                "\"redirectionLink\" : \"RedirectionLink Example\"," +
+                "\"title\" : \"Title Example\"" +
+                "}";
+        mockMvc.perform(post("/component/video")
+                .header("Authorization", token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonParam))
+                .andDo(print());
+
+        jsonParam = "{" +
+                "\"thumbnailURL\" : \"Changed thumbnailURL\"," +
+                "\"redirectionLink\" : \"Changed RedirectionLink\"," +
+                "\"id\" : 3," +
+                "\"title\" : \"Changed Title\"" +
+                "}";
+
+        mockMvc.perform(patch("/component/video")
+                .header("Authorization", token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonParam))
+                .andDo(print());
+
+
+        jsonParam = "{" +
+                "\"category\" : \"WISHLIST\"," +
+                "\"parentDirectoryId\" : null," +
+                "\"title\" : \"WishList Directory Example\"" +
+                "}";
+
+        mockMvc.perform(post("/directory")
+                .header("Authorization", token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonParam))
+                .andDo(print());
+
+        jsonParam = "{" +
+                "\"category\" : \"WISHLIST\"," +
+                "\"directoryId\" : 4," +
+                "\"deliveryInfo\" : \"deliveryInfo Example\"," +
+                "\"description\" : \"description Example\"," +
+                "\"price\" : \"price Example\"," +
+                "\"redirectionLink\" : \"RedirectionLink Example\"," +
+                "\"shoppingMall\" : \"ShoppingMall Example\"," +
+                "\"thumbnailURL\" : \"ThumbnailURL Example\"," +
+                "\"title\" : \"Title Example\"" +
+                "}";
+
+        mockMvc.perform(post("/component/wishlist")
+                .header("Authorization", token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonParam))
+                .andDo(print());
+
+        jsonParam = "{" +
+                "\"id\" : 4," +
+                "\"deliveryInfo\" : \"Changed DeliveryInfo\"," +
+                "\"description\" : \"Changed Description\"," +
+                "\"price\" : \"Changed Price\"," +
+                "\"shoppingMall\" : \"Changed ShoppingMall\"," +
+                "\"thumbnailURL\" : \"Changed ThumbnailURL\"," +
+                "\"title\" : \"Changed Title\"" +
+                "}";
+
+        mockMvc.perform(patch("/component/wishlist")
+                .header("Authorization", token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonParam))
+                .andDo(print());
+
+        mockMvc.perform(get("/directory/4/components")
+                .header("Authorization", token))
+                .andDo(print());
+
+        mockMvc.perform(delete("/component/4")
+                .header("Authorization", token))
+                .andDo(print());
+
+        mockMvc.perform(get("/directory/4/components")
                 .header("Authorization", token))
                 .andDo(print());
     }
-
-
 }

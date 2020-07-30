@@ -3,10 +3,10 @@ package econo.webper.server.component;
 import econo.webper.server.Member.Member;
 import econo.webper.server.Member.MemberService;
 import econo.webper.server.component.dto.*;
+import econo.webper.server.directory.Directory;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
 
 @Service
 public class ComponentService {
@@ -111,5 +111,22 @@ public class ComponentService {
             return null;
         }
         return component;
+    }
+
+    public boolean deleteComponent(Member member, Integer id) {
+        Component component = findById(member, id);
+        if (component == null) {
+            return false;
+        }
+        Directory directory = member.findDirectoryById(component.getDirectoryId());
+        if (directory == null) {
+            return false;
+        }
+        boolean isDeleteComponent = directory.deleteComponent(id);
+        if (isDeleteComponent == true) {
+            memberService.saveMember(member);
+            return true;
+        }
+        return false;
     }
 }
