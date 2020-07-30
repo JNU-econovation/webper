@@ -78,7 +78,7 @@ public class ComponentService {
         if (!component.update(blogUpdateDTO)) {
             return null;
         }
-        return component;
+        return componentRepository.save(component);
     }
 
     public Component updatePortal(Member member, PortalUpdateDTO portalUpdateDTO) {
@@ -89,7 +89,7 @@ public class ComponentService {
         if (!component.update(portalUpdateDTO)) {
             return null;
         }
-        return component;
+        return componentRepository.save(component);
     }
 
     public Component updateVideo(Member member, VideoUpdateDTO videoUpdateDTO) {
@@ -100,7 +100,7 @@ public class ComponentService {
         if (!component.update(videoUpdateDTO)) {
             return null;
         }
-        return component;
+        return componentRepository.save(component);
     }
     public Component updateWishList(Member member, WishListUpdateDTO wishListUpdateDTO) {
         Component component = findById(member, wishListUpdateDTO.getId());
@@ -110,7 +110,7 @@ public class ComponentService {
         if (!component.update(wishListUpdateDTO)) {
             return null;
         }
-        return component;
+        return componentRepository.save(component);
     }
 
     public boolean deleteComponent(Member member, Integer id) {
