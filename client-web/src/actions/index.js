@@ -43,7 +43,7 @@ export const fetchAllDirs = () => async dispatch => {
 export const fetchRootDirs = () => async dispatch => {
 	const response = await server.get('/root-directory', getHeader());
 	dispatch({ type: "FETCH_DIRS", payload: response.data });
-	history.goBack();
+	//history.goBack();
 }
 
 export const fetchDirs = parentDirectoryId => async dispatch => {

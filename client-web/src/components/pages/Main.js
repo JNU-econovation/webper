@@ -13,9 +13,9 @@ class Main extends React.Component {
 
     renderEmpty() {
     	return (
-		<div>
+		<h1>
 			Create your first webper directory!
-		</div>
+		</h1>
 	)
     }
 	
@@ -30,7 +30,7 @@ class Main extends React.Component {
     renderRandomDir() {
 	if (this.props.directory.length === 0)
 	    return (
-		<div>
+		<div className="container">
 		    {this.renderEmpty()}
 		</div>
 	    )
