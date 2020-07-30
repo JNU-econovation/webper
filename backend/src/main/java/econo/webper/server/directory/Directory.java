@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -94,5 +95,14 @@ public class Directory {
 
     public boolean deleteComponent(Integer id) {
         return components.removeIf(component -> component.isSameId(id));
+    }
+
+    public List<Directory> getAllChildDirectories() {
+        List<Directory> directories = new ArrayList<>();
+        directories.addAll(this.childDirectories);
+        for (int index = 0; index < childDirectories.size(); index++) {
+            directories.addAll(childDirectories.get(index).getAllChildDirectories());
+        }
+        return directories;
     }
 }

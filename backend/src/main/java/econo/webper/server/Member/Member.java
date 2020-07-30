@@ -93,5 +93,14 @@ public class Member {
         }
         return null;
     }
+
+    public List<Directory> getAllDirectories() {
+        List<Directory> directories = new ArrayList<>();
+        directories.addAll(this.directories);
+        for (int index = 0; index < directories.size(); index++) {
+            directories.addAll(directories.get(index).getAllChildDirectories());
+        }
+        return directories;
+    }
 }
 

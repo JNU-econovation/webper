@@ -4,6 +4,8 @@ import econo.webper.server.Member.Member;
 import econo.webper.server.Member.MemberService;
 import econo.webper.server.directory.dto.CreateDirectoryDTO;
 import econo.webper.server.directory.dto.DirectoryDTO;
+import econo.webper.server.directory.dto.MainPageDirectoryDTO;
+import econo.webper.server.utils.RandomGenerator;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +19,12 @@ public class DirectoryService {
 
     private final DirectoryRepository directoryRepository;
 
-    public DirectoryService(MemberService memberService, DirectoryRepository directoryRepository) {
+    private final RandomGenerator randomGenerator;
+
+    public DirectoryService(MemberService memberService, DirectoryRepository directoryRepository, RandomGenerator randomGenerator) {
         this.memberService = memberService;
         this.directoryRepository = directoryRepository;
+        this.randomGenerator = randomGenerator;
     }
 
     public Directory createDirectory(Member member, CreateDirectoryDTO createDirectoryDTO) {
@@ -60,5 +65,20 @@ public class DirectoryService {
             parentDirectoryId = directory.getParentDirectory().getId();
         }
         return new DirectoryDTO(directory.getId(), directory.getTitle(),directory.getCategory(), parentDirectoryId);
+    }
+
+    public Directory getRandomDirectory(Member member) {
+        List<Directory> directories = member.getAllDirectories();
+        if (directories.size() == 0) {
+            return null;
+        }
+        int randomInt = randomGenerator.generateRandomInt(directories.size());
+        return directories.get(randomInt);
+    }
+
+    public MainPageDirectoryDTO createMainPageDirectoryDTO(Directory directory) {
+        MainPageDirectoryDTO mainPageDirectoryDTO
+                = new MainPageDirectoryDTO(directory.getId(),directory.getTitle(),directory.getCategory(),directory.getComponents());
+        return mainPageDirectoryDTO;
     }
 }
