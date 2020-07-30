@@ -29,9 +29,15 @@ public class Portal extends Component {
     public boolean update(Object updateDTO) {
         PortalUpdateDTO portalUpdateDTO = (PortalUpdateDTO) updateDTO;
         super.updateTitle(portalUpdateDTO.getTitle());
-        this.faviconURL = portalUpdateDTO.getFaviconURL();
-        this.description = portalUpdateDTO.getDescription();
-        this.redirectionLink = portalUpdateDTO.getRedirectionLink();
+        if (portalUpdateDTO.getFaviconURL() != null) {
+            this.faviconURL = portalUpdateDTO.getFaviconURL();
+        }
+        if (portalUpdateDTO.getDescription() != null) {
+            this.description = portalUpdateDTO.getDescription();
+        }
+        if (portalUpdateDTO.getRedirectionLink() != null) {
+            this.redirectionLink = portalUpdateDTO.getRedirectionLink();
+        }
         return true;
     }
 }

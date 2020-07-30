@@ -27,13 +27,18 @@ public class Blog extends Component {
 
     @Override
     public boolean update(Object updateDTO) {
-         BlogUpdateDTO blogUpdateDTO = (BlogUpdateDTO) updateDTO;
-         super.updateTitle(blogUpdateDTO.getTitle());
-         this.thumbnailURL = blogUpdateDTO.getThumbnailURL();
-         this.description = blogUpdateDTO.getDescription();
-         this.redirectionLink = blogUpdateDTO.getRedirectionLink();
-         return true;
+        BlogUpdateDTO blogUpdateDTO = (BlogUpdateDTO) updateDTO;
+        super.updateTitle(blogUpdateDTO.getTitle());
+        if (blogUpdateDTO.getThumbnailURL() != null) {
+            this.thumbnailURL = blogUpdateDTO.getThumbnailURL();
+        }
+        if (blogUpdateDTO.getDescription() != null) {
+            this.description = blogUpdateDTO.getDescription();
+        }
+        if (blogUpdateDTO.getRedirectionLink() != null) {
+            this.redirectionLink = blogUpdateDTO.getRedirectionLink();
+        }
+        return true;
     }
-
 
 }

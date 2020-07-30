@@ -25,8 +25,12 @@ public class Video extends Component {
     public boolean update(Object updateDTO) {
         VideoUpdateDTO videoUpdateDTO = (VideoUpdateDTO) updateDTO;
         super.updateTitle(videoUpdateDTO.getTitle());
-        this.thumbnailURL = videoUpdateDTO.getThumbnailURL();
-        this.redirectionLink = videoUpdateDTO.getRedirectionLink();
+        if (videoUpdateDTO.getThumbnailURL() != null) {
+            this.thumbnailURL = videoUpdateDTO.getThumbnailURL();
+        }
+        if (videoUpdateDTO.getRedirectionLink() != null) {
+            this.redirectionLink = videoUpdateDTO.getRedirectionLink();
+        }
         return true;
     }
 }
