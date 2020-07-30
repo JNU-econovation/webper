@@ -1,7 +1,7 @@
 package econo.webper.server.directory;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import econo.webper.server.Member.Member;
 import econo.webper.server.Member.MemberDetails;
 import econo.webper.server.Member.MemberRepository;
@@ -9,6 +9,7 @@ import econo.webper.server.Member.MemberService;
 import econo.webper.server.component.Component;
 import econo.webper.server.directory.dto.CreateDirectoryDTO;
 import econo.webper.server.directory.dto.DirectoryDTO;
+import econo.webper.server.directory.dto.MainPageDirectoryDTO;
 import econo.webper.server.utils.ExceptionMessage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -93,6 +94,19 @@ public class DirectoryController {
         List<Component> components = directory.getComponents();
         return ResponseEntity.ok(components);
     }
+
+    @GetMapping("/directory/random")
+    @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
+    public ResponseEntity getRandomDirectory(@AuthenticationPrincipal MemberDetails memberDetails) {
+        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
+        Directory directory = directoryService.getRandomDirectory(savedMember);
+        if (directory == null) {
+            ResponseEntity.badRequest().body(ExceptionMessage.NOT_GET_RANDOM_DIRECTORY);
+        }
+        MainPageDirectoryDTO mainPageDirectoryDTO = directoryService.createMainPageDirectoryDTO(directory);
+        return ResponseEntity.ok(mainPageDirectoryDTO);
+    }
+
 
 }
 
