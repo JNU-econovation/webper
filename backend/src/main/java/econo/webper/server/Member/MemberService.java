@@ -125,4 +125,8 @@ public class MemberService {
         memberRepository.save(savedMember);
         return component;
     }
+
+    public void saveMember(Member member) {
+        memberRepository.save(member);
+    }
 }
