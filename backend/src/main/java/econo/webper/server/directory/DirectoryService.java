@@ -4,6 +4,7 @@ import econo.webper.server.Member.Member;
 import econo.webper.server.Member.MemberService;
 import econo.webper.server.directory.dto.CreateDirectoryDTO;
 import econo.webper.server.directory.dto.DirectoryDTO;
+import econo.webper.server.directory.dto.DirectoryResponseDTO;
 import econo.webper.server.directory.dto.MainPageDirectoryDTO;
 import econo.webper.server.utils.RandomGenerator;
 import org.springframework.data.domain.Sort;
@@ -61,7 +62,7 @@ public class DirectoryService {
     }
 
     public Directory getLastIdDirectory() {
-        return directoryRepository.findAll(Sort.by(Sort.Direction.DESC,"id")).get(0);
+        return directoryRepository.findAll(Sort.by(Sort.Direction.DESC, "id")).get(0);
     }
 
     public DirectoryDTO createDirectoryDTO(Directory directory) {
@@ -69,7 +70,7 @@ public class DirectoryService {
         if (directory.getParentDirectory() != null) {
             parentDirectoryId = directory.getParentDirectory().getId();
         }
-        return new DirectoryDTO(directory.getId(), directory.getTitle(),directory.getCategory(), parentDirectoryId);
+        return new DirectoryDTO(directory.getId(), directory.getTitle(), directory.getCategory(), parentDirectoryId);
     }
 
     public Directory getRandomDirectory(Member member) {
@@ -83,7 +84,25 @@ public class DirectoryService {
 
     public MainPageDirectoryDTO createMainPageDirectoryDTO(Directory directory) {
         MainPageDirectoryDTO mainPageDirectoryDTO
-                = new MainPageDirectoryDTO(directory.getId(),directory.getTitle(),directory.getCategory(),directory.getComponents());
+                = new MainPageDirectoryDTO(directory.getId(), directory.getTitle(), directory.getCategory(), directory.getComponents());
         return mainPageDirectoryDTO;
+    }
+
+    public DirectoryResponseDTO createDirectoryResponseDTO(Directory directory) {
+        List<DirectoryDTO> directoryDTOs = new ArrayList<>();
+        for (int i = 0; i < directory.getChildDirectories().size(); i++) {
+            Directory childDirectory = directory.getChildDirectories().get(i);
+            Integer parentDirectoryId = null;
+            if (childDirectory.getParentDirectory() != null) {
+                parentDirectoryId = childDirectory.getParentDirectory().getId();
+                directoryDTOs.add(new DirectoryDTO(childDirectory.getId(), childDirectory.getTitle(), childDirectory.getCategory(), parentDirectoryId));
+            }
+        }
+        Integer parentDirectoryId = null;
+        if (directory.getParentDirectory() != null) {
+            parentDirectoryId = directory.getParentDirectory().getId();
+        }
+        DirectoryResponseDTO directoryResponseDTO = new DirectoryResponseDTO(directory.getId(), directory.getTitle(), directory.getCategory(), parentDirectoryId, directoryDTOs);
+        return directoryResponseDTO;
     }
 }
