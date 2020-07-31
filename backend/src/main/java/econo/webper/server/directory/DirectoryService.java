@@ -32,7 +32,12 @@ public class DirectoryService {
     }
 
     public Directory updateDirectory(Member member, DirectoryDTO directoryDTO) {
-        return memberService.updateDirectory(member, directoryDTO);
+        Directory directory = memberService.updateDirectory(member, directoryDTO);
+        if (directory == null) {
+            return null;
+        }
+        Directory updatedDirectory = directoryRepository.save(directory);
+        return updatedDirectory;
     }
 
     public boolean deleteDirectory(Member member, Integer id) {
