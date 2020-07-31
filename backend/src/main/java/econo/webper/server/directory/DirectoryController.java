@@ -9,6 +9,7 @@ import econo.webper.server.Member.MemberService;
 import econo.webper.server.component.Component;
 import econo.webper.server.directory.dto.CreateDirectoryDTO;
 import econo.webper.server.directory.dto.DirectoryDTO;
+import econo.webper.server.directory.dto.DirectoryResponseDTO;
 import econo.webper.server.directory.dto.MainPageDirectoryDTO;
 import econo.webper.server.utils.ExceptionMessage;
 import io.swagger.annotations.Api;
@@ -44,8 +45,8 @@ public class DirectoryController {
         if (directory == null) {
             return ResponseEntity.badRequest().body(ExceptionMessage.NOT_GET_DIRECTORY);
         }
-        DirectoryDTO directoryDTO = directoryService.createDirectoryDTO(directory);
-        return ResponseEntity.ok(directoryDTO);
+        DirectoryResponseDTO directoryResponseDTO = directoryService.createDirectoryResponseDTO(directory);
+        return ResponseEntity.ok(directoryResponseDTO);
     }
 
     @PostMapping("/directory")
