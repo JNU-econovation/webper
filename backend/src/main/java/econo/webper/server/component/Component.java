@@ -1,5 +1,6 @@
 package econo.webper.server.component;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -7,6 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Component {
