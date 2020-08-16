@@ -1,4 +1,4 @@
-package econo.webper.server.Member;
+package econo.webper.server.member;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import econo.webper.server.directory.dto.CreateDirectoryDTO;

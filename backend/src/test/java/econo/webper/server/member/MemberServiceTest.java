@@ -1,10 +1,6 @@
-package econo.webper.server.domain;
+package econo.webper.server.member;
 
-import econo.webper.server.Member.MemberDetails;
 import econo.webper.server.login.GoogleUserinfoDTO;
-import econo.webper.server.Member.Member;
-import econo.webper.server.Member.MemberRole;
-import econo.webper.server.Member.MemberService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class UserServiceTest {
+public class MemberServiceTest {
 
     @Autowired
     MemberService memberService;

@@ -1,6 +1,6 @@
-package econo.webper.server.security;
+package econo.webper.server.member;
 
-public enum Role {
+public enum MemberRole {
 
     ADMIN, USER
 }

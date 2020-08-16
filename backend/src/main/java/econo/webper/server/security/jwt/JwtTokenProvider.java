@@ -1,6 +1,6 @@
-package econo.webper.server.jwt;
+package econo.webper.server.security.jwt;
 
-import econo.webper.server.Member.MemberRole;
+import econo.webper.server.member.MemberRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -29,7 +29,7 @@ public class JwtTokenProvider {
 
     private final UserDetailsService userDetailsService;
 
-    public JwtTokenProvider(@Qualifier("memberDetailsService") UserDetailsService userDetailsService) {
+    public JwtTokenProvider(@Qualifier("userService") UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 

@@ -1,9 +1,9 @@
 package econo.webper.server.component;
 
-import econo.webper.server.Member.Member;
-import econo.webper.server.Member.MemberRepository;
-import econo.webper.server.Member.MemberRole;
-import econo.webper.server.jwt.JwtTokenProvider;
+import econo.webper.server.member.Member;
+import econo.webper.server.member.MemberRepository;
+import econo.webper.server.member.MemberRole;
+import econo.webper.server.security.jwt.JwtTokenProvider;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

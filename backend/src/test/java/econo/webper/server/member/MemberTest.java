@@ -1,4 +1,4 @@
-package econo.webper.server.Member;
+package econo.webper.server.member;
 
 import econo.webper.server.component.Component;
 import econo.webper.server.component.ComponentCategory;
@@ -34,7 +34,7 @@ public class MemberTest {
         member = new Member(1, "jj@naver.com", "123123", "jjbae", directoryList, Collections.singletonList(MemberRole.USER));
     }
 
-    @DisplayName("정상적인 부모 디렉토리를 가진 디렉토리 save 테스")
+    @DisplayName("정상적인 부모 디렉토리를 가진 디렉토리 save 테스트")
     @Test
     public void saveDirectoryTest() {
         Directory directory = mock(Directory.class);
@@ -45,7 +45,7 @@ public class MemberTest {
         assertThat(member.getDirectories().get(FIRST_INDEX)).isEqualTo(directory);
     }
 
-    @DisplayName("정상적인 부모 디렉토리를 가지지 않은 디렉토리 save 테스")
+    @DisplayName("정상적인 부모 디렉토리를 가지지 않은 디렉토리 save 테스트")
     @Test
     public void saveDirectoryWithWrongParentDirectoryTest() {
         Directory directory = mock(Directory.class);

@@ -1,4 +1,4 @@
-package econo.webper.server.Member;
+package econo.webper.server.member;
 
 import econo.webper.server.component.Component;
 import econo.webper.server.directory.Directory;

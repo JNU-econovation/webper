@@ -1,7 +1,7 @@
 package econo.webper.server.component;
 
-import econo.webper.server.Member.Member;
-import econo.webper.server.Member.MemberService;
+import econo.webper.server.member.Member;
+import econo.webper.server.member.MemberService;
 import econo.webper.server.component.dto.*;
 import econo.webper.server.directory.Directory;
 import org.springframework.data.domain.Sort;
