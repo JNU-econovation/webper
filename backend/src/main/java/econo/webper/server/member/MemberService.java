@@ -1,13 +1,12 @@
 package econo.webper.server.member;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import econo.webper.server.directory.dto.CreateDirectoryDTO;
 import econo.webper.server.component.Component;
 import econo.webper.server.directory.Directory;
+import econo.webper.server.directory.dto.CreateDirectoryDTO;
 import econo.webper.server.directory.dto.DirectoryDTO;
 import econo.webper.server.exception.NoSuchMemberException;
 import econo.webper.server.login.GoogleUserinfoDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +18,11 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    @Autowired
     ObjectMapper objectMapper;
 
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository, ObjectMapper objectMapper) {
         this.memberRepository = memberRepository;
+        this.objectMapper = objectMapper;
     }
 
     public Member saveMember(GoogleUserinfoDTO googleUserinfoDTO, List<MemberRole> memberRoles) {
