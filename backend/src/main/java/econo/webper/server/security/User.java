@@ -1,5 +1,6 @@
-package econo.webper.server.Member;
+package econo.webper.server.security;
 
+import econo.webper.server.Member.Member;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

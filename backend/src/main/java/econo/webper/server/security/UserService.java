@@ -1,5 +1,7 @@
-package econo.webper.server.Member;
+package econo.webper.server.security;
 
+import econo.webper.server.Member.MemberService;
+import econo.webper.server.security.MemberDetails;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
