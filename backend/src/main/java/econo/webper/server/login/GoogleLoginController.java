@@ -1,8 +1,8 @@
 package econo.webper.server.login;
 
-import econo.webper.server.Member.MemberRole;
-import econo.webper.server.Member.MemberService;
-import econo.webper.server.jwt.JwtTokenProvider;
+import econo.webper.server.member.MemberRole;
+import econo.webper.server.member.MemberService;
+import econo.webper.server.security.jwt.JwtTokenProvider;
 import econo.webper.server.utils.ExceptionMessage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

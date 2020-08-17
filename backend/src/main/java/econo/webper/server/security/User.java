@@ -1,27 +1,37 @@
-package econo.webper.server.Member;
+package econo.webper.server.security;
 
+import econo.webper.server.member.MemberRole;
+import lombok.Builder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
-public class MemberDetails implements UserDetails {
+@Builder
+public class User implements UserDetails {
 
-    private Member member;
+    private Integer id;
 
-    public Member getMember() {
-        return member;
-    }
+    private String email;
 
-    public MemberDetails(Member member) {
-        this.member = member;
+    private String password;
+
+    private List<MemberRole> role;
+
+    public User(Integer id, String email, String password, List<MemberRole> role) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.role = role;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return member.getRoles().stream().map(r -> new SimpleGrantedAuthority("ROLE_" + r.name())).collect(Collectors.toList());
+        return role.stream().map(memberRole -> new SimpleGrantedAuthority("ROLE_" + memberRole)).collect(Collectors.toList());
     }
 
     @Override
@@ -31,7 +41,7 @@ public class MemberDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return member.getEmail();
+        return email;
     }
 
     @Override

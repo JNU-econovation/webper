@@ -1,9 +1,9 @@
-package econo.webper.server.jwt;
+package econo.webper.server.security.jwt;
 
-import econo.webper.server.Member.Member;
-import econo.webper.server.Member.MemberDetails;
-import econo.webper.server.Member.MemberRole;
-import econo.webper.server.Member.MemberDetailsService;
+import econo.webper.server.member.Member;
+import econo.webper.server.security.User;
+import econo.webper.server.member.MemberRole;
+import econo.webper.server.security.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -28,7 +28,7 @@ import static org.mockito.Mockito.when;
 public class JwtTokenProviderTest {
 
     @MockBean
-    MemberDetailsService memberDetailsService;
+    UserService userService;
 
     @Autowired
     JwtTokenProvider jwtTokenProvider;
@@ -48,15 +48,15 @@ public class JwtTokenProviderTest {
     public void getAuthenticationTokenTest() {
         // Given
         String jwtToken = jwtTokenProvider.createToken("JongJin", Collections.singletonList(MemberRole.USER));
-        MemberDetails memberDetails = new MemberDetails(new Member());
+        User user = new User(1,"a@a","1234",Collections.singletonList(MemberRole.USER));
 
         // When
-        when(memberDetailsService.loadUserByUsername("JongJin")).thenReturn(memberDetails);
+        when(userService.loadUserByUsername("JongJin")).thenReturn(user);
         Authentication authentication = jwtTokenProvider.getAuthentication(jwtToken);
 
         //Then
-        MemberDetails principal = (MemberDetails) authentication.getPrincipal();
-        assertThat(principal).isEqualTo(memberDetails);
+        User principal = (User) authentication.getPrincipal();
+        assertThat(principal).isEqualTo(user);
     }
 
     @Test

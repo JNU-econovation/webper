@@ -1,6 +1,6 @@
 package econo.webper.server.login;
 
-import econo.webper.server.jwt.JwtTokenProvider;
+import econo.webper.server.security.jwt.JwtTokenProvider;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,16 +1,15 @@
 package econo.webper.server.directory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
-import econo.webper.server.Member.Member;
-import econo.webper.server.Member.MemberDetails;
-import econo.webper.server.Member.MemberRepository;
-import econo.webper.server.Member.MemberService;
 import econo.webper.server.component.Component;
 import econo.webper.server.directory.dto.CreateDirectoryDTO;
 import econo.webper.server.directory.dto.DirectoryDTO;
 import econo.webper.server.directory.dto.DirectoryResponseDTO;
 import econo.webper.server.directory.dto.MainPageDirectoryDTO;
+import econo.webper.server.member.Member;
+import econo.webper.server.member.MemberRepository;
+import econo.webper.server.member.MemberService;
+import econo.webper.server.security.User;
 import econo.webper.server.utils.ExceptionMessage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -39,9 +38,9 @@ public class DirectoryController {
 
     @GetMapping("/directory")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
-    public ResponseEntity getDirectory(@AuthenticationPrincipal MemberDetails memberDetails, @RequestParam Integer id) {
-        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
-        Directory directory = directoryService.findDirectoryById(savedMember, id);
+    public ResponseEntity getDirectory(@AuthenticationPrincipal User user, @RequestParam Integer id) {
+        Member member = memberService.findMemberByEmail(user.getUsername());
+        Directory directory = directoryService.findDirectoryById(member, id);
         if (directory == null) {
             return ResponseEntity.badRequest().body(ExceptionMessage.NOT_GET_DIRECTORY);
         }
@@ -51,9 +50,9 @@ public class DirectoryController {
 
     @PostMapping("/directory")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
-    public ResponseEntity createDirectory(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody CreateDirectoryDTO createDirectoryDTO) {
-        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
-        Directory directory = directoryService.createDirectory(savedMember, createDirectoryDTO);
+    public ResponseEntity createDirectory(@AuthenticationPrincipal User user, @RequestBody CreateDirectoryDTO createDirectoryDTO) {
+        Member member = memberService.findMemberByEmail(user.getUsername());
+        Directory directory = directoryService.createDirectory(member, createDirectoryDTO);
         if (directory == null) {
             return ResponseEntity.badRequest().body(ExceptionMessage.NOT_CREATE_DIRECTORY);
         }
@@ -64,31 +63,31 @@ public class DirectoryController {
 
     @PatchMapping("/directory")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
-    public ResponseEntity updateDirectory(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody DirectoryDTO directoryDTO) {
-        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
-        Directory directory = directoryService.updateDirectory(savedMember, directoryDTO);
+    public ResponseEntity updateDirectory(@AuthenticationPrincipal User user, @RequestBody DirectoryDTO directoryDTO) {
+        Member member = memberService.findMemberByEmail(user.getUsername());
+        Directory directory = directoryService.updateDirectory(member, directoryDTO);
         if (directory == null) {
             return ResponseEntity.badRequest().body(ExceptionMessage.NOT_UPDATE_DIRECTORY);
         }
         return ResponseEntity.ok(directory);
     }
 
-    @DeleteMapping("/directory/{id}")
+    @DeleteMapping("/directory/{directoryId}")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
-    public ResponseEntity deleteDirectory(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable Integer id) {
-        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
-        boolean isDelete = directoryService.deleteDirectory(savedMember, id);
+    public ResponseEntity deleteDirectory(@AuthenticationPrincipal User user, @PathVariable Integer directoryId) {
+        Member member = memberService.findMemberByEmail(user.getUsername());
+        boolean isDelete = directoryService.deleteDirectory(member, directoryId);
         if (isDelete == false) {
             return ResponseEntity.badRequest().body(ExceptionMessage.NOT_DELETE_DIRECTORY);
         }
-        return ResponseEntity.ok(savedMember);
+        return ResponseEntity.ok(member);
     }
 
     @GetMapping("/directory/{id}/components")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
-    public ResponseEntity getDirectoryComponents(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable Integer id){
-        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
-        Directory directory = directoryService.findDirectoryById(savedMember, id);
+    public ResponseEntity getDirectoryComponents(@AuthenticationPrincipal User user, @PathVariable Integer id) {
+        Member member = memberService.findMemberByEmail(user.getUsername());
+        Directory directory = directoryService.findDirectoryById(member, id);
         if (directory == null) {
             ResponseEntity.badRequest().body(ExceptionMessage.NOT_GET_DIRECTORY);
         }
@@ -98,16 +97,15 @@ public class DirectoryController {
 
     @GetMapping("/directory/random")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
-    public ResponseEntity getRandomDirectory(@AuthenticationPrincipal MemberDetails memberDetails) {
-        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
-        Directory directory = directoryService.getRandomDirectory(savedMember);
+    public ResponseEntity getRandomDirectory(@AuthenticationPrincipal User user) {
+        Member member = memberService.findMemberByEmail(user.getUsername());
+        Directory directory = directoryService.getRandomDirectory(member);
         if (directory == null) {
             ResponseEntity.badRequest().body(ExceptionMessage.NOT_GET_RANDOM_DIRECTORY);
         }
         MainPageDirectoryDTO mainPageDirectoryDTO = directoryService.createMainPageDirectoryDTO(directory);
         return ResponseEntity.ok(mainPageDirectoryDTO);
     }
-
 
 }
 

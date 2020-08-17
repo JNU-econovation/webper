@@ -1,4 +1,4 @@
-package econo.webper.server.Member;
+package econo.webper.server.member;
 
 public enum MemberRole {
 

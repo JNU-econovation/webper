@@ -13,4 +13,6 @@ public class ExceptionMessage {
     public static final String NOT_UPDATE_COMPONENT = "정상적으로 컴포넌트를 업데이트하지 못했습니다.";
     public static final String NOT_DELETE_COMPONENT = "정상적으로 컴포넌트를 삭제하지 못했습니다.";
     public static final String NOT_GET_RANDOM_DIRECTORY = "랜덤으로 디렉토리를 가져올 수 없습니다.";
+    public static final String NON_MEMBER_EXIST = "해당 Member는 존재하지 않습니다.";
+    public static final String NON_DIRECTORY_EXIST = "해당 Directory는 존재하지 않습니다.";
 }

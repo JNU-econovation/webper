@@ -1,8 +1,8 @@
 package econo.webper.server.component;
 
-import econo.webper.server.Member.Member;
-import econo.webper.server.Member.MemberDetails;
-import econo.webper.server.Member.MemberService;
+import econo.webper.server.member.Member;
+import econo.webper.server.security.User;
+import econo.webper.server.member.MemberService;
 import econo.webper.server.component.dto.*;
 import econo.webper.server.utils.ExceptionMessage;
 import io.swagger.annotations.Api;
@@ -26,9 +26,9 @@ public class ComponentController {
 
     @GetMapping("/component")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
-    public ResponseEntity getComponent(@AuthenticationPrincipal MemberDetails memberDetails, @RequestParam Integer id) {
-        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
-        Component component = componentService.findById(savedMember, id);
+    public ResponseEntity getComponent(@AuthenticationPrincipal User user, @RequestParam Integer id) {
+        Member member = memberService.findMemberByEmail(user.getUsername());
+        Component component = componentService.findById(member, id);
         if (component == null) {
             return ResponseEntity.badRequest().body(ExceptionMessage.NOT_GET_COMPONENT);
         }
@@ -37,41 +37,41 @@ public class ComponentController {
 
     @PostMapping("/component/blog")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
-    public ResponseEntity saveBlog(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody BlogDTO blogDTO) {
-        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
-        Component component = componentService.saveBlog(savedMember, blogDTO);
+    public ResponseEntity saveBlog(@AuthenticationPrincipal User user, @RequestBody BlogDTO blogDTO) {
+        Member member = memberService.findMemberByEmail(user.getUsername());
+        Component component = componentService.saveBlog(member, blogDTO);
         return getResponseEntity(component);
     }
 
     @PostMapping("/component/video")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
-    public ResponseEntity saveVideo(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody VideoDTO videoDTO) {
-        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
-        Component component = componentService.saveVideo(savedMember, videoDTO);
+    public ResponseEntity saveVideo(@AuthenticationPrincipal User user, @RequestBody VideoDTO videoDTO) {
+        Member member = memberService.findMemberByEmail(user.getUsername());
+        Component component = componentService.saveVideo(member, videoDTO);
         return getResponseEntity(component);
     }
 
     @PostMapping("/component/wishlist")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
-    public ResponseEntity saveWishList(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody WishListDTO wishListDTO) {
-        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
-        Component component = componentService.saveWishList(savedMember, wishListDTO);
+    public ResponseEntity saveWishList(@AuthenticationPrincipal User user, @RequestBody WishListDTO wishListDTO) {
+        Member member = memberService.findMemberByEmail(user.getUsername());
+        Component component = componentService.saveWishList(member, wishListDTO);
         return getResponseEntity(component);
     }
 
     @PostMapping("/component/portal")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
-    public ResponseEntity savePortal(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody PortalDTO portalDTO) {
-        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
-        Component component = componentService.savePortal(savedMember, portalDTO);
+    public ResponseEntity savePortal(@AuthenticationPrincipal User user, @RequestBody PortalDTO portalDTO) {
+        Member member = memberService.findMemberByEmail(user.getUsername());
+        Component component = componentService.savePortal(member, portalDTO);
         return getResponseEntity(component);
     }
 
     @PatchMapping("/component/blog")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
-    public ResponseEntity updateBlog(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody BlogUpdateDTO blogUpdateDTO) {
-        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
-        Component component = componentService.updateBlog(savedMember, blogUpdateDTO);
+    public ResponseEntity updateBlog(@AuthenticationPrincipal User user, @RequestBody BlogUpdateDTO blogUpdateDTO) {
+        Member member = memberService.findMemberByEmail(user.getUsername());
+        Component component = componentService.updateBlog(member, blogUpdateDTO);
         if (component == null) {
             ResponseEntity.badRequest().body(ExceptionMessage.NOT_UPDATE_COMPONENT);
         }
@@ -80,9 +80,9 @@ public class ComponentController {
 
     @PatchMapping("/component/portal")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
-    public ResponseEntity updatePortal(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody PortalUpdateDTO portalUpdateDTO) {
-        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
-        Component component = componentService.updatePortal(savedMember, portalUpdateDTO);
+    public ResponseEntity updatePortal(@AuthenticationPrincipal User user, @RequestBody PortalUpdateDTO portalUpdateDTO) {
+        Member member = memberService.findMemberByEmail(user.getUsername());
+        Component component = componentService.updatePortal(member, portalUpdateDTO);
         if (component == null) {
             ResponseEntity.badRequest().body(ExceptionMessage.NOT_UPDATE_COMPONENT);
         }
@@ -91,9 +91,9 @@ public class ComponentController {
 
     @PatchMapping("/component/video")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
-    public ResponseEntity updateVideo(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody VideoUpdateDTO videoUpdateDTO) {
-        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
-        Component component = componentService.updateVideo(savedMember, videoUpdateDTO);
+    public ResponseEntity updateVideo(@AuthenticationPrincipal User user, @RequestBody VideoUpdateDTO videoUpdateDTO) {
+        Member member = memberService.findMemberByEmail(user.getUsername());
+        Component component = componentService.updateVideo(member, videoUpdateDTO);
         if (component == null) {
             ResponseEntity.badRequest().body(ExceptionMessage.NOT_UPDATE_COMPONENT);
         }
@@ -102,9 +102,9 @@ public class ComponentController {
 
     @PatchMapping("/component/wishlist")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
-    public ResponseEntity updateWishList(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody WishListUpdateDTO wishListUpdateDTO) {
-        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
-        Component component = componentService.updateWishList(savedMember, wishListUpdateDTO);
+    public ResponseEntity updateWishList(@AuthenticationPrincipal User user, @RequestBody WishListUpdateDTO wishListUpdateDTO) {
+        Member member = memberService.findMemberByEmail(user.getUsername());
+        Component component = componentService.updateWishList(member, wishListUpdateDTO);
         if (component == null) {
             ResponseEntity.badRequest().body(ExceptionMessage.NOT_UPDATE_COMPONENT);
         }
@@ -113,9 +113,9 @@ public class ComponentController {
 
     @DeleteMapping("/component/{id}")
     @ApiImplicitParam(name = "Authorization", value = "Access_Token", required = true, paramType = "header")
-    public ResponseEntity deleteComponent(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable Integer id) {
-        Member savedMember = memberService.findMemberByEmail(memberDetails.getMember().getEmail());
-        boolean isDelete = componentService.deleteComponent(savedMember, id);
+    public ResponseEntity deleteComponent(@AuthenticationPrincipal User user, @PathVariable Integer id) {
+        Member member = memberService.findMemberByEmail(user.getUsername());
+        boolean isDelete = componentService.deleteComponent(member, id);
         if (!isDelete) {
             ResponseEntity.badRequest().body(ExceptionMessage.NOT_DELETE_COMPONENT);
         }

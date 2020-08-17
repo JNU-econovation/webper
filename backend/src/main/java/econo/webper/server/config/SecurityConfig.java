@@ -1,7 +1,7 @@
 package econo.webper.server.config;
 
-import econo.webper.server.jwt.JwtAuthenticationFilter;
-import econo.webper.server.jwt.JwtTokenProvider;
+import econo.webper.server.security.jwt.JwtAuthenticationFilter;
+import econo.webper.server.security.jwt.JwtTokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -60,8 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-
-        configuration.addAllowedOrigin("http://www.webper.net:3000");
+        configuration.addAllowedOrigin("http://www.webper.net");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);

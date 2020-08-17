@@ -1,7 +1,7 @@
 package econo.webper.server.directory;
 
-import econo.webper.server.Member.Member;
-import econo.webper.server.Member.MemberService;
+import econo.webper.server.member.Member;
+import econo.webper.server.member.MemberService;
 import econo.webper.server.directory.dto.CreateDirectoryDTO;
 import econo.webper.server.directory.dto.DirectoryDTO;
 import econo.webper.server.directory.dto.DirectoryResponseDTO;
@@ -41,8 +41,8 @@ public class DirectoryService {
         return updatedDirectory;
     }
 
-    public boolean deleteDirectory(Member member, Integer id) {
-        return memberService.deleteDirectory(member, id);
+    public boolean deleteDirectory(Member member, Integer directoryId) {
+        return memberService.deleteDirectory(member, directoryId);
     }
 
     public Directory findDirectoryById(Member member, Integer id) {
