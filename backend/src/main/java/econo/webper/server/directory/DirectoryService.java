@@ -41,8 +41,8 @@ public class DirectoryService {
         return updatedDirectory;
     }
 
-    public boolean deleteDirectory(Member member, Integer id) {
-        return memberService.deleteDirectory(member, id);
+    public boolean deleteDirectory(Member member, Integer directoryId) {
+        return memberService.deleteDirectory(member, directoryId);
     }
 
     public Directory findDirectoryById(Member member, Integer id) {

@@ -5,8 +5,11 @@ import econo.webper.server.component.Component;
 import econo.webper.server.directory.Directory;
 import econo.webper.server.directory.dto.CreateDirectoryDTO;
 import econo.webper.server.directory.dto.DirectoryDTO;
+import econo.webper.server.exception.NoSuchDirectoryException;
 import econo.webper.server.exception.NoSuchMemberException;
+import econo.webper.server.exception.NotSaveDirectoryException;
 import econo.webper.server.login.GoogleUserinfoDTO;
+import econo.webper.server.utils.ExceptionMessage;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,22 +46,17 @@ public class MemberService {
     }
 
     public Directory saveDirectory(Member member, CreateDirectoryDTO createDirectoryDTO) {
-        Optional<Member> savedOptionalMember = memberRepository.findById(member.getId());
-        if (!savedOptionalMember.isPresent()) {
-            return null;
-        }
-        Member savedMember = savedOptionalMember.get();
-        Directory parentDirectory = savedMember.findDirectoryById(createDirectoryDTO.getParentDirectoryId());
+        Directory parentDirectory = member.findDirectoryById(createDirectoryDTO.getParentDirectoryId());
         if (!isRightCreateDirectoryDTO(createDirectoryDTO, parentDirectory)) {
-            return null;
+            throw new NotSaveDirectoryException(ExceptionMessage.NOT_CREATE_COMPONENTS);
         }
         Directory directory = Directory.builder()
                 .title(createDirectoryDTO.getTitle())
                 .category(createDirectoryDTO.getCategory())
                 .parentDirectory(parentDirectory)
                 .build();
-        Directory savedDirectory = savedMember.saveDirectory(directory);
-        memberRepository.save(savedMember);
+        Directory savedDirectory = member.saveDirectory(directory);
+        memberRepository.save(member);
         return savedDirectory;
     }
 
@@ -70,13 +68,13 @@ public class MemberService {
     }
 
 
-    public boolean deleteDirectory(Member member, Integer id) {
+    public boolean deleteDirectory(Member member, Integer directoryId) {
         Optional<Member> savedOptionalMember = memberRepository.findById(member.getId());
         if (!savedOptionalMember.isPresent()) {
             return false;
         }
         Member savedMember = savedOptionalMember.get();
-        boolean isDelete = savedMember.deleteDirectory(id);
+        boolean isDelete = savedMember.deleteDirectory(directoryId);
         if (isDelete == false) {
             return false;
         }
@@ -87,7 +85,7 @@ public class MemberService {
     public Directory updateDirectory(Member member, DirectoryDTO directoryDTO) {
         Optional<Member> savedOptionalMember = memberRepository.findById(member.getId());
         if (!savedOptionalMember.isPresent()) {
-            throw new NoSuchMemberException("해당 멤버가 존재하지 않습니다.");
+            throw new NoSuchMemberException(ExceptionMessage.NON_MEMBER_EXIST);
         }
         Member savedMember = savedOptionalMember.get();
         return savedMember.updateDirectory(directoryDTO);
@@ -96,7 +94,7 @@ public class MemberService {
     public Directory findDirectoryById(Member member, Integer id) {
         Optional<Member> savedOptionalMember = memberRepository.findById(member.getId());
         if (!savedOptionalMember.isPresent()) {
-            throw new NoSuchMemberException("해당 멤버가 존재하지 않습니다.");
+            throw new NoSuchMemberException(ExceptionMessage.NON_MEMBER_EXIST);
         }
         Member savedMember = savedOptionalMember.get();
         return savedMember.findDirectoryById(id);
@@ -105,12 +103,12 @@ public class MemberService {
     public Component saveComponent(Member member, Component component) {
         Optional<Member> savedOptionalMember = memberRepository.findById(member.getId());
         if (!savedOptionalMember.isPresent()) {
-            throw new NoSuchMemberException("해당 멤버가 존재하지 않습니다.");
+            throw new NoSuchMemberException(ExceptionMessage.NON_MEMBER_EXIST);
         }
         Member savedMember = savedOptionalMember.get();
         Directory directoryById = savedMember.findDirectoryById(component.getDirectoryId());
         if (directoryById == null) {
-            return null;
+            throw new NoSuchDirectoryException(ExceptionMessage.NON_DIRECTORY_EXIST);
         }
         String componentCategory = component.getCategory().name();
         String directoryCategory = directoryById.getCategory().name();

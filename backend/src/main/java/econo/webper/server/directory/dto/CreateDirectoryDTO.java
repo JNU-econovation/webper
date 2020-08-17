@@ -14,4 +14,12 @@ public class CreateDirectoryDTO {
 
     private DirectoryCategory category;
 
+    public CreateDirectoryDTO() {
+    }
+
+    public CreateDirectoryDTO(Integer parentDirectoryId, String title, DirectoryCategory category) {
+        this.parentDirectoryId = parentDirectoryId;
+        this.title = title;
+        this.category = category;
+    }
 }
