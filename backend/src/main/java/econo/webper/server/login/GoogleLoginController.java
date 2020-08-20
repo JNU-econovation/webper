@@ -1,5 +1,7 @@
 package econo.webper.server.login;
 
+import econo.webper.server.login.dto.GoogleAccessTokenDTO;
+import econo.webper.server.login.dto.GoogleUserinfoDTO;
 import econo.webper.server.member.MemberRole;
 import econo.webper.server.member.MemberService;
 import econo.webper.server.security.jwt.JwtTokenProvider;

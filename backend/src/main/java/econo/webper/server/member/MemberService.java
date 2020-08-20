@@ -8,7 +8,7 @@ import econo.webper.server.directory.dto.DirectoryDTO;
 import econo.webper.server.exception.NoSuchDirectoryException;
 import econo.webper.server.exception.NoSuchMemberException;
 import econo.webper.server.exception.NotSaveDirectoryException;
-import econo.webper.server.login.GoogleUserinfoDTO;
+import econo.webper.server.login.dto.GoogleUserinfoDTO;
 import econo.webper.server.utils.ExceptionMessage;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package econo.webper.server.login;
+package econo.webper.server.login.dto;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package econo.webper.server.login;
+package econo.webper.server.login.dto;
 
 public class GoogleAccessTokenDTO {
     private String access_token;

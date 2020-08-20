@@ -1,6 +1,7 @@
 package econo.webper.server.login;
 
 import econo.webper.server.config.SecurityConfig;
+import econo.webper.server.login.dto.GoogleUserinfoDTO;
 import econo.webper.server.member.MemberService;
 import econo.webper.server.security.jwt.JwtTokenProvider;
 import econo.webper.server.utils.ExceptionMessage;
