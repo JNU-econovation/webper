@@ -10,7 +10,7 @@ import econo.webper.server.directory.dto.DirectoryDTO;
 import econo.webper.server.exception.NoSuchDirectoryException;
 import econo.webper.server.exception.NoSuchMemberException;
 import econo.webper.server.exception.NotSaveDirectoryException;
-import econo.webper.server.login.GoogleUserinfoDTO;
+import econo.webper.server.login.dto.GoogleUserinfoDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
