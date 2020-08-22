@@ -21,9 +21,9 @@ public class UserService implements UserDetailsService {
         Member member = memberService.findMemberByEmail(email);
         return User.builder()
                 .id(member.getId())
-                .email(member.getPassword())
+                .email(member.getEmail())
                 .password(member.getPassword())
-                .role(member.getRoles())
+                .roles(member.getRoles())
                 .build();
     }
 }
