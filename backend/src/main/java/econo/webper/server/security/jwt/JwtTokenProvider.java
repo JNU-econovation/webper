@@ -1,6 +1,7 @@
 package econo.webper.server.security.jwt;
 
 import econo.webper.server.member.MemberRole;
+import econo.webper.server.security.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -27,12 +28,12 @@ public class JwtTokenProvider {
     @Value("spring.jwt.secret")
     private String secretKey;
 
-    private final UserDetailsService userDetailsService;
-
-    public JwtTokenProvider(@Qualifier("userService") UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
+    private final UserService userService;
+    
+    public JwtTokenProvider(UserService userService) {
+        this.userService = userService;
     }
-
+    
     @PostConstruct
     protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
@@ -51,7 +52,7 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserPk(token));
+        UserDetails userDetails = userService.loadUserByUsername(this.getUserPk(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
